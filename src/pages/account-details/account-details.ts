@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest';
+
 
 @IonicPage()
 @Component({
@@ -7,8 +9,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'account-details.html',
 })
 export class AccountDetailsPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  users:any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider) {
+    this.getUsers();
   }
 
   items=[
@@ -25,6 +28,16 @@ export class AccountDetailsPage {
   goTo(page){
     this.navCtrl.push(page);
   }
+
+  getUsers() {
+    console.log("account detail called");
+    this.restProvider.getUsers()
+    .then(data => {
+      this.users = data;
+      console.log(this.users);
+    });
+  }
+
 
 }
   
