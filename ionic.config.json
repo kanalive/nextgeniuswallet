@@ -1,0 +1,8 @@
+{
+  "name": "nextgeniuswallet",
+  "app_id": "0bfc7f4b",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
