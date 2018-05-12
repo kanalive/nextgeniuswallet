@@ -3,7 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Clipboard } from '@ionic-native/clipboard'
 
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -35,6 +36,8 @@ var config = {
     StatusBar,
     SplashScreen,
     Camera,
+    BarcodeScanner,
+    Clipboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider
   ]
