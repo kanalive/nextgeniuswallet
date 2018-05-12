@@ -19,19 +19,24 @@
   <!-- account Name,account Number and currency -->
   <ion-grid>
     <ion-row>
-      <ion-col col-6 col-md-4 col-lg-3 *ngFor="let item of accounts">
-        <div class="account" (click)="goTo('AccountDetailsPage')">
-          <p>{{item.name}}</p>
+      <div *ngIf="accounts">
+        <div class="account">{{(accounts.length)}} accounts</div>
+        <ion-col col-6 col-md-4 col-lg-3 *ngFor="let item of accounts; let i=index">
+          <div *ngIf="i<20">
+            <div class="account" (click)="goTo('AccountDetailsPage')" >
+              <p>{{item.name}}</p>
 
-          <p class="countNum">
-            {{item.firstNums}}
-            <span>xxxxx</span>
-            {{item.lastNums}}
-          </p>
+              <p class="countNum">
+                {{item.address}}
+                <span>xxxxx</span>
+                {{item.balanceNum}}
+              </p>
 
-          <p>{{item.currency}} $</p>
-        </div>
-      </ion-col>
+              <p>{{item.balance}} $</p>
+            </div>
+          </div>
+        </ion-col>
+      </div>
     </ion-row>
   </ion-grid>
 

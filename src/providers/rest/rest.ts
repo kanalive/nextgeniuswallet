@@ -10,9 +10,22 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RestProvider {
   apiUrl = 'https://jsonplaceholder.typicode.com';
+  accountApiUrl = "https://91o3mlxvbb.execute-api.ap-southeast-2.amazonaws.com/Prod"
 
   constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
+  }
+
+  public getAccounts(){
+    console.log("rest service called")
+    return new Promise(resolve => {
+      this.http.get(this.accountApiUrl+'/accounts').subscribe(data => {
+        console.log(data);
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
   }
 
   public getUsers() {
