@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start >
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="ios-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Summary</ion-title>
+    <ion-buttons end >
+      <button ion-button icon-only (click)="logOut()">
+        <ion-icon name="ios-log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <!-- balance and login information  -->
+  <ion-grid class="blanceGrid">
+    <ion-row>
+      <ion-col col-auto>
+        <div class="avatarContent">
+          <img src="assets/img/profile.png"/>
+          <div>
+            <p>2,250,000 $</p>
+            <ion-item>
+              <ion-range disabled="true" [(ngModel)]="balance"  ></ion-range>
+            </ion-item>
+            <span>Current balance</span>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col>
+        <div class="loginInfo">
+          <h5>Welcome</h5>
+          <p>Adam Nicolas Taylor Smith</p>
+          <p class="myLabel">Last Successful Login</p>
+          <p>
+            <span>Aug 2017</span>
+            -
+            <span>5:30:28 AM</span>
+          </p>
+
+           <p class="myLabel">Last Failed Login</p>
+          <p>
+            <span>Aug 2017</span>
+            -
+            <span>5:30:28 AM</span>
+          </p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- graphs container -->
+  <ion-list class="graphs">
+    <ion-list-header>
+      Click on the graphs to view more details
+    </ion-list-header>
+
+      <ion-item>
+        <p>Net Worth</p>
+        <div class="container">
+          <ion-item>
+            <ion-range disabled="true" [(ngModel)]="netWorth"  ></ion-range> 
+          </ion-item>
+            <p>
+              <span>Net Worth</span>
+              <span>2000 $</span>
+            </p>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <p>Deposits</p>
+        <div class="container">
+          <ion-item>
+            <ion-range disabled="true" [(ngModel)]="deposits"  ></ion-range> 
+          </ion-item>
+            <p>
+              <span>deposits</span>
+              <span>2000 $</span>
+            </p>
+        </div>
+      </ion-item>
+     
+  </ion-list>
+
+  <!-- most use -->
+  <div class="mostUse">
+    <p class="myTitle">Most Use</p>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <button block ion-button (click)="goTo('TransferPage')">
+            <ion-icon class="banki-transfer"></ion-icon>
+            <p>Transfer Payment</p>
+          </button>
+        </ion-col>
+        <ion-col col-3>
+          <button block ion-button (click)="goTo('CurrencyConvertorPage')">
+            <ion-icon class="banki-converter"></ion-icon>
+            <p>Currency Converter</p>
+          </button>
+        </ion-col>
+        <ion-col col-3>
+          <button block ion-button (click)="goTo('BeneficiariesPage')" >
+            <ion-icon class="banki-exchange"></ion-icon>
+            <p>Benficiaries</p>
+          </button>
+        </ion-col>
+        <ion-col col-3>
+          <button block ion-button (click)="goTo('SettingPage')">
+            <ion-icon class="banki-setting"></ion-icon>
+            <p>Setting</p>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+</ion-content>
