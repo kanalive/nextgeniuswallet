@@ -1,0 +1,42 @@
+
+<ion-header>
+    <ion-navbar>
+      <ion-buttons start >
+        <button ion-button icon-only menuToggle>
+          <ion-icon name="ios-menu"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>Tokens</ion-title>
+      <ion-buttons end >
+        <button ion-button icon-only (click)="logOut()">
+          <ion-icon name="ios-log-out"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  <ion-content >
+    <p class="myTitle">Tokens</p>
+    <ion-grid>
+      <ion-row>
+        <div *ngIf="tokens">
+          <div class="account">{{(tokens.length)}} tokens</div>
+          <ion-col col-6 col-md-4 col-lg-3 *ngFor="let item of tokens; let i=index">
+            <div *ngIf="i<20">
+              <div class="account" >
+                <p>{{item.name}}</p>
+                <p>{{item.ownerAddress}}</p>
+                <p>{{item.totalSupply}}</p>
+                <p>{{item.startTime}}</p>
+                <p>{{item.endTime}}</p>
+                <p>{{item.description}}</p>
+                <p>{{item.trxNum}}</p>
+                <p>{{item.price}}</p>
+              </div>
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </ion-grid>
+  
+  </ion-content>
+  

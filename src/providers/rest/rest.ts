@@ -17,9 +17,21 @@ export class RestProvider {
   }
 
   public getAccounts(){
-    console.log("rest service called")
+    console.log("rest service called - getAccounts")
     return new Promise(resolve => {
       this.http.get(this.accountApiUrl+'/accounts').subscribe(data => {
+        console.log(data);
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  public getTokens(){
+    console.log("rest service called - getTokens")
+    return new Promise(resolve => {
+      this.http.get(this.accountApiUrl+'/tokens').subscribe(data => {
         console.log(data);
         resolve(data);
       }, err => {
