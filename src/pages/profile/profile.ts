@@ -18,7 +18,7 @@ export class ProfilePage {
   } 
 
     // change Image
-  base64Image='assets/img/profile.png';
+  base64Image='assets/img/kana.jpeg';
   accessGallery(){ 
    this.camera.getPicture({
      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,

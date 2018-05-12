@@ -22,10 +22,11 @@ export class MyApp {
     this.pages = [
       { title: 'Summary', component: 'SummaryPage',icon:'banki-summary' },
       { title: 'Personal Accounts', component: 'PersonalAccountPage',icon:'banki-user' },
-      { title: 'Benficiariers', component: 'BeneficiariesPage',icon:'banki-exchange' },
+      //{ title: 'Benficiariers', component: 'BeneficiariesPage',icon:'banki-exchange' },
       { title: 'Setting', component: 'SettingPage',icon:'banki-setting' },
       { title: 'Profile', component: 'ProfilePage',icon:'banki-user-1' },
-      { title: 'Currancy Converter', component: 'CurrencyConvertorPage',icon:'banki-converter' },
+      //{ title: 'Currancy Converter', component: 'CurrencyConvertorPage',icon:'banki-converter' },
+      { title: 'Request Payment', component: 'RequestPage',icon:'banki-transfer' },
       { title: 'Transfer Payment', component: 'TransferPage',icon:'banki-transfer' },
       { title: 'Tokens', component: 'TokensPage',icon:'banki-transfer' },
       { title: 'Find us', component: 'FindUsPage',icon:'banki-location' },
