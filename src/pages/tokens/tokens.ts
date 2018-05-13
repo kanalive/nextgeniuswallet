@@ -23,11 +23,7 @@ export class TokensPage {
   // get accounts
   getTokens() {
     console.log("token page function called");
-    this.restProvider.getTokens()
-    .then(data => {
-      this.tokens = data;
-      console.log(this.tokens);
-    });
+    
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TokensPage');
