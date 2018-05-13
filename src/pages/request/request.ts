@@ -28,7 +28,7 @@ export class RequestPage {
   }
 
   createAccount(){
-    let account = { alias : this.accountAlias, address : this.code.split('').sort(function(){return 0.5-Math.random()}).join('')};
+    let account = { alias : this.accountAlias, address : this.code.split('').sort(function(){return 0.5-Math.random()}).join(''), displayqr: false};
     this.accounts.push(account);
   }
 
@@ -42,11 +42,12 @@ export class RequestPage {
     this.clipboard.copy(address);
   }
 
-  process(address) {
+  process(account) {
     const qrcode = QRCode;
     const self = this;
-    qrcode.toDataURL(address, { errorCorrectionLevel: 'H' }, function (err, url) {
-      self.generated = url;
+    qrcode.toDataURL(account.address, { errorCorrectionLevel: 'H' }, function (err, url) {
+      account.qrcode = url;
+      account.displayqr = true;
     })
   }
 

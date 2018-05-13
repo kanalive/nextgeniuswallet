@@ -23,9 +23,9 @@
                 <span>{{acct.address}}</span>
                 <br />
                 <button ion-button color="color2" (click)="copyToClipboard(acct.address);">Copy</button>
-                <button ion-button color="color2" (click)="process(acct.address);">QR code</button>
+                <button ion-button color="color2" (click)="process(acct);">QR code</button>
 
-                <img *ngIf="displayQrCode()" [src]="generated" />
+                <img *ngIf="acct.displayqr" [src]="acct.qrcode" />
             </ion-card-content>
         </ion-card>
       </div>
