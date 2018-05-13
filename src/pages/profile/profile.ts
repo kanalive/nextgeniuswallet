@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
+import {generateAccount} from "@tronprotocol/wallet-api/src/utils/account";
 
 @IonicPage()
 @Component({
@@ -15,11 +16,12 @@ export class ProfilePage {
   callModal() {
     let modal = this.modalCtrl.create('UpdateProfilePage');
     modal.present();
-  } 
+  }
 
     // change Image
   base64Image='assets/img/kana.jpeg';
-  accessGallery(){ 
+  account = generateAccount();
+  accessGallery(){
    this.camera.getPicture({
      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
      destinationType: this.camera.DestinationType.DATA_URL
@@ -30,10 +32,9 @@ export class ProfilePage {
     });
   }
 
-    // logOut Function 
+    // logOut Function
   logOut(){
     this.navCtrl.setRoot('WelcomePage');
   }
 
-} 
- 
+}

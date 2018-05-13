@@ -23,7 +23,7 @@
      <p>
       <ion-icon name="ios-pin"></ion-icon>
       Sydney
-    </p> 
+    </p>
     <div class="appForm">
       <ion-list>
         <!-- ============ Name ============== -->
@@ -40,13 +40,23 @@
         <button  block ion-item>
           <ion-icon item-left name="ios-call"></ion-icon>
           12345343543
-        </button> 
+        </button>
          <!-- ============== Email =============== -->
         <button  block ion-item >
           <ion-icon item-left name="ios-mail"></ion-icon>
           wen.k.li@outlook.com
-        </button> 
-      </ion-list> 
+        </button>
+        <!-- ============== address =============== -->
+        <button  block ion-item >
+          <ion-icon item-left name="ios-home"></ion-icon>
+          {{account.address}}
+        </button>
+        <!-- ============== privateKey =============== -->
+        <button  block ion-item >
+          <ion-icon item-left name="md-key"></ion-icon>
+          {{account.privateKey}}
+        </button>
+      </ion-list>
     </div>
   </div>
 </ion-content>
