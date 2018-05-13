@@ -28,6 +28,19 @@ export class RestProvider {
     });
   }
 
+
+public getWitnesses(){
+    console.log("rest service called - getWitnesses")
+    return new Promise(resolve => {
+      this.http.get(this.accountApiUrl+'/witnesses').subscribe(data => {
+        console.log(data);
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
   public getTokens(){
     console.log("rest service called - getTokens")
     return new Promise(resolve => {

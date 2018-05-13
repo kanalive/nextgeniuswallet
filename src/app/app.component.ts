@@ -29,6 +29,7 @@ export class MyApp {
       { title: 'Request Payment', component: 'RequestPage',icon:'banki-transfer' },
       { title: 'Transfer Payment', component: 'TransferPage',icon:'banki-transfer' },
       { title: 'Tokens', component: 'TokensPage',icon:'banki-transfer' },
+      { title: 'Votes', component: 'VotePage',icon:'banki-transfer' },
       { title: 'Find us', component: 'FindUsPage',icon:'banki-location' },
       { title: 'Contact us', component: 'ContactUsPage',icon:'banki-phone' },
 

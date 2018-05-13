@@ -1,0 +1,37 @@
+page-vote {
+    button{
+        min-width: 40px;
+        @include position(-80px,10px,auto,auto);
+    }
+    .content-ios{
+        .scroll-content{
+            padding:$mainMarg 0px !important;
+            .myTitle{
+                padding:0px $mainMarg;
+            }
+            .grid{
+                padding:$mainMarg/2;
+                .col{
+                    padding:$mainMarg/2;
+                    .account{
+                        padding:$mainMarg;
+                        @extend %boxShadow;
+                        background-color:color($colors,light);
+                        border-radius:$mainRadius;
+                        p{
+                            margin:0px;
+                            @include whiteNormal(28px,2);
+                            font-weight:400;
+                            color:color($colors,color5);
+                        }
+                        span{
+                            margin-right: 10px;
+                            color:color($colors,color3);
+                            font-size:1.1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
