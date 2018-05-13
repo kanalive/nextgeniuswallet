@@ -15,13 +15,27 @@
     </ion-navbar>
   </ion-header>
   <ion-content padding>
-      <p class="myTitle">Witnesses</p>
+
+    <ion-card *ngIf="myVotingList">
+      <ion-card-title *ngIf="myVotingList.length>0">
+        My votes 
+      </ion-card-title>
+      <ion-content>
+        <p *ngFor="let vote of myVotingList">
+          <span>Address</span>
+          <span>{{vote.address}}</span>
+          <span>{{vote.amount}}</span>
+        </p>
+      </ion-content>
+    </ion-card>
+
+      <p class="myTitle">Candidates</p>
       <ion-grid>
         <ion-row>
           <div *ngIf="witnesses">
-            <div class="account">{{(witnesses.length)}} witnesses</div>
+            <div class="account">{{(witnesses.length)}} candidates</div>
             <ion-col col-6 col-md-4 col-lg-3 *ngFor="let item of witnesses; let i=index">
-              <div *ngIf="i<20">
+              <div>
                 <div class="account" >
                   <h5><span>URL</span>{{item.url}}</h5>
 
@@ -31,8 +45,12 @@
                   <p><span>Total missed</span>{{item.missedTotal}}</p>
                   <p><span>Votes</span>{{item.votes}}</p>
                 </div>
-              </div>
-              <button class="vote" ion-button float-right color="color2" (click)="vote(item);">+1</button>
+              
+                <ion-buttons  float-right>
+                <button class="vote" ion-button color="color2" (click)="vote(item);">+1</button>
+                <button class="vote" ion-button  color="color2" (click)="presentPrompt(item);">+more</button>
+              </ion-buttons>
+            </div>
             </ion-col>
           </div>
           

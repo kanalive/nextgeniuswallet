@@ -1,6 +1,7 @@
 page-vote {
     button{
         min-width: 40px;
+        padding-right:10px;
         @include position(-80px,10px,auto,auto);
     }
     .content-ios{

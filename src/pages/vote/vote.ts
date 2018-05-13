@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the VotePage page.
@@ -15,8 +16,14 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'vote.html',
 })
 export class VotePage {
+
   witnesses:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
+  myVotingList = [];
+
+ 
+
+
+  constructor(public navCtrl: NavController,private alertCtrl: AlertController, public navParams: NavParams, public restProvider: RestProvider) {
     this.getWitnesses();
   }
 
@@ -31,8 +38,41 @@ export class VotePage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad VotePage');
+
+  vote(item){
+    let vote = {"address": item.address, "amount": 1}
+    this.myVotingList.push(vote);
+    console.log(this.myVotingList);
+  }
+
+  presentPrompt(item) {
+    let alert = this.alertCtrl.create({
+      title: 'Votes',
+      inputs: [
+        {
+          name: 'votes',
+          placeholder: '0'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Add',
+          handler: data => {
+            console.log("Add - " + data["votes"]);
+            let vote = {"address": item.address, "amount": data["votes"]}
+            this.myVotingList.push(vote);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
