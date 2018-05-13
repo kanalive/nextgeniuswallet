@@ -20,7 +20,7 @@ export class VotePage {
   witnesses:any;
 
 
- 
+
 
 
   constructor(public navCtrl: NavController,private alertCtrl: AlertController, public navParams: NavParams, public restProvider: RestProvider) {
@@ -28,16 +28,16 @@ export class VotePage {
   }
 
 
-  // goTo Function 
+  // goTo Function
   goTo(page){
     this.navCtrl.setRoot(page);
   }
-  // logOut Function 
+  // logOut Function
   logOut(){
     this.navCtrl.setRoot('WelcomePage');
   }
 
-  
+
   // get accounts
   getWitnesses() {
     console.log("vote page function called");
@@ -69,9 +69,10 @@ export class VotePage {
           text: 'Submit vote',
           handler: data => {
             console.log("Add - " + data["votes"]);
-            let vote = [{"address": item.address, "amount": data["votes"]}];
-            let myVote = {"address": "27c94Yy78VCJVvChYBpjUWSzGCd9TKQnqb", "noteList": vote}
-            this.restProvider.postVote(myVote);
+            let votes = [{"address": item.address, "amount": data["votes"]}];
+            // let myAccount = {"address": "27c94Yy78VCJVvChYBpjUWSzGCd9TKQnqb", "noteList": vote}
+            // TODO Need to get Account Key
+            this.restProvider.postVote('accountKey', votes);
           }
         }
       ]

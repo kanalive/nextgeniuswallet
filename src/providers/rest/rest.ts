@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Client} from "../services/api";
 
 /*
   Generated class for the RestProvider provider.
@@ -10,7 +11,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RestProvider {
   apiUrl = 'https://jsonplaceholder.typicode.com';
-  accountApiUrl = "https://91o3mlxvbb.execute-api.ap-southeast-2.amazonaws.com/Prod"
+  // accountApiUrl = "https://91o3mlxvbb.execute-api.ap-southeast-2.amazonaws.com/Prod"
 
   constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
@@ -18,21 +19,23 @@ export class RestProvider {
 
   public getAccounts(){
     console.log("rest service called - getAccounts")
-    return new Promise(resolve => {
-      this.http.get(this.accountApiUrl+'/accounts').subscribe(data => {
-        console.log(data);
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    });
+    return Client.getAccountList();
   }
 
 
   public getWitnesses(){
     console.log("rest service called - getWitnesses")
+    return Client.getWitnesses();
+  }
+
+  public getTotalNumberOfTransactions(){
+    console.log("rest service called - getTotalNumberOfTransactions")
+    return Client.getTotalNumberOfTransactions();
+  }
+
+  public getTronPrice(){
     return new Promise(resolve => {
-      this.http.get(this.accountApiUrl+'/witnesses').subscribe(data => {
+      this.http.get(`https://api.coinmarketcap.com/v1/ticker/tronix/`).subscribe(data => {
         console.log(data);
         resolve(data);
       }, err => {
@@ -41,22 +44,35 @@ export class RestProvider {
     });
   }
 
-  public postVote(myVote){
-      return this.http.post(this.accountApiUrl+'/voteForWitnesses', myVote, {})
-      .subscribe(data => console.log(data));
+  public getAccountBalances(address){
+    console.log("rest service called - getAccountBalances")
+    return Client.getAccountBalances(address);
   }
 
-  public getTokens(){
-    console.log("rest service called - getTokens")
-    return new Promise(resolve => {
-      this.http.get(this.accountApiUrl+'/tokens').subscribe(data => {
-        console.log(data);
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    });
+  public getLatestBlock(){
+    console.log("rest service called - getLatestBlock")
+    return Client.getLatestBlock();
   }
+
+  public getNodes(){
+    console.log("rest service called - getNodes")
+    return Client.getNodes();
+  }
+
+
+
+  public postVote(accountKey, myVotes){
+    // return this.http.post(this.accountApiUrl+'/voteforwitnesses', myVote, {})
+    // .subscribe(data => console.log(data));
+
+    let witnessVotes = myVotes.map(vote => ({
+      address: vote.address,
+      amount: parseInt(vote.amount, 10)
+    })).filter(vote => vote.amount > 0);
+
+    return Client.voteForWitnesses(accountKey, witnessVotes);
+  }
+
 
   public getUsers() {
     console.log("rest service called")
