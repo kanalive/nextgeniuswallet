@@ -21,6 +21,7 @@
             <ion-card-content>
                 <p>Account - {{acct.alias}}</p>
                 <span>{{acct.address}}</span>
+                <br />
                 <button ion-button color="color2" (click)="copyToClipboard(acct.address);">Copy</button>
                 <button ion-button color="color2" (click)="process(acct.address);">QR code</button>
 
