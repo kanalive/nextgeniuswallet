@@ -18,7 +18,7 @@ import { AlertController } from 'ionic-angular';
 export class VotePage {
 
   witnesses:any;
-  myVotingList = [];
+
 
  
 
@@ -28,6 +28,16 @@ export class VotePage {
   }
 
 
+  // goTo Function 
+  goTo(page){
+    this.navCtrl.setRoot(page);
+  }
+  // logOut Function 
+  logOut(){
+    this.navCtrl.setRoot('WelcomePage');
+  }
+
+  
   // get accounts
   getWitnesses() {
     console.log("vote page function called");
@@ -36,13 +46,6 @@ export class VotePage {
       this.witnesses = data;
       console.log(this.witnesses);
     });
-  }
-
-
-  vote(item){
-    let vote = {"address": item.address, "amount": 1}
-    this.myVotingList.push(vote);
-    console.log(this.myVotingList);
   }
 
   presentPrompt(item) {
@@ -63,11 +66,12 @@ export class VotePage {
           }
         },
         {
-          text: 'Add',
+          text: 'Submit vote',
           handler: data => {
             console.log("Add - " + data["votes"]);
-            let vote = {"address": item.address, "amount": data["votes"]}
-            this.myVotingList.push(vote);
+            let vote = [{"address": item.address, "amount": data["votes"]}];
+            let myVote = {"address": "27c94Yy78VCJVvChYBpjUWSzGCd9TKQnqb", "noteList": vote}
+            this.restProvider.postVote(myVote);
           }
         }
       ]

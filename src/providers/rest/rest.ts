@@ -29,7 +29,7 @@ export class RestProvider {
   }
 
 
-public getWitnesses(){
+  public getWitnesses(){
     console.log("rest service called - getWitnesses")
     return new Promise(resolve => {
       this.http.get(this.accountApiUrl+'/witnesses').subscribe(data => {
@@ -39,6 +39,11 @@ public getWitnesses(){
         console.log(err);
       });
     });
+  }
+
+  public postVote(myVote){
+      return this.http.post(this.accountApiUrl+'/voteForWitnesses', myVote, {})
+      .subscribe(data => console.log(data));
   }
 
   public getTokens(){

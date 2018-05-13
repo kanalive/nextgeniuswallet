@@ -1,4 +1,3 @@
-
 <ion-header>
     <ion-navbar>
       <ion-buttons start >
@@ -14,21 +13,9 @@
       </ion-buttons>
     </ion-navbar>
   </ion-header>
+
+
   <ion-content padding>
-
-    <ion-card *ngIf="myVotingList">
-      <ion-card-title *ngIf="myVotingList.length>0">
-        My votes 
-      </ion-card-title>
-      <ion-content>
-        <p *ngFor="let vote of myVotingList">
-          <span>Address</span>
-          <span>{{vote.address}}</span>
-          <span>{{vote.amount}}</span>
-        </p>
-      </ion-content>
-    </ion-card>
-
       <p class="myTitle">Candidates</p>
       <ion-grid>
         <ion-row>
@@ -47,8 +34,7 @@
                 </div>
               
                 <ion-buttons  float-right>
-                <button class="vote" ion-button color="color2" (click)="vote(item);">+1</button>
-                <button class="vote" ion-button  color="color2" (click)="presentPrompt(item);">+more</button>
+                <button class="vote" ion-button  color="color2" (click)="presentPrompt(item);">vote</button>
               </ion-buttons>
             </div>
             </ion-col>

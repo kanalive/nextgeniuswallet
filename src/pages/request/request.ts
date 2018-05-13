@@ -18,14 +18,9 @@ import { Clipboard } from '@ionic-native/clipboard'
 })
 export class RequestPage {
   code = 'abcdefghijklmnopqrstuvxyzabcdefghijklmnopqrstuvxyz';
-  generated = '';
   accountAlias = '';
 
   accounts = [];
-
-  displayQrCode() {
-    return this.generated !== '';
-  }
 
   createAccount(){
     let account = { alias : this.accountAlias, address : this.code.split('').sort(function(){return 0.5-Math.random()}).join(''), displayqr: false};
