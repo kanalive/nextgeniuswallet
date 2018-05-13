@@ -9,8 +9,8 @@ page-summary {
                 padding:$mainMarg;
             }   
             .avatarContent{
-                width: 120px;
-                height:120px;
+                width: 140px;
+                height:140px;
                 padding:42px 20px 10px;
                 border-radius:50%;
                 border:1px solid color($colors,color1);
@@ -28,8 +28,8 @@ page-summary {
 
                 }
                 img{
-                    @include borderRadius(50px);
-                    @include position(-6px,-6px,auto,auto);
+                    @include borderRadius(140px);
+                    @include position(0px,0px,auto,auto);
                 }
                 .item-range{
                     .range-ios{

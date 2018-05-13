@@ -15,14 +15,24 @@
     </ion-navbar>
   </ion-header>
   <ion-content padding>
+      
+      <div *ngFor="let acct of accounts">
+        <ion-card>
+            <ion-card-content>
+                <p>Account - {{acct.alias}}</p>
+                <span>{{acct.address}}</span>
+                <button ion-button color="color2" (click)="copyToClipboard(acct.address);">Copy</button>
+                <button ion-button color="color2" (click)="process(acct.address);">QR code</button>
+
+                <img *ngIf="displayQrCode()" [src]="generated" />
+            </ion-card-content>
+        </ion-card>
+      </div>
       <ion-card>
           <ion-card-content>
-              <p>Wallet 1 address</p>
-              <ion-input [(ngModel)]="code" type="text" placeholder="Enter code here"></ion-input>
-              <button ion-button (click)="copyToClipboard();">Copy</button>
-              <button ion-button (click)="process();">QR code</button>
-
-              <img *ngIf="displayQrCode()" [src]="generated" />
+              <p>Create new account</p>
+              <ion-input [(ngModel)]="accountAlias" type="text" placeholder="Enter account alias here"></ion-input>
+              <button ion-button color="color2" (click)="createAccount();">Create Account</button>
           </ion-card-content>
       </ion-card>
   </ion-content>

@@ -19,22 +19,33 @@ import { Clipboard } from '@ionic-native/clipboard'
 export class RequestPage {
   code = 'abcdefghijklmnopqrstuvxyzabcdefghijklmnopqrstuvxyz';
   generated = '';
+  accountAlias = '';
+
+  accounts = [];
 
   displayQrCode() {
     return this.generated !== '';
   }
+
+  createAccount(){
+    let account = { alias : this.accountAlias, address : this.code.split('').sort(function(){return 0.5-Math.random()}).join('')};
+    this.accounts.push(account);
+  }
+
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private barcodeScanner: BarcodeScanner, private clipboard: Clipboard) {
+    this.createAccount();
   }
 
-  copyToClipboard(){
-    this.clipboard.copy(this.code);
+  
+  copyToClipboard(address){
+    this.clipboard.copy(address);
   }
 
-  process() {
+  process(address) {
     const qrcode = QRCode;
     const self = this;
-    qrcode.toDataURL(self.code, { errorCorrectionLevel: 'H' }, function (err, url) {
+    qrcode.toDataURL(address, { errorCorrectionLevel: 'H' }, function (err, url) {
       self.generated = url;
     })
   }

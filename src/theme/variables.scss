@@ -50,7 +50,7 @@ $colors: (
 
 
 // App  Variables
-$mainFont:1.3rem;
+$mainFont:1.5rem;
  $appFonts:(h3:$mainFont + .3,h4:$mainFont + .1,h5:$mainFont,p:$mainFont - .1);
  @each $head , $fontSize in $appFonts {
       #{$head}{
@@ -58,7 +58,7 @@ $mainFont:1.3rem;
       } 
  }
 
-$mainHeight:44px;
+$mainHeight:48px;
 $mainRadius:1px;
 $mainMarg:10px;
 $iconFontSize:2rem; 
