@@ -46,16 +46,22 @@
           <ion-icon item-left name="ios-mail"></ion-icon>
           wen.k.li@outlook.com
         </button>
-        <!-- ============== address =============== -->
-        <button  block ion-item >
-          <ion-icon item-left name="ios-home"></ion-icon>
-          {{account.address}}
-        </button>
-        <!-- ============== privateKey =============== -->
-        <button  block ion-item >
-          <ion-icon item-left name="md-key"></ion-icon>
-          {{account.privateKey}}
-        </button>
+        <div *ngIf="restProvider.account">
+            <!-- ============== address =============== -->
+            <button  block ion-item >
+            <ion-icon item-left name="ios-home"></ion-icon>
+            {{restProvider.account.address}}
+            </button>
+            <!-- ============== privateKey =============== -->
+            <button  block ion-item >
+            <ion-icon item-left name="md-key"></ion-icon>
+            {{restProvider.account.privateKey}}
+          </button>
+        </div>
+        <div *ngIf="!restProvider.account">
+            <button ion-button block color="color2" (click)="createNewAccount()">Create New Account</button>
+        </div>
+        
       </ion-list>
     </div>
   </div>

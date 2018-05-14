@@ -4,7 +4,9 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { HttpClientModule } from '@angular/common/http';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { Clipboard } from '@ionic-native/clipboard'
+import { Clipboard } from '@ionic-native/clipboard';
+import { IonicStorageModule, Storage } from '@ionic/storage';
+
 
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -27,6 +29,7 @@ var config = {
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp,config),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

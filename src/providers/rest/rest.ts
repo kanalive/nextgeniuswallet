@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Client} from "../services/api";
-
+import { Storage } from '@ionic/storage';
+import { generateAccount } from "@tronprotocol/wallet-api/src/utils/account";
 /*
   Generated class for the RestProvider provider.
 
@@ -12,14 +13,29 @@ import {Client} from "../services/api";
 export class RestProvider {
   apiUrl = 'https://jsonplaceholder.typicode.com';
   // accountApiUrl = "https://91o3mlxvbb.execute-api.ap-southeast-2.amazonaws.com/Prod"
+  public account : any;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private storage: Storage ) {
     console.log('Hello RestProvider Provider');
   }
 
   public getAccounts(){
     console.log("rest service called - getAccounts")
     return Client.getAccountList();
+  }
+
+  public loadAccountFromLocalSql(){
+    this.storage.get('account').then((val) => {
+      console.log('account');
+      console.log(val);
+      this.account = val;
+    });
+  }
+
+  public createNewAccount(){
+    this.account = generateAccount();
+    this.storage.set('account', this.account);
+
   }
 
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
-import {generateAccount} from "@tronprotocol/wallet-api/src/utils/account";
+import { RestProvider } from '../../providers/rest/rest';
 
 @IonicPage()
 @Component({
@@ -10,7 +10,8 @@ import {generateAccount} from "@tronprotocol/wallet-api/src/utils/account";
 })
 export class ProfilePage {
 
-  constructor(public camera:Camera,public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
+  constructor(public camera:Camera, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController, public restProvider: RestProvider) {
+    
   }
   // call address details modal
   callModal() {
@@ -20,7 +21,7 @@ export class ProfilePage {
 
     // change Image
   base64Image='assets/img/kana.jpeg';
-  account = generateAccount();
+
   accessGallery(){
    this.camera.getPicture({
      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
@@ -30,6 +31,10 @@ export class ProfilePage {
      }, (err) => {
       console.log(err);
     });
+  }
+
+  createNewAccount(){
+    this.restProvider.createNewAccount();
   }
 
     // logOut Function
