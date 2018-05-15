@@ -19,16 +19,16 @@ export class RestProvider {
     console.log('Hello RestProvider Provider');
   }
 
-  public getAccounts(){
-    console.log("rest service called - getAccounts")
-    return Client.getAccountList();
-  }
+
 
   public loadAccountFromLocalSql(){
-    this.storage.get('account').then((val) => {
-      console.log('account');
-      console.log(val);
-      this.account = val;
+    return new Promise(resolve => {
+      this.storage.get('account').then((val) => {
+        console.log('account');
+        console.log(val);
+        resolve(val);
+        this.account = val;
+      });
     });
   }
 
@@ -39,15 +39,7 @@ export class RestProvider {
   }
 
 
-  public getWitnesses(){
-    console.log("rest service called - getWitnesses")
-    return Client.getWitnesses();
-  }
 
-  public getTotalNumberOfTransactions(){
-    console.log("rest service called - getTotalNumberOfTransactions")
-    return Client.getTotalNumberOfTransactions();
-  }
 
   public getTronPrice(){
     return new Promise(resolve => {
@@ -60,7 +52,25 @@ export class RestProvider {
     });
   }
 
-  public getAccountBalances(address){
+  public getBalance(){
+    return new Promise(resolve => {
+      this.getAccountBalances(this.account.address).then(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+
+
+
+  public getAccounts(){
+    console.log("rest service called - getAccounts")
+    return Client.getAccountList();
+  }
+
+  private getAccountBalances(address){
     console.log("rest service called - getAccountBalances")
     return Client.getAccountBalances(address);
   }
@@ -73,6 +83,16 @@ export class RestProvider {
   public getNodes(){
     console.log("rest service called - getNodes")
     return Client.getNodes();
+  }
+
+  public getWitnesses(){
+    console.log("rest service called - getWitnesses")
+    return Client.getWitnesses();
+  }
+
+  public getTotalNumberOfTransactions(){
+    console.log("rest service called - getTotalNumberOfTransactions")
+    return Client.getTotalNumberOfTransactions();
   }
 
 

@@ -51,36 +51,35 @@
   </ion-grid>
 
   <!-- graphs container -->
-  <ion-list class="graphs">
+  <ion-list class="graphs" *ngIf="restProvider.account">
     <ion-list-header>
       Click on the graphs to view more details
     </ion-list-header>
 
-      <ion-item>
-        <p>Net Worth</p>
+    <ion-item>
+        <p>Account</p>
+        <div class="container">
+            <p>
+              <span>Address</span>
+              <span>{{restProvider.account.address}}</span>
+            </p>
+        </div>
+      </ion-item>
+
+      <ion-item *ngFor="let balance of accountBalance">
+        <p>{{balance.name}}</p>
         <div class="container">
           <ion-item>
             <ion-range disabled="true" [(ngModel)]="netWorth"  ></ion-range> 
           </ion-item>
             <p>
-              <span>Net Worth</span>
-              <span>2000 TRX</span>
+              <span>{{balance.name}}</span>
+              <span>{{balance.balance}}</span>
             </p>
         </div>
       </ion-item>
 
-      <ion-item>
-        <p>Deposits</p>
-        <div class="container">
-          <ion-item>
-            <ion-range disabled="true" [(ngModel)]="deposits"  ></ion-range> 
-          </ion-item>
-            <p>
-              <span>deposits</span>
-              <span>2000 TRX</span>
-            </p>
-        </div>
-      </ion-item>
+     
      
   </ion-list>
 
