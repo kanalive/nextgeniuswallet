@@ -8,7 +8,7 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'welcome.html',
 })
 export class WelcomePage {
-
+  address = '';
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider, public loadingCtrl: LoadingController) {
     this.presentLoadingDefault();
     console.log("load");
@@ -28,8 +28,9 @@ export class WelcomePage {
     this.restProvider.loadAccountFromLocalSql()
     .then(data => {
       console.log(data);
+      this.address = data["address"];
       loading.dismiss();
-      this.goTo("SummaryPage");
+      //this.goTo("SummaryPage");
     });
   }
 

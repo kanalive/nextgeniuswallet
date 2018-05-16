@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
-
+import { Pipe, PipeTransform } from '@angular/core';
+import { FilterPipe } from '../../providers/pipe/filterPipe';
 /**
  * Generated class for the VotePage page.
  *
@@ -15,15 +16,17 @@ import { AlertController } from 'ionic-angular';
   selector: 'page-vote',
   templateUrl: 'vote.html',
 })
+
 export class VotePage {
 
   witnesses:any;
 
+  searchToken: string;
 
 
 
 
-  constructor(public navCtrl: NavController,private alertCtrl: AlertController, public navParams: NavParams, public restProvider: RestProvider) {
+  constructor(public navCtrl: NavController,private filterPipe: FilterPipe, private alertCtrl: AlertController, public navParams: NavParams, public restProvider: RestProvider) {
     this.getWitnesses();
   }
 
@@ -72,7 +75,7 @@ export class VotePage {
             let votes = [{"address": item.address, "amount": data["votes"]}];
             // let myAccount = {"address": "27c94Yy78VCJVvChYBpjUWSzGCd9TKQnqb", "noteList": vote}
             // TODO Need to get Account Key
-            this.restProvider.postVote('accountKey', votes);
+            this.restProvider.postVote(this.restProvider.account.address, votes);
           }
         }
       ]

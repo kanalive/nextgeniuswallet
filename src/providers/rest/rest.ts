@@ -72,6 +72,10 @@ export class RestProvider {
     });
   }
 
+  public getAccountKey(){
+    console.log("client - getAccountKey")
+    return Client.getAccountKey()
+  }
 
 
   public getAccounts(){
@@ -104,7 +108,7 @@ export class RestProvider {
     return Client.getTotalNumberOfTransactions();
   }
 
-
+ 
 
   public postVote(accountKey, myVotes){
     // return this.http.post(this.accountApiUrl+'/voteforwitnesses', myVote, {})
@@ -114,7 +118,7 @@ export class RestProvider {
       address: vote.address,
       amount: parseInt(vote.amount, 10)
     })).filter(vote => vote.amount > 0);
-
+    
     return Client.voteForWitnesses(accountKey, witnessVotes);
   }
 

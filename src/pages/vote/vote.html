@@ -17,11 +17,14 @@
 
   <ion-content padding>
       <p class="myTitle">Candidates</p>
+
+      <ion-input placeholder="Type to filter" [(ngModel)]="searchToken"></ion-input>
+
       <ion-grid>
         <ion-row>
           <div *ngIf="witnesses">
             <div class="account">{{(witnesses.length)}} candidates</div>
-            <ion-col col-6 col-md-4 col-lg-3 *ngFor="let item of witnesses; let i=index">
+            <ion-col col-6 col-md-4 col-lg-3 *ngFor="let item of witnesses">
               <div>
                 <div class="account" >
                   <h5><span>URL</span>{{item.url}}</h5>
@@ -33,7 +36,7 @@
                   <p><span>Votes</span>{{item.votes}}</p>
                 </div>
               
-                <ion-buttons  float-right>
+                <ion-buttons>
                 <button class="vote" ion-button  color="color2" (click)="presentPrompt(item);">vote</button>
               </ion-buttons>
             </div>

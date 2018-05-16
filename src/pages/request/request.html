@@ -19,15 +19,20 @@
       <ion-card>
           <ion-card-content>
               <p>Address</p>
-              <span>{{this.restProvider.account.address}}</span>
+              <ion-input value="{{restProvider.account.address}}"></ion-input>
               <br />
               <button ion-button color="color2" (click)="copyToClipboard();">Copy</button>
-              <button ion-button color="color2" (click)="process();">QRCode</button>
-
-              <div *ngIf="qrcode">
-                  <img [src]="qrcode" />
-              </div>
-             
+              <!--<button ion-button color="color2" (click)="process();">QRCode</button>-->
+              <!--
+              <ion-card>
+                  <ion-card-content>
+                      <ion-input [(ngModel)]="code" type="text" placeholder="Enter code here"></ion-input>
+                      <button ion-button block (click)="process();">Process</button>
+          
+                      <img *ngIf="displayQrCode()" [src]="generated" />
+                  </ion-card-content>
+              </ion-card>
+            -->
           </ion-card-content>
       </ion-card>
       

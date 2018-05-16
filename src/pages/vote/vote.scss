@@ -2,7 +2,7 @@ page-vote {
     .vote{
         min-width: 40px;
         padding-right:10px;
-        @include position(-60px,10px,auto,auto);
+        @include position(-60px,20px,auto,auto);
     }
     .content-ios{
         .scroll-content{

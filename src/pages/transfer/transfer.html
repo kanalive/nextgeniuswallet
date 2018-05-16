@@ -38,7 +38,7 @@
         <ion-label stacked>To</ion-label>
           <ion-input [(ngModel)]="toAccount"></ion-input>
       </ion-item>
-      <button ion-button block color="color2" (click)="scan()">Scan</button>
+      
         <!-- amount Input -->
       <ion-item>
         <ion-label stacked>Amount</ion-label>
@@ -46,6 +46,7 @@
       </ion-item> 
     </ion-list> 
   </div>
+  <button ion-button block color="color2" (click)="scan()">Scan</button>
   <button ion-button block color="color2" (click)="showResult()">Continue</button>
   <p class="result" *ngIf="show == true">{{result}}</p>
 </ion-content>

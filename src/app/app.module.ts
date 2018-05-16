@@ -12,6 +12,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestProvider } from '../providers/rest/rest';
+import { FilterPipe } from '../providers/pipe/filterPipe';
 var config = {
       backButtonText: '',
       backButtonIcon: 'ios-arrow-round-back',
@@ -24,6 +25,7 @@ var config = {
 @NgModule({
   declarations: [
     MyApp,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,9 @@ var config = {
     Clipboard,
     QRScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestProvider
+    RestProvider,
+    FilterPipe
   ]
 })
 export class AppModule {}
+

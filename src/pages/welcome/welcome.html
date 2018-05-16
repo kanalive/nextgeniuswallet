@@ -5,7 +5,8 @@
       <p>TRON wallet</p>
     </div>
     <p>nextgenius.com.au</p>
-    <!--<button ion-button block color="light" (click)="goTo('SignUpPage')">SIGN UP</button>-->
-    <!--<span (click)="goTo('SignInPage')">Sign in</span>-->
+    <button ion-button block color="light" (click)="goTo('SignUpPage')">SIGN UP</button>
+    <button ion-button block color="color2"  *ngIf="address!=''" (click)="goTo('SummaryPage')">Sign in {{address}}</button>
+    <button ion-button block color="light"  (click)="goTo('SignInPage')">Sign in other account</button>
   </div>
 </ion-content>
