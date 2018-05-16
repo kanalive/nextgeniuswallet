@@ -16,25 +16,20 @@
   </ion-header>
   <ion-content padding>
       
-      <div *ngFor="let acct of accounts">
-        <ion-card>
-            <ion-card-content>
-                <p>Account - {{acct.alias}}</p>
-                <span>{{acct.address}}</span>
-                <br />
-                <button ion-button color="color2" (click)="copyToClipboard(acct.address);">Copy</button>
-                <button ion-button color="color2" (click)="process(acct);">QR code</button>
-
-                <img *ngIf="acct.displayqr" [src]="acct.qrcode" />
-            </ion-card-content>
-        </ion-card>
-      </div>
       <ion-card>
           <ion-card-content>
-              <p>Create new account</p>
-              <ion-input [(ngModel)]="accountAlias" type="text" placeholder="Enter account alias here"></ion-input>
-              <button ion-button color="color2" (click)="createAccount();">Create Account</button>
+              <p>Address</p>
+              <span>{{this.restProvider.account.address}}</span>
+              <br />
+              <button ion-button color="color2" (click)="copyToClipboard();">Copy</button>
+              <button ion-button color="color2" (click)="process();">QRCode</button>
+
+              <div *ngIf="qrcode">
+                  <img [src]="qrcode" />
+              </div>
+             
           </ion-card-content>
       </ion-card>
+      
   </ion-content>
   

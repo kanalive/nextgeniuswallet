@@ -62,6 +62,15 @@ export class RestProvider {
     });
   }
 
+  public getNumOfTransactions(){
+    return new Promise(resolve => {
+      this.getTotalNumberOfTransactions().then(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
 
 
 
@@ -90,7 +99,7 @@ export class RestProvider {
     return Client.getWitnesses();
   }
 
-  public getTotalNumberOfTransactions(){
+  private getTotalNumberOfTransactions(){
     console.log("rest service called - getTotalNumberOfTransactions")
     return Client.getTotalNumberOfTransactions();
   }

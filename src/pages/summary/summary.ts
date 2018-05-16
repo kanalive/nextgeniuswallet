@@ -11,8 +11,10 @@ export class SummaryPage {
   netWorth=70;
   deposits=70;
   accountBalance :any;
+  totalNumOfTransactions: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
     this.getBalance();
+    this.getTotalNumOfTransactions();
   }
  
 
@@ -29,7 +31,14 @@ export class SummaryPage {
     this.restProvider.getBalance()
     .then(data => {
       this.accountBalance = data["balances"];
-      console.log(this.accountBalance);
+      console.log(data);
+    });
+  }
+
+  getTotalNumOfTransactions(){
+    this.restProvider.getNumOfTransactions()
+    .then(data => {
+      console.log(data);
     });
   }
 

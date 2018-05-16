@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import QRCode from 'qrcode';
 import { Clipboard } from '@ionic-native/clipboard'
-
+import { RestProvider } from '../../providers/rest/rest';
 /**
  * Generated class for the RequestPage page.
  *
@@ -17,32 +17,25 @@ import { Clipboard } from '@ionic-native/clipboard'
   templateUrl: 'request.html',
 })
 export class RequestPage {
-  code = 'abcdefghijklmnopqrstuvxyzabcdefghijklmnopqrstuvxyz';
-  accountAlias = '';
-
-  accounts = [];
-
-  createAccount(){
-    let account = { alias : this.accountAlias, address : this.code.split('').sort(function(){return 0.5-Math.random()}).join(''), displayqr: false};
-    this.accounts.push(account);
-  }
-
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, private barcodeScanner: BarcodeScanner, private clipboard: Clipboard) {
-    this.createAccount();
+  qrcode : any;
+
+  constructor(public navCtrl: NavController, public restProvider: RestProvider, public navParams: NavParams, private barcodeScanner: BarcodeScanner, private clipboard: Clipboard) {
+
   }
 
+ 
+  
   
   copyToClipboard(address){
     this.clipboard.copy(address);
   }
 
-  process(account) {
+  process() {
     const qrcode = QRCode;
     const self = this;
-    qrcode.toDataURL(account.address, { errorCorrectionLevel: 'H' }, function (err, url) {
-      account.qrcode = url;
-      account.displayqr = true;
+    qrcode.toDataURL(this.restProvider.account.address, { errorCorrectionLevel: 'H' }, function (err, url) {
+      this.qrcode = url;
     })
   }
 

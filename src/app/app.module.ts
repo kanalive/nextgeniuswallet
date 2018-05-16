@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Clipboard } from '@ionic-native/clipboard';
 import { IonicStorageModule, Storage } from '@ionic/storage';
-
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -41,6 +41,7 @@ var config = {
     Camera,
     BarcodeScanner,
     Clipboard,
+    QRScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider
   ]

@@ -20,25 +20,25 @@
           Transfer
       </ion-list-header>
       <!-- Accoun-From Select -->
-      <ion-item >
+      <ion-item *ngIf="accountBalance" >
         <ion-label stacked>From</ion-label>
-          <ion-select   [(ngModel)]="fromAccount">
-             <ion-option value="account" *ngIf="fromAccount =='account'">account</ion-option> 
-             <ion-option value="account1" >126535837567</ion-option> 
-             <ion-option value="account2" >989726517221</ion-option> 
-             <ion-option value="account3" >987890265622</ion-option> 
-          </ion-select>
+           <p>{{accountBalance.balance}} {{accountBalance.name}}</p>
       </ion-item>
+      <ion-item *ngFor="let balance of accountBalance">
+          <p>{{restProvider.account.address}}</p>
+          <div class="container">
+              <p>
+                {{balance.balance}} {{balance.name}}
+              </p>
+          </div>
+        </ion-item>
+
       <!-- Account-To Select -->
       <ion-item >
         <ion-label stacked>To</ion-label>
-          <ion-select   [(ngModel)]="toAccount">
-             <ion-option value="account" *ngIf="toAccount =='account'" >account</ion-option> 
-             <ion-option value="account1" >56535435882</ion-option> 
-             <ion-option value="account2" >87663223321</ion-option> 
-             <ion-option value="account3" >987545r27725</ion-option> 
-          </ion-select>
+          <ion-input [(ngModel)]="toAccount"></ion-input>
       </ion-item>
+      <button ion-button block color="color2" (click)="scan()">Scan</button>
         <!-- amount Input -->
       <ion-item>
         <ion-label stacked>Amount</ion-label>
