@@ -20,9 +20,8 @@
           Transfer
       </ion-list-header>
       <!-- Accoun-From Select -->
-      <ion-item *ngIf="accountBalance" >
+      <ion-item >
         <ion-label stacked>From</ion-label>
-           <p>{{accountBalance.balance}} {{accountBalance.name}}</p>
       </ion-item>
       <ion-item *ngFor="let balance of accountBalance">
           <p>{{restProvider.account.address}}</p>
@@ -47,7 +46,7 @@
     </ion-list> 
   </div>
   <button ion-button block color="color2" (click)="scan()">Scan</button>
-  <button ion-button block color="color2" (click)="showResult()">Continue</button>
+  <button ion-button block color="color2" (click)="transfer()">Continue</button>
   <p class="result" *ngIf="show == true">{{result}}</p>
 </ion-content>
 

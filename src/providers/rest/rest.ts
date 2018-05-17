@@ -62,6 +62,17 @@ export class RestProvider {
     });
   }
 
+  public transfer(to, amount){
+    console.log(this.account.privateKey);
+    return new Promise(resolve => {
+      this.send(this.account.privateKey, "TRX", to, amount).then(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
   public getBalance(){
     return new Promise(resolve => {
       this.getAccountBalances(this.account.address).then(data => {
@@ -118,6 +129,10 @@ export class RestProvider {
     return Client.getTotalNumberOfTransactions();
   }
 
+  private send(prikey, token, to, amount){
+    console.log("transfer " + amount + token + " to " + to);
+    return Client.send(prikey, token, to, amount);
+  }
  
 
   public postVote(accountKey, myVotes){

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
-
+import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -11,7 +11,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 })
 export class TransferPage {
 
-  constructor(public navCtrl: NavController,private qrScanner: QRScanner, public navParams: NavParams, public restProvider: RestProvider) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private qrScanner: QRScanner, public navParams: NavParams, public restProvider: RestProvider) {
     this.getBalance();
   }
 
@@ -23,12 +23,38 @@ export class TransferPage {
   accountBalance: any;
 
   getBalance(){
-    console.log("getbalance in transfer page called")
+    console.log("getbalance in transfer page called");
     this.restProvider.getBalance()
     .then(data => {
       this.accountBalance = data["balances"];
       console.log(this.accountBalance);
     });
+  }
+
+  transfer(){
+    console.log("transfer in transfer page called");
+    this.restProvider.transfer(this.toAccount, this.amount)
+    .then(data => {
+      if(data==true){
+        this.showConfirmAlert();
+      }
+    })
+  }
+
+  showConfirmAlert() {
+    console.log("show confirmation");
+    let alert = this.alertCtrl.create({
+        title: 'Transfer success',
+        message: 'Transfer success',
+        buttons: [
+            {
+                text: 'Ok',
+                handler: () => {
+                }
+            }
+        ]
+    });
+    alert.present();
   }
   
   scan(){
