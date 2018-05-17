@@ -8,7 +8,7 @@
   
     <button ion-button block color="color2" (click)="createNewAccount()">Create New Account</button>
 
-    <ion-card *ngIf="restProvider.account">
+    <ion-card *ngIf="restProvider.account && newAccountCreated">
       <ion-card-content>
         <h5>New account created!</h5>
         <p>Address - {{restProvider.account.address}}</p

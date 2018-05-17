@@ -7,20 +7,22 @@
 <ion-content padding>
   <div class="appForm">
     <ion-list>
-      <!-- Email input -->
-      <ion-item>
-        <ion-label floating>Address</ion-label>
-        <ion-icon name="ios-home-outline" item-left></ion-icon>
-        <ion-input type="text"></ion-input>
-      </ion-item>
       <!-- password input -->
       <ion-item>
         <ion-label floating>Private key</ion-label>
         <ion-icon name="ios-lock-outline" item-left></ion-icon>
-        <ion-input type="password"></ion-input>
+        <ion-input type="text" [(ngModel)]="privatekey"></ion-input>
       </ion-item>
-    </ion-list>
+      <!-- Email input -->
+      <ion-item *ngIf="address">
+          <ion-label floating>Address</ion-label>
+          <ion-icon name="ios-home-outline" item-left></ion-icon>
+          <ion-input disabled="true" type="text" [(ngModel)]="address"></ion-input>
+        </ion-item>
+      </ion-list>
   </div>
-  <button ion-button block color="color2" (click)="doLogin('SummaryPage')">Sign in</button>
+  <button  ion-button block color="color2" (click)="getAddress()">Get Address</button>
+  <p></p>
+  <button  ion-button block color="color2" (click)="doLogin('SummaryPage')">Sign in</button>
   <!--<p float-right (click)=" presentModal('ForgotPasswordPage')">Forgot Password ?</p>-->
 </ion-content>

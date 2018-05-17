@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {Client} from "../services/api";
 import { Storage } from '@ionic/storage';
 import { generateAccount } from "@tronprotocol/wallet-api/src/utils/account";
+import { privateKeyToAddress } from "@tronprotocol/wallet-api/src/utils/crypto";
 /*
   Generated class for the RestProvider provider.
 
@@ -35,7 +36,16 @@ export class RestProvider {
   public createNewAccount(){
     this.account = generateAccount();
     this.storage.set('account', this.account);
+  }
 
+  public getAddressFromPrivateKey(prikey){
+    let addr = privateKeyToAddress(prikey);
+    console.log(addr)
+    this.account = {address: addr, privatekey: prikey}
+    this.storage.set('account', this.account);
+
+    return addr;
+    
   }
 
 
