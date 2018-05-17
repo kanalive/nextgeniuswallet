@@ -2,7 +2,10 @@ page-vote {
     .vote{
         min-width: 40px;
         padding-right:10px;
-        @include position(-60px,20px,auto,auto);
+        @include position(-60px,auto,auto,70px);
+    }
+    ion-card-title{
+        padding-left:5px;
     }
     .content-ios{
         .scroll-content{
@@ -10,28 +13,22 @@ page-vote {
             .myTitle{
                 padding:0px $mainMarg;
             }
-            .grid{
-                padding:$mainMarg/2;
-                .col{
-                    padding:$mainMarg/2;
-                    .account{
-                        padding:$mainMarg;
-                        @extend %boxShadow;
-                        background-color:color($colors,light);
-                        border-radius:$mainRadius;
-                        p{
-                            margin:0px;
-                            @include whiteNormal(28px,2);
-                            font-weight:400;
-                            color:color($colors,color5);
-                        }
-                        span{
-                            margin-right: 10px;
-                            color:color($colors,color3);
-                            font-size:1.1rem;
-                        }
+            p{
+                margin:3px;
+                @include whiteNormal(28px,2);
+                font-weight:400;
+                color:color($colors,color5);
+            }
+            span{
+                margin-right: 10px;
+                color:color($colors,color3);
+                font-size:1.3rem;
+            }
+            button{
+                margin-bottom:$mainMarg;
+                    .button-inner{
+                        color: color($colors,color4);
                     }
-                }
             }
         }
     }

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
-import { Pipe, PipeTransform } from '@angular/core';
-import { FilterPipe } from '../../providers/pipe/filterPipe';
+
+
 /**
  * Generated class for the VotePage page.
  *
@@ -21,12 +21,12 @@ export class VotePage {
 
   witnesses:any;
 
-  searchToken: string;
+  terms: string;
 
 
 
 
-  constructor(public navCtrl: NavController,private filterPipe: FilterPipe, private alertCtrl: AlertController, public navParams: NavParams, public restProvider: RestProvider) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public restProvider: RestProvider) {
     this.getWitnesses();
   }
 
@@ -75,10 +75,30 @@ export class VotePage {
             let votes = [{"address": item.address, "amount": data["votes"]}];
             // let myAccount = {"address": "27c94Yy78VCJVvChYBpjUWSzGCd9TKQnqb", "noteList": vote}
             // TODO Need to get Account Key
-            this.restProvider.postVote(this.restProvider.account.address, votes);
+            this.restProvider.postVote(this.restProvider.account.privateKey, votes).then(data => {
+              this.showConfirmAlert();
+            });
           }
         }
       ]
+    });
+    alert.present();
+  }
+
+
+  showConfirmAlert() {
+    console.log("show confirmation");
+    let alert = this.alertCtrl.create({
+        title: 'Voting completed',
+        message: 'Voting completed',
+        buttons: [
+            {
+                text: 'Yes',
+                handler: () => {
+
+                }
+            }
+        ]
     });
     alert.present();
   }

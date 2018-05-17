@@ -28,7 +28,9 @@ export class WelcomePage {
     this.restProvider.loadAccountFromLocalSql()
     .then(data => {
       console.log(data);
-      this.address = data["address"];
+      if(data != null){
+        this.address = data["address"];
+      }
       loading.dismiss();
       //this.goTo("SummaryPage");
     });
