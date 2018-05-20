@@ -21,7 +21,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Summary', component: 'SummaryPage',icon:'banki-summary' },
-      { title: 'Personal Accounts', component: 'PersonalAccountPage',icon:'banki-user' },
+      //{ title: 'Personal Accounts', component: 'PersonalAccountPage',icon:'banki-user' },
       //{ title: 'Benficiariers', component: 'BeneficiariesPage',icon:'banki-exchange' },
       { title: 'Setting', component: 'SettingPage',icon:'banki-setting' },
       { title: 'Profile', component: 'ProfilePage',icon:'banki-user-1' },

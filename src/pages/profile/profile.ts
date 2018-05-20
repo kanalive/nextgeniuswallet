@@ -34,7 +34,7 @@ export class ProfilePage {
   }
 
   createNewAccount(){
-    this.restProvider.createNewAccount();
+    //this.restProvider.createNewAccount();
   }
 
     // logOut Function

@@ -10,6 +10,10 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class SignUpPage {
   newAccountCreated = false;
+  firstName = "";
+  lastName = "";
+  email = "";
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
   }
 
@@ -19,7 +23,7 @@ export class SignUpPage {
   }
 
   createNewAccount(){
-    this.restProvider.createNewAccount();
+    this.restProvider.createNewAccount(this.firstName, this.lastName, this.email);
     this.newAccountCreated = true;
   }
 

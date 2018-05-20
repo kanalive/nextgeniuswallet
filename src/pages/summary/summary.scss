@@ -9,8 +9,8 @@ page-summary {
                 padding:$mainMarg;
             }   
             .avatarContent{
-                width: 140px;
-                height:140px;
+                width: 90px;
+                height:90px;
                 padding:42px 20px 10px;
                 border-radius:50%;
                 border:1px solid color($colors,color1);
@@ -28,7 +28,7 @@ page-summary {
 
                 }
                 img{
-                    @include borderRadius(140px);
+                    @include borderRadius(90px);
                     @include position(0px,0px,auto,auto);
                 }
                 .item-range{
@@ -96,6 +96,10 @@ page-summary {
                         display:inline-block;
                         max-width:50%;
                         padding:0px $mainMarg/2;
+                    }
+                    button{
+                        vertical-align: bottom;
+                        color: color($colors,color4);
                     }
                 }
             }

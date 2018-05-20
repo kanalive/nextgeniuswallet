@@ -9,12 +9,16 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'sign-in.html',
 })
 export class SignInPage {
-  privatekey = '';
+  privateKey = '';
   address: any;
+  firstName = "";
+  lastName = "";
+  email = "";
   constructor(public modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
   }
  doLogin(page) {
    if(this.IsValidAddress()){
+    this.restProvider.loginOtherAccount(this.firstName, this.lastName, this.email, this.privateKey, this.address)
     this.navCtrl.setRoot(page);
    }
   }
@@ -26,8 +30,8 @@ export class SignInPage {
   }
 
   getAddress(){
-    if(this.privatekey != ''){
-      this.address = this.restProvider.getAddressFromPrivateKey(this.privatekey);
+    if(this.privateKey != ''){
+      this.address = this.restProvider.getAddressFromPrivateKey(this.privateKey);
     }
   }
 

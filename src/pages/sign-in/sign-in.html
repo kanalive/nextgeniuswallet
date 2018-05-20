@@ -11,7 +11,7 @@
       <ion-item>
         <ion-label floating>Private key</ion-label>
         <ion-icon name="ios-lock-outline" item-left></ion-icon>
-        <ion-input type="text" [(ngModel)]="privatekey"></ion-input>
+        <ion-input type="text" [(ngModel)]="privateKey"></ion-input>
       </ion-item>
       <!-- Email input -->
       <ion-item *ngIf="address">
@@ -20,9 +20,29 @@
           <ion-input disabled="true" type="text" [(ngModel)]="address"></ion-input>
         </ion-item>
       </ion-list>
+      <button  ion-button block color="color2" (click)="getAddress()">Get Address</button>
+
+      <div *ngIf="address">
+          <ion-list>
+            <ion-item>
+              <ion-label floating>First Name</ion-label>
+              <ion-icon name="ios-lock-outline" item-left></ion-icon>
+              <ion-input type="text" [(ngModel)]="firstName"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Last Name</ion-label>
+                <ion-icon name="ios-lock-outline" item-left></ion-icon>
+                <ion-input type="text" [(ngModel)]="lastName"></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label floating>Email address</ion-label>
+                  <ion-icon name="ios-lock-outline" item-left></ion-icon>
+                  <ion-input type="text" [(ngModel)]="email"></ion-input>
+                </ion-item>
+            </ion-list>
+        
+    <button ion-button block color="color2" (click)="doLogin('SummaryPage')">Sign in</button>
   </div>
-  <button  ion-button block color="color2" (click)="getAddress()">Get Address</button>
-  <p></p>
-  <button  ion-button block color="color2" (click)="doLogin('SummaryPage')">Sign in</button>
+</div>
   <!--<p float-right (click)=" presentModal('ForgotPasswordPage')">Forgot Password ?</p>-->
 </ion-content>

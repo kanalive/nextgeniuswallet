@@ -12,7 +12,6 @@ import { privateKeyToAddress } from "@tronprotocol/wallet-api/src/utils/crypto";
 */
 @Injectable()
 export class RestProvider {
-  apiUrl = 'https://jsonplaceholder.typicode.com';
   // accountApiUrl = "https://91o3mlxvbb.execute-api.ap-southeast-2.amazonaws.com/Prod"
   public account : any;
 
@@ -33,8 +32,20 @@ export class RestProvider {
     });
   }
 
-  public createNewAccount(){
+  public loginOtherAccount(firstName, lastName, email, privateKey, address){
+    this.account.firstName = firstName;
+    this.account.lastName = lastName;
+    this.account.email = email;
+    this.account.privateKey = privateKey;
+    this.account.address = address;
+    this.storage.set('account', this.account);
+  }
+
+  public createNewAccount(firstName, lastName, email){
     this.account = generateAccount();
+    this.account.firstName = firstName;
+    this.account.lastName = lastName;
+    this.account.email = email;
     this.storage.set('account', this.account);
   }
 
@@ -148,27 +159,5 @@ export class RestProvider {
   }
 
 
-  public getUsers() {
-    console.log("rest service called")
-    return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/users').subscribe(data => {
-        console.log(data);
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    });
-  }
-
-  addUser(data) {
-    return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl+'/users', JSON.stringify(data))
-        .subscribe(res => {
-          resolve(res);
-        }, (err) => {
-          reject(err);
-        });
-    });
-  }
 
 }

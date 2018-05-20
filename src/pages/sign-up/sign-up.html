@@ -5,7 +5,25 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  
+    <div class="appForm">
+        <ion-list>
+          <ion-item>
+            <ion-label floating>First Name</ion-label>
+            <ion-icon name="ios-lock-outline" item-left></ion-icon>
+            <ion-input type="text" [(ngModel)]="firstName"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label floating>Last Name</ion-label>
+              <ion-icon name="ios-lock-outline" item-left></ion-icon>
+              <ion-input type="text" [(ngModel)]="lastName"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Email address</ion-label>
+                <ion-icon name="ios-lock-outline" item-left></ion-icon>
+                <ion-input type="text" [(ngModel)]="email"></ion-input>
+              </ion-item>
+          </ion-list>
+      </div>
     <button ion-button block color="color2" (click)="createNewAccount()">Create New Account</button>
 
     <ion-card *ngIf="restProvider.account && newAccountCreated">

@@ -11,7 +11,7 @@ import { RestProvider } from '../../providers/rest/rest';
 export class AccountDetailsPage {
   users:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider) {
-    this.getUsers();
+
   }
 
   items=[
@@ -29,14 +29,7 @@ export class AccountDetailsPage {
     this.navCtrl.push(page);
   }
 
-  getUsers() {
-    console.log("account detail called");
-    this.restProvider.getUsers()
-    .then(data => {
-      this.users = data;
-      console.log(this.users);
-    });
-  }
+
 
 
 }
