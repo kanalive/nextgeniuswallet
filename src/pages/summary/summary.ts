@@ -53,14 +53,6 @@ export class SummaryPage {
   copy(text){
     this.clipboard.copy(text);
 
-    this.clipboard.paste().then(
-      (resolve: string) => {
-          alert(resolve);
-        },
-        (reject: string) => {
-          alert('Error: ' + reject);
-        }
-      );
   }
 
   freeze(option) {

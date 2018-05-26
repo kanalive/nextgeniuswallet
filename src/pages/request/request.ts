@@ -32,12 +32,8 @@ export class RequestPage {
  
   
   
-  copyToClipboard(address){
-    this.clipboard.copy(address).then((data) => {
-      console.log(data);
-     }, (err) => {
-      console.log(err);
-    });
+  copyToClipboard(){
+    this.clipboard.copy(this.restProvider.account.address);
   }
 
   process() {
