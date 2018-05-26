@@ -18,7 +18,7 @@ export class PersonalAccountPage {
   // get accounts
   getAccounts() {
     console.log("personal account page function called");
-    this.restProvider.getAccounts()
+    this.restProvider.getAccountByAddress(null)
     .then(data => {
       this.accounts = data;
       console.log(this.accounts);

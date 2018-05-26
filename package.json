@@ -31,6 +31,7 @@
     "@ionic/pro": "1.0.20",
     "@ionic/storage": "^2.1.3",
     "@tronprotocol/wallet-api": "0.0.35",
+    "@tronscan/client": "0.0.6",
     "cordova-android": "7.0.0",
     "cordova-clipboard": "^1.2.1",
     "cordova-ios": "4.5.4",

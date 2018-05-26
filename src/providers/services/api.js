@@ -1,8 +1,7 @@
-import HttpClient from "@tronprotocol/wallet-api/src/client/http";
+import {Client} from "@tronscan/client";
 
-// It uses `https://tronscan.io` by default if not set
-const API_URL = process.env.API_URL;
+const API_URL = "https://api.tronscan.org/api";
 
-export const Client = new HttpClient({
-  url: API_URL,
-});
+export const client = new Client();
+
+

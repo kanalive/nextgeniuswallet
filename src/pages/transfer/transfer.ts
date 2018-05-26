@@ -12,7 +12,7 @@ import { AlertController } from 'ionic-angular';
 export class TransferPage {
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, private qrScanner: QRScanner, public navParams: NavParams, public restProvider: RestProvider) {
-    this.getBalance();
+    this.getAccountByAddress();
   }
 
   fromAccount=this.restProvider.account.address;
@@ -21,31 +21,40 @@ export class TransferPage {
   show=false;
   result;
   accountBalance: any;
+  busy = false;
+  availableFund =0;
+  ONE_TRX = 1000000;
 
-  getBalance(){
+  getAccountByAddress(){
     console.log("getbalance in transfer page called");
-    this.restProvider.getBalance()
+    this.restProvider.getAccountByAddress(this.fromAccount)
     .then(data => {
-      this.accountBalance = data["balances"];
       console.log(this.accountBalance);
+      this.accountBalance = data;
+
+      this.availableFund = (data.balance - data.frozen.total)/this.ONE_TRX;
+      
+      console.log(data);
     });
   }
 
   transfer(){
     console.log("transfer in transfer page called");
-    this.restProvider.transfer(this.toAccount, this.amount)
+    this.busy = true;
+    this.restProvider.send("TRX", this.toAccount, this.amount)
     .then(data => {
-      if(data==true){
+      console.log(data);
+      if(data.success){
         this.showConfirmAlert();
+        this.busy = false;
+        this.getAccountByAddress();
       }
     })
   }
 
   showConfirmAlert() {
-    console.log("show confirmation");
     let alert = this.alertCtrl.create({
-        title: 'Transfer success',
-        message: 'Transfer success',
+        title: 'Transfer successful',
         buttons: [
             {
                 text: 'Ok',

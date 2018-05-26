@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Client} from "../services/api";
+import { Client } from "@tronscan/client";
 import { Storage } from '@ionic/storage';
-import { generateAccount } from "@tronprotocol/wallet-api/src/utils/account";
-import { privateKeyToAddress } from "@tronprotocol/wallet-api/src/utils/crypto";
+import { generateAccount } from "@tronscan/client/src/utils/account";
+import { privateKeyToAddress } from "@tronscan/client/src/utils/crypto";
 /*
   Generated class for the RestProvider provider.
 
@@ -14,8 +14,9 @@ import { privateKeyToAddress } from "@tronprotocol/wallet-api/src/utils/crypto";
 export class RestProvider {
   // accountApiUrl = "https://91o3mlxvbb.execute-api.ap-southeast-2.amazonaws.com/Prod"
   public account : any;
+  private ONE_TRX = 1000000;
 
-  constructor(public http: HttpClient, private storage: Storage ) {
+  constructor(public http: HttpClient, private storage: Storage, private client: Client ) {
     console.log('Hello RestProvider Provider');
   }
 
@@ -73,89 +74,54 @@ export class RestProvider {
     });
   }
 
-  public transfer(to, amount){
-    console.log(this.account.privateKey);
-    return new Promise(resolve => {
-      this.send(this.account.privateKey, "TRX", to, amount).then(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    });
-  }
 
-  public getBalance(){
-    return new Promise(resolve => {
-      this.getAccountBalances(this.account.address).then(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    });
-  }
 
-  public getNumOfTransactions(){
-    return new Promise(resolve => {
-      this.getTotalNumberOfTransactions().then(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    });
-  }
 
-  public getAccountKey(){
-    console.log("client - getAccountKey")
-    return Client.getAccountKey()
+
+
+
+  public getAccountByAddress(address){
+    console.log("rest service called - getAccountByAddress")
+    if(!address){
+      address = this.account.address;
+    }
+    return this.client.getAccountByAddress(address);
   }
 
 
-  public getAccounts(){
-    console.log("rest service called - getAccounts")
-    return Client.getAccountList();
-  }
-
-  private getAccountBalances(address){
-    console.log("rest service called - getAccountBalances")
-    return Client.getAccountBalances(address);
-  }
-
-  public getLatestBlock(){
-    console.log("rest service called - getLatestBlock")
-    return Client.getLatestBlock();
-  }
-
-  public getNodes(){
-    console.log("rest service called - getNodes")
-    return Client.getNodes();
-  }
 
   public getWitnesses(){
     console.log("rest service called - getWitnesses")
-    return Client.getWitnesses();
+    return this.client.getWitnesses();
   }
 
-  private getTotalNumberOfTransactions(){
-    console.log("rest service called - getTotalNumberOfTransactions")
-    return Client.getTotalNumberOfTransactions();
-  }
 
-  private send(prikey, token, to, amount){
+  async send(token,  to, amount){
+    let pk = this.account.privateKey;    
     console.log("transfer " + amount + token + " to " + to);
-    return Client.send(prikey, token, to, amount);
+    return await this.client.send(token, this.account.address, to, amount*this.ONE_TRX)(pk);
+  }
+
+
+  async freezeBalance(address, amount, duration){
+    let pk = this.account.privateKey;
+    return await this.client.freezeBalance(address, amount*this.ONE_TRX, duration)(pk);
+  }
+
+  async unfreezeBalance(address){
+    let pk = this.account.privateKey;
+    return await this.client.unfreezeBalance(address)(pk);
   }
  
 
-  public postVote(accountKey, myVotes){
-    // return this.http.post(this.accountApiUrl+'/voteforwitnesses', myVote, {})
-    // .subscribe(data => console.log(data));
-
+  async postVote(myVotes){
+    let pk = this.account.privateKey;
     let witnessVotes = myVotes.map(vote => ({
       address: vote.address,
       amount: parseInt(vote.amount, 10)
     })).filter(vote => vote.amount > 0);
     
-    return Client.voteForWitnesses(accountKey, witnessVotes);
+    return await this.client.voteForWitnesses(this.account.address, witnessVotes)(pk);
   }
 
 

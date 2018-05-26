@@ -52,18 +52,25 @@
             <p>
               <span>Address</span>
               <span>{{restProvider.account.address}}</span>
-              <button  ion-button color="color2" (click)="copy(restProvider.account.address)">Copy</button>
             </p>
         </div>
+        
         <div class="container">
             <p>
                 <span>Private key</span>
                 <span>{{restProvider.account.privateKey}}</span>
-                <button  ion-button color="color2" (click)="copu(restProvider.account.address)">Copy</button>
               </p>
         </div>
+        
       </ion-item>
+      <button  ion-button color="color2" (click)="copy(restProvider.account.address)">Copy Address</button>
+      <button  ion-button color="color2" (click)="copy(restProvider.account.privateKey)">Copy Private Key</button>
 
+      <div *ngIf="!accountBalance">
+        <ion-item>
+          <p>Loading account balance, please wait....</p>
+        </ion-item>
+      </div>
 
       <div *ngIf="accountBalance">
         <ion-item *ngFor="let balance of accountBalance.balances">
@@ -78,19 +85,23 @@
               </p>
           </div>
         </ion-item>
+        
 
         <ion-item *ngFor="let frozen of accountBalance.frozen.balances">
-            <p>{{frozen.name}}</p>
             <div class="container">
-              <ion-item>
-                <ion-range disabled="true" [(ngModel)]="netWorth"  ></ion-range> 
-              </ion-item>
                 <p>
-                  <span>{{frozen.name}}</span>
-                  <span>{{frozen.balance}}</span>
+                  <span>{{frozen.amount}}</span>
+                  <span>Sun</span>
+                  <span>Expires in</span>
+                  <span>{{frozen.expires}}</span>
                 </p>
+
             </div>
           </ion-item>
+        <button ion-button color="color2" (click)="freeze('freeze')">Freeze</button>
+          
+          <button  ion-button color="color2" (click)="unfreeze('release')">Release</button>
+          
       </div>
       <div *ngIf="tronPrice">
       <ion-item *ngFor="let price of tronPrice">

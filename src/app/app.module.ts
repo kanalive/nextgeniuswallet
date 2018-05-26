@@ -7,7 +7,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Clipboard } from '@ionic-native/clipboard';
 import { IonicStorageModule, Storage } from '@ionic/storage';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
-
+import { Client } from "@tronscan/client";
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -44,7 +44,8 @@ var config = {
     Clipboard,
     QRScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestProvider
+    RestProvider,
+    Client
   ]
 })
 export class AppModule {}

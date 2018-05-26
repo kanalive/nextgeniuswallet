@@ -46,7 +46,7 @@ export class VotePage {
     console.log("vote page function called");
     this.restProvider.getWitnesses()
     .then(data => {
-      this.witnesses = data;
+      this.witnesses = data.witnesses;
       console.log(this.witnesses);
     });
   }
@@ -73,9 +73,7 @@ export class VotePage {
           handler: data => {
             console.log("Add - " + data["votes"]);
             let votes = [{"address": item.address, "amount": data["votes"]}];
-            // let myAccount = {"address": "27c94Yy78VCJVvChYBpjUWSzGCd9TKQnqb", "noteList": vote}
-            // TODO Need to get Account Key
-            this.restProvider.postVote(this.restProvider.account.privateKey, votes).then(data => {
+            this.restProvider.postVote(votes).then(data => {
               this.showConfirmAlert();
             });
           }
