@@ -60,7 +60,7 @@ page-summary {
         }
     }
     .graphs{
-        border-top:1px solid color($colors,color3);
+        border-top:0px solid color($colors,color3);
         border-bottom:1px solid color($colors,color3);
         padding:$mainMarg 0px;
         .list-header-ios{

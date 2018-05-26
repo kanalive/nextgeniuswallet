@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { QRCode } from 'qrcode';
-import { Clipboard } from '@ionic-native/clipboard'
+import { Clipboard } from '@ionic-native/clipboard';
 import { RestProvider } from '../../providers/rest/rest';
 /**
  * Generated class for the RequestPage page.
@@ -25,19 +25,20 @@ export class RequestPage {
     return this.generated !== '';
   }
 
-  constructor(public navCtrl: NavController, public restProvider: RestProvider, public navParams: NavParams, private barcodeScanner: BarcodeScanner, private clipboard: Clipboard) {
+  constructor(public navCtrl: NavController, public restProvider: RestProvider, public navParams: NavParams, private barcodeScanner: BarcodeScanner, public clipboard: Clipboard) {
     this.code = this.restProvider.account.address;
   }
 
  
   
   
-  copyToClipboard(){
-    this.clipboard.copy(this.restProvider.account.address);
+  copy(text){
+    this.clipboard.copy(text);
   }
 
   process() {
     const qrcode = QRCode;
+    console.log(qrcode);
     const self = this;
     qrcode.toDataURL(self.code, { errorCorrectionLevel: 'H' }, function (err, url) {
       self.generated = url;
