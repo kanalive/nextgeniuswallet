@@ -17,7 +17,7 @@
 <ion-content padding>
 
   <!-- balance and login information  -->
-  <!--<ion-grid class="blanceGrid">
+  <ion-grid class="blanceGrid">
     <ion-row>
       <ion-col col-auto>
         <div class="avatarContent">
@@ -38,13 +38,10 @@
         </div>
       </ion-col>
     </ion-row>
-  </ion-grid>-->
+  </ion-grid>
 
   <!-- graphs container -->
   <ion-list class="graphs" *ngIf="restProvider.account">
-    <ion-list-header>
-       Welcome {{restProvider.account.firstName}} {{restProvider.account.lastName}}!
-    </ion-list-header>
 
     <ion-item>
         <p>Account</p>
@@ -100,7 +97,7 @@
           </ion-item>
         <button ion-button color="color2" (click)="freeze('freeze')">Freeze</button>
           
-          <button  ion-button color="color2" (click)="unfreeze('release')">Release</button>
+          <button  ion-button color="color2" (click)="unfreeze('release')">Unfreeze</button>
           
       </div>
       <div *ngIf="tronPrice">
@@ -116,7 +113,7 @@
         <div class="container">
             <p>
               <span>TRX / USD</span>
-              <span>{{price.price_usd}}</span>
+              <span>$ {{price.price_usd}}</span>
             </p>
         </div>
       </ion-item>
@@ -147,9 +144,9 @@
           </button>
         </ion-col>
         <ion-col col-3>
-          <button block ion-button (click)="goTo('SettingPage')">
-            <ion-icon class="banki-setting"></ion-icon>
-            <p>Setting</p>
+          <button block ion-button (click)="goTo('ContactUsPage')">
+            <ion-icon class="banki-user"></ion-icon>
+            <p>Contact</p>
           </button>
         </ion-col>
       </ion-row>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Client } from "@tronscan/client";
 import { Storage } from '@ionic/storage';
 import { generateAccount } from "@tronscan/client/src/utils/account";
-import { privateKeyToAddress } from "@tronscan/client/src/utils/crypto";
+import { pkToAddress } from "@tronscan/client/src/utils/crypto";
 /*
   Generated class for the RestProvider provider.
 
@@ -50,10 +50,12 @@ export class RestProvider {
     this.storage.set('account', this.account);
   }
 
-  public getAddressFromPrivateKey(prikey){
-    let addr = privateKeyToAddress(prikey);
+  public getAddressFromPrivateKey(privateKey){
+    console.log("getAddressFromPrivateKey");
+    let addr = pkToAddress(privateKey);
+    
     console.log(addr)
-    this.account = {address: addr, privatekey: prikey}
+    this.account = {address: addr, privatekey: privateKey}
     this.storage.set('account', this.account);
 
     return addr;

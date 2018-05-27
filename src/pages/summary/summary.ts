@@ -60,7 +60,7 @@ export class SummaryPage {
     let actionTitle = "Freeze"
     let actionText = "Frozen tokens are \"locked\" for a period of 3 days. During this period the frozen TRX cannot be traded.After this period you can unfreeze the TRX and trade the tokens.";
     
-    let alert = this.alertCtrl.create({
+    let alertbox = this.alertCtrl.create({
       title: actionTitle,
       message: actionText,
       inputs: [
@@ -82,20 +82,22 @@ export class SummaryPage {
           handler: data => {
             console.log(actionTitle + " - " + data["amount"]);
             let freezeResult = this.restProvider.freezeBalance(this.restProvider.account.address, data["amount"], 3).then(data =>{
-              console.log(data);
+              if(data.code == "SUCCESS"){
+                alert("Freeze TRX successfully completed.");
+              }
             });
           }
         }
       ]
     });
-    alert.present();
+    alertbox.present();
   }
 
   unfreeze(option) {
 
     let actionTitle = "Unfreeze"
     
-    let alert = this.alertCtrl.create({
+    let alertbox = this.alertCtrl.create({
       title: actionTitle,
       message: "Are you sure you want to unfreeze TRX?",
       buttons: [
@@ -103,7 +105,7 @@ export class SummaryPage {
           text: 'Cancel',
           role: 'cancel',
           handler: data => {
-            console.log('Cancel clicked');
+            alert("Unfreeze TRX successfully completed.");
           }
         },
         {
@@ -116,7 +118,7 @@ export class SummaryPage {
         }
       ]
     });
-    alert.present();
+    alertbox.present();
   }
 
   

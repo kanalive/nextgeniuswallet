@@ -22,8 +22,8 @@ export class MyApp {
     this.pages = [
       { title: 'Summary', component: 'SummaryPage',icon:'banki-summary' },
       { title: 'Request Payment', component: 'RequestPage',icon:'banki-transfer' },
-      { title: 'Transfer Payment', component: 'TransferPage',icon:'banki-transfer' },
-      { title: 'Votes', component: 'VotePage',icon:'banki-transfer' },
+      { title: 'Transfer Payment', component: 'TransferPage',icon:'banki-exchange' },
+      { title: 'Votes', component: 'VotePage',icon:'banki-converter' },
       { title: 'Contact us', component: 'ContactUsPage',icon:'banki-phone' },
 
     ];
