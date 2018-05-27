@@ -21,10 +21,8 @@
     <ion-row>
       <ion-col col-auto>
         <div class="avatarContent">
-          <img src="assets/img/kana.jpeg"/>
-          <div>
-            
-          </div>
+          <img src="assets/img/kana.jpeg" (click)="accessGallery()"/>
+          
         </div>
       </ion-col>
       <ion-col col>
@@ -32,7 +30,12 @@
           <h5>Welcome</h5>
           <h4>{{restProvider.account.firstName}} {{restProvider.account.lastName}}</h4>
           <span>{{restProvider.account.email}}</span>
-          
+          <br />
+          <p>Click on profile picture to update photo</p>
+          <div>
+          <!--<button  ion-button color="color2" (click)="accessGallery()">Change profile picture</button>-->
+            
+          </div>
 
           
         </div>

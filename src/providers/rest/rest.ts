@@ -117,11 +117,15 @@ export class RestProvider {
  
 
   async postVote(myVotes){
+
     let pk = this.account.privateKey;
     let witnessVotes = myVotes.map(vote => ({
       address: vote.address,
       amount: parseInt(vote.amount, 10)
     })).filter(vote => vote.amount > 0);
+
+    console.log(pk);
+    console.log(witnessVotes);
     
     return await this.client.voteForWitnesses(this.account.address, witnessVotes)(pk);
   }

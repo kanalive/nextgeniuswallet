@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ModalController} from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { Clipboard } from '@ionic-native/clipboard';
 import { AlertController } from 'ionic-angular';
+import { Camera } from '@ionic-native/camera';
 
 @IonicPage()
 @Component({
@@ -17,11 +18,31 @@ export class SummaryPage {
   tronPrice :any;
   totalNumOfTransactions: any;
   ONE_TRX = 1000000;
-  constructor(public navCtrl: NavController, public alertCtrl:AlertController, public clipboard: Clipboard, public navParams: NavParams, public restProvider: RestProvider) {
+  constructor(public navCtrl: NavController,public camera:Camera, public modalCtrl: ModalController, public alertCtrl:AlertController, public clipboard: Clipboard, public navParams: NavParams, public restProvider: RestProvider) {
     this.getAccount();
     this.getTronPrice();
   }
  
+  callModal() {
+    let modal = this.modalCtrl.create('UpdateProfilePage');
+    modal.present();
+  }
+
+    // change Image
+  base64Image='assets/img/kana.jpeg';
+
+  accessGallery(){
+    console.log("get picture from gallery")
+   this.camera.getPicture({
+     sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
+     destinationType: this.camera.DestinationType.DATA_URL
+    }).then((imageData) => {
+      this.base64Image = 'data:image/jpeg;base64,'+imageData;
+      alert(this.base64Image);
+     }, (err) => {
+      console.log(err);
+    });
+  }
 
   // goTo Function 
   goTo(page){

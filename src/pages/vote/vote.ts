@@ -20,10 +20,8 @@ import { AlertController } from 'ionic-angular';
 export class VotePage {
 
   witnesses:any;
-
   terms: string;
-
-
+  accountBalance: any;
 
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public restProvider: RestProvider) {
@@ -48,6 +46,14 @@ export class VotePage {
     .then(data => {
       this.witnesses = data.witnesses;
       console.log(this.witnesses);
+    });
+  }
+
+  getAccount(){
+    this.restProvider.getAccountByAddress(null)
+    .then(data => {
+      this.accountBalance = data;
+      console.log(data);
     });
   }
 
@@ -82,7 +88,6 @@ export class VotePage {
     });
     alert.present();
   }
-
 
   showConfirmAlert() {
     console.log("show confirmation");
