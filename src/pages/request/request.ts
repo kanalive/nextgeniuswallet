@@ -33,7 +33,9 @@ export class RequestPage {
   
   
   copy(text){
-    this.clipboard.copy(text);
+    this.clipboard.copy(text).then(data => {
+      alert("copied " + data);
+    });
   }
 
   process() {

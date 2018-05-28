@@ -25,7 +25,7 @@
       </div>
       <div *ngIf="accountBalance">
       <ion-item *ngFor="let balance of accountBalance.balances">
-          <ion-label stacked>From account - {{restProvider.account.address}}</ion-label>
+          <ion-label stacked>From account - {{fromAccount}}</ion-label>
           <ion-input disabled="true" value="{{availableFund + ' TRX'}}"></ion-input>
          
         </ion-item>
@@ -36,7 +36,7 @@
           <ion-input [(ngModel)]="toAccount"></ion-input>
          
       </ion-item>
-      <button ion-button block color="color2" (click)="scan()">Scan QR code</button>
+      <!--<button ion-button block color="color2" (click)="scan()">Scan QR code</button>-->
         <!-- amount Input -->
       <ion-item>
         <ion-label stacked>Amount</ion-label>

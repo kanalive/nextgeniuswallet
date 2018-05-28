@@ -21,7 +21,7 @@
     <ion-row>
       <ion-col col-auto>
         <div class="avatarContent">
-          <img src="assets/img/kana.jpeg" (click)="accessGallery()"/>
+          <img src="{{base64Image}}" (click)="accessGallery()"/>
           
         </div>
       </ion-col>
@@ -30,7 +30,7 @@
           <h5>Welcome</h5>
           <h4>{{restProvider.account.firstName}} {{restProvider.account.lastName}}</h4>
           <span>{{restProvider.account.email}}</span>
-          <br />
+          <hr />
           <p>Click on profile picture to update photo</p>
           <div>
           <!--<button  ion-button color="color2" (click)="accessGallery()">Change profile picture</button>-->
@@ -88,12 +88,16 @@
         
 
         <ion-item *ngFor="let frozen of accountBalance.frozen.balances">
+            <p>Frozen TRX</p>
             <div class="container">
+                <ion-item>
+                    <ion-range disabled="true" [(ngModel)]="fronzenNetWorth"  ></ion-range> 
+                  </ion-item>
                 <p>
-                  <span>{{frozen.amount}}</span>
-                  <span>Sun</span>
+                  <span>{{frozen.amount/ONE_TRX}}</span>
+                  <span>TRX</span>
                   <span>Expires in</span>
-                  <span>{{frozen.expires}}</span>
+                  <span>{{frozen.expires| date:'yyyy-MM-dd HH:mm a z':'+0800'}}</span>
                 </p>
 
             </div>
@@ -101,6 +105,7 @@
         <button ion-button color="color2" (click)="freeze('freeze')">Freeze</button>
           
           <button  ion-button color="color2" (click)="unfreeze('release')">Unfreeze</button>
+          <button  ion-button color="color2" (click)="getAccount()">Reload balance</button>
           
       </div>
       <div *ngIf="tronPrice">

@@ -22,10 +22,12 @@ export class VotePage {
   witnesses:any;
   terms: string;
   accountBalance: any;
-
+  ONE_TRX=1000000;
+  busy = false;
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public restProvider: RestProvider) {
     this.getWitnesses();
+    this.getAccount();
   }
 
 
@@ -58,7 +60,7 @@ export class VotePage {
   }
 
   presentPrompt(item) {
-    let alert = this.alertCtrl.create({
+    let alertbox = this.alertCtrl.create({
       title: 'Votes',
       inputs: [
         {
@@ -77,16 +79,35 @@ export class VotePage {
         {
           text: 'Submit vote',
           handler: data => {
-            console.log("Add - " + data["votes"]);
-            let votes = [{"address": item.address, "amount": data["votes"]}];
-            this.restProvider.postVote(votes).then(data => {
-              this.showConfirmAlert();
-            });
+            console.log("Submiting vote");
+            
+            let voteCount = data["votes"];
+            let totalFrozenTrx = this.accountBalance.frozen.total/this.ONE_TRX;
+            console.log("Adding vote - " + voteCount + " to address " + item.address);
+            
+            if(voteCount > totalFrozenTrx){
+            //console.log("Insufficient fronzen account balance, "+ voteCount + " required, only " + totalFrozenTrx + "available.");
+              
+              alert("Insufficient fronzen account balance, "+ voteCount + " required, only " + totalFrozenTrx + " available.");
+            }else{
+              let k = item.address;
+              var vote = {};
+              vote[k] = data["votes"];
+              console.log("Sending vote - " + voteCount + " to address " + item.address);
+              this.busy = true;
+              this.restProvider.postVote(vote).then(data => {
+                //this.showConfirmAlert();
+                if(data.code == "SUCCESS"){
+                  alert("Voting completed, thank you.");
+                  this.busy = false;
+                }
+              });
+            }
           }
         }
       ]
     });
-    alert.present();
+    alertbox.present();
   }
 
   showConfirmAlert() {

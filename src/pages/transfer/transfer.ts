@@ -41,15 +41,22 @@ export class TransferPage {
   transfer(){
     console.log("transfer in transfer page called");
     this.busy = true;
-    this.restProvider.send("TRX", this.toAccount, this.amount)
-    .then(data => {
-      console.log(data);
-      if(data.success){
-        this.showConfirmAlert();
-        this.busy = false;
-        this.getAccountByAddress();
-      }
-    })
+    if(this.amount > this.availableFund){
+      alert("Insufficient account balance, transfer cancelled.");
+    }else{
+      this.restProvider.send("TRX", this.toAccount, this.amount)
+      .then(data => {
+        console.log(data);
+        if(data.success){
+          this.showConfirmAlert();
+          this.busy = false;
+          this.getAccountByAddress();
+        }else{
+          alert(data.message);
+        }
+      })
+    }
+    
   }
 
   showConfirmAlert() {
@@ -68,11 +75,14 @@ export class TransferPage {
   
   scan(){
     // Optionally request the permission early
+    console.log("trying to scan");
+    
     this.qrScanner.prepare()
     .then((status: QRScannerStatus) => {
       if (status.authorized) {
         // camera permission was granted
 
+        console.log("camera permission was granted");
 
         // start scanning
         let scanSub = this.qrScanner.scan().subscribe((text: string) => {

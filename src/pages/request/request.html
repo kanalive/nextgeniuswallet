@@ -22,7 +22,7 @@
               <ion-input value="{{restProvider.account.address}}"></ion-input>
               <br />
               <button ion-button color="color2" (click)="copy(restProvider.account.address);">Copy</button>
-              <button ion-button color="color2" (click)="process();">QRCode</button>
+              <!--<button ion-button color="color2" (click)="process();">QRCode</button>-->
               
               <ion-card>
                   <img *ngIf="displayQrCode()" [src]="generated" />

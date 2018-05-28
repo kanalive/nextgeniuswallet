@@ -14,6 +14,7 @@ export class SummaryPage {
   balance=30;
   netWorth=70;
   deposits=70;
+  fronzenNetWorth=0;
   accountBalance :any;
   tronPrice :any;
   totalNumOfTransactions: any;
@@ -38,7 +39,6 @@ export class SummaryPage {
      destinationType: this.camera.DestinationType.DATA_URL
     }).then((imageData) => {
       this.base64Image = 'data:image/jpeg;base64,'+imageData;
-      alert(this.base64Image);
      }, (err) => {
       console.log(err);
     });
@@ -58,6 +58,21 @@ export class SummaryPage {
     .then(data => {
       this.accountBalance = data;
       console.log(data);
+      let balance = this.accountBalance.balance / this.ONE_TRX;
+      let fronzenBalance = (this.accountBalance.frozen.total/this.ONE_TRX);
+      let total = balance + fronzenBalance;
+      if(total <= 0){
+        total = 1;
+      }
+
+      this.netWorth = balance / total * 100;
+      this.fronzenNetWorth = fronzenBalance / total * 100;
+
+      console.log(balance);
+      console.log(fronzenBalance);
+      console.log(total);
+      console.log(this.netWorth);
+      console.log(this.fronzenNetWorth);
     });
   }
 
@@ -72,7 +87,9 @@ export class SummaryPage {
   }
 
   copy(text){
-    this.clipboard.copy(text);
+    this.clipboard.copy(text).then(data=>{
+      alert("copied " + data);
+     }) ;
 
   }
 
@@ -117,29 +134,35 @@ export class SummaryPage {
   unfreeze(option) {
 
     let actionTitle = "Unfreeze"
+    let now = new Date().getTime();
+    if(this.accountBalance.frozen.balances.len>0 && this.accountBalance.frozen.balances[0].expires < now){
+      let alertbox = this.alertCtrl.create({
+        title: actionTitle,
+        message: "Are you sure you want to unfreeze TRX?",
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: data => {
+              alert("Unfreeze TRX successfully completed.");
+            }
+          },
+          {
+            text: actionTitle,
+            handler: data => {
+              let unfreezeResult = this.restProvider.unfreezeBalance(this.restProvider.account.address).then(data =>{
+                console.log(data);
+              });
+            }
+          }
+        ]
+      });
+      alertbox.present();
+    }else{
+      alert("Cannot unfreeze token, please only unfreeze tokens when frozen term expired.");
+    }
+
     
-    let alertbox = this.alertCtrl.create({
-      title: actionTitle,
-      message: "Are you sure you want to unfreeze TRX?",
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            alert("Unfreeze TRX successfully completed.");
-          }
-        },
-        {
-          text: actionTitle,
-          handler: data => {
-            let unfreezeResult = this.restProvider.unfreezeBalance(this.restProvider.account.address).then(data =>{
-              console.log(data);
-            });
-          }
-        }
-      ]
-    });
-    alertbox.present();
   }
 
   
