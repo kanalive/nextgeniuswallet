@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 373:
+/***/ 375:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestPageModule", function() { return RequestPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__request__ = __webpack_require__(404);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__request__ = __webpack_require__(406);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1331,7 +1331,7 @@ exports.qrToImageData = function qrToImageData (imgData, qr, opts) {
 
 /***/ }),
 
-/***/ 404:
+/***/ 406:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1339,9 +1339,9 @@ exports.qrToImageData = function qrToImageData (imgData, qr, opts) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_qrcode__ = __webpack_require__(405);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_qrcode__ = __webpack_require__(407);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_qrcode___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_qrcode__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_clipboard__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_clipboard__ = __webpack_require__(227);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_rest_rest__ = __webpack_require__(115);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1407,13 +1407,13 @@ var RequestPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 405:
+/***/ 407:
 /***/ (function(module, exports, __webpack_require__) {
 
-var canPromise = __webpack_require__(406)
-var QRCode = __webpack_require__(408)
-var CanvasRenderer = __webpack_require__(424)
-var SvgRenderer = __webpack_require__(425)
+var canPromise = __webpack_require__(408)
+var QRCode = __webpack_require__(410)
+var CanvasRenderer = __webpack_require__(426)
+var SvgRenderer = __webpack_require__(427)
 
 function renderCanvas (renderFunc, canvas, text, opts, cb) {
   var args = [].slice.call(arguments, 1)
@@ -1488,13 +1488,13 @@ exports.toString = renderCanvas.bind(null, function (data, _, opts) {
 
 /***/ }),
 
-/***/ 406:
+/***/ 408:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var G = __webpack_require__(407)
+var G = __webpack_require__(409)
 
 module.exports = function() {
   return (
@@ -1506,7 +1506,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 407:
+/***/ 409:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1519,23 +1519,23 @@ module.exports = (typeof self === 'object' && self.self === self && self) ||
 
 /***/ }),
 
-/***/ 408:
+/***/ 410:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
 var Utils = __webpack_require__(387)
 var ECLevel = __webpack_require__(391)
-var BitBuffer = __webpack_require__(409)
-var BitMatrix = __webpack_require__(410)
-var AlignmentPattern = __webpack_require__(411)
-var FinderPattern = __webpack_require__(412)
-var MaskPattern = __webpack_require__(413)
+var BitBuffer = __webpack_require__(411)
+var BitMatrix = __webpack_require__(412)
+var AlignmentPattern = __webpack_require__(413)
+var FinderPattern = __webpack_require__(414)
+var MaskPattern = __webpack_require__(415)
 var ECCode = __webpack_require__(392)
-var ReedSolomonEncoder = __webpack_require__(414)
+var ReedSolomonEncoder = __webpack_require__(416)
 var Version = __webpack_require__(393)
-var FormatInfo = __webpack_require__(417)
+var FormatInfo = __webpack_require__(419)
 var Mode = __webpack_require__(388)
-var Segments = __webpack_require__(418)
+var Segments = __webpack_require__(420)
 var isArray = __webpack_require__(390)
 
 /**
@@ -2025,7 +2025,7 @@ exports.create = function create (data, options) {
 
 /***/ }),
 
-/***/ 409:
+/***/ 411:
 /***/ (function(module, exports) {
 
 function BitBuffer () {
@@ -2069,7 +2069,7 @@ module.exports = BitBuffer
 
 /***/ }),
 
-/***/ 410:
+/***/ 412:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
@@ -2145,7 +2145,7 @@ module.exports = BitMatrix
 
 /***/ }),
 
-/***/ 411:
+/***/ 413:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -2235,7 +2235,7 @@ exports.getPositions = function getPositions (version) {
 
 /***/ }),
 
-/***/ 412:
+/***/ 414:
 /***/ (function(module, exports, __webpack_require__) {
 
 var getSymbolSize = __webpack_require__(387).getSymbolSize
@@ -2264,7 +2264,7 @@ exports.getPositions = function getPositions (version) {
 
 /***/ }),
 
-/***/ 413:
+/***/ 415:
 /***/ (function(module, exports) {
 
 /**
@@ -2505,11 +2505,11 @@ exports.getBestMask = function getBestMask (data, setupFormatFunc) {
 
 /***/ }),
 
-/***/ 414:
+/***/ 416:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
-var Polynomial = __webpack_require__(415)
+var Polynomial = __webpack_require__(417)
 
 function ReedSolomonEncoder (degree) {
   this.genPoly = undefined
@@ -2571,11 +2571,11 @@ module.exports = ReedSolomonEncoder
 
 /***/ }),
 
-/***/ 415:
+/***/ 417:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
-var GF = __webpack_require__(416)
+var GF = __webpack_require__(418)
 
 /**
  * Multiplies two polynomials inside Galois Field
@@ -2642,7 +2642,7 @@ exports.generateECPolynomial = function generateECPolynomial (degree) {
 
 /***/ }),
 
-/***/ 416:
+/***/ 418:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
@@ -2721,7 +2721,7 @@ exports.mul = function mul (x, y) {
 
 /***/ }),
 
-/***/ 417:
+/***/ 419:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Utils = __webpack_require__(387)
@@ -2757,17 +2757,17 @@ exports.getEncodedBits = function getEncodedBits (errorCorrectionLevel, mask) {
 
 /***/ }),
 
-/***/ 418:
+/***/ 420:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Mode = __webpack_require__(388)
-var NumericData = __webpack_require__(419)
-var AlphanumericData = __webpack_require__(420)
-var ByteData = __webpack_require__(421)
-var KanjiData = __webpack_require__(422)
+var NumericData = __webpack_require__(421)
+var AlphanumericData = __webpack_require__(422)
+var ByteData = __webpack_require__(423)
+var KanjiData = __webpack_require__(424)
 var Regex = __webpack_require__(394)
 var Utils = __webpack_require__(387)
-var dijkstra = __webpack_require__(423)
+var dijkstra = __webpack_require__(425)
 
 /**
  * Returns UTF8 byte length
@@ -3094,7 +3094,7 @@ exports.rawSplit = function rawSplit (data) {
 
 /***/ }),
 
-/***/ 419:
+/***/ 421:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Mode = __webpack_require__(388)
@@ -3144,7 +3144,7 @@ module.exports = NumericData
 
 /***/ }),
 
-/***/ 420:
+/***/ 422:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Mode = __webpack_require__(388)
@@ -3210,7 +3210,7 @@ module.exports = AlphanumericData
 
 /***/ }),
 
-/***/ 421:
+/***/ 423:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
@@ -3244,7 +3244,7 @@ module.exports = ByteData
 
 /***/ }),
 
-/***/ 422:
+/***/ 424:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Mode = __webpack_require__(388)
@@ -3305,7 +3305,7 @@ module.exports = KanjiData
 
 /***/ }),
 
-/***/ 423:
+/***/ 425:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3478,7 +3478,7 @@ if (true) {
 
 /***/ }),
 
-/***/ 424:
+/***/ 426:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Utils = __webpack_require__(395)
@@ -3548,7 +3548,7 @@ exports.renderToDataURL = function renderToDataURL (qrData, canvas, options) {
 
 /***/ }),
 
-/***/ 425:
+/***/ 427:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Utils = __webpack_require__(395)

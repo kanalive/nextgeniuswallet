@@ -225,35 +225,35 @@ var map = {
 		21
 	],
 	"../pages/add-account/add-account.module": [
-		386,
+		366,
 		20
 	],
 	"../pages/address-details/address-details.module": [
-		366,
+		367,
 		19
 	],
 	"../pages/beneficiaries/beneficiaries.module": [
-		367,
+		368,
 		18
 	],
 	"../pages/contact-us/contact-us.module": [
-		368,
+		369,
 		17
 	],
 	"../pages/currency-convertor/currency-convertor.module": [
-		369,
+		370,
 		16
 	],
 	"../pages/find-us/find-us.module": [
-		370,
+		371,
 		15
 	],
 	"../pages/forgot-password/forgot-password.module": [
-		371,
+		372,
 		14
 	],
 	"../pages/personal-account/personal-account.module": [
-		372,
+		373,
 		13
 	],
 	"../pages/profile/profile.module": [
@@ -261,31 +261,31 @@ var map = {
 		12
 	],
 	"../pages/request/request.module": [
-		373,
+		375,
 		0
 	],
 	"../pages/setting/setting.module": [
-		375,
+		376,
 		11
 	],
 	"../pages/sign-in/sign-in.module": [
-		376,
+		377,
 		10
 	],
 	"../pages/sign-up/sign-up.module": [
-		377,
+		378,
 		9
 	],
 	"../pages/summary/summary.module": [
-		378,
+		379,
 		8
 	],
 	"../pages/tokens/tokens.module": [
-		379,
+		380,
 		7
 	],
 	"../pages/transactions-details/transactions-details.module": [
-		380,
+		381,
 		6
 	],
 	"../pages/transactions/transactions.module": [
@@ -293,7 +293,7 @@ var map = {
 		5
 	],
 	"../pages/transfer/transfer.module": [
-		381,
+		383,
 		4
 	],
 	"../pages/update-profile/update-profile.module": [
@@ -301,11 +301,11 @@ var map = {
 		3
 	],
 	"../pages/vote/vote.module": [
-		383,
+		385,
 		1
 	],
 	"../pages/welcome/welcome.module": [
-		385,
+		386,
 		2
 	]
 };
@@ -420,10 +420,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(169);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_barcode_scanner__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_clipboard__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_clipboard__ = __webpack_require__(227);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_qr_scanner__ = __webpack_require__(230);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__tronscan_client__ = __webpack_require__(170);
@@ -475,6 +475,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* MyApp */], config, {
                     links: [
                         { loadChildren: '../pages/account-details/account-details.module#AccountDetailsPageModule', name: 'AccountDetailsPage', segment: 'account-details', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/add-account/add-account.module#AddAccountPageModule', name: 'AddAccountPage', segment: 'add-account', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/address-details/address-details.module#AddressDetailsPageModule', name: 'AddressDetailsPage', segment: 'address-details', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/beneficiaries/beneficiaries.module#BeneficiariesPageModule', name: 'BeneficiariesPage', segment: 'beneficiaries', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/contact-us/contact-us.module#ContactUsPageModule', name: 'ContactUsPage', segment: 'contact-us', priority: 'low', defaultHistory: [] },
@@ -482,20 +483,19 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/find-us/find-us.module#FindUsPageModule', name: 'FindUsPage', segment: 'find-us', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/forgot-password/forgot-password.module#ForgotPasswordPageModule', name: 'ForgotPasswordPage', segment: 'forgot-password', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/personal-account/personal-account.module#PersonalAccountPageModule', name: 'PersonalAccountPage', segment: 'personal-account', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/request/request.module#RequestPageModule', name: 'RequestPage', segment: 'request', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/request/request.module#RequestPageModule', name: 'RequestPage', segment: 'request', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/setting/setting.module#SettingPageModule', name: 'SettingPage', segment: 'setting', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/sign-in/sign-in.module#SignInPageModule', name: 'SignInPage', segment: 'sign-in', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/summary/summary.module#SummaryPageModule', name: 'SummaryPage', segment: 'summary', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tokens/tokens.module#TokensPageModule', name: 'TokensPage', segment: 'tokens', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transactions-details/transactions-details.module#TransactionsDetailsPageModule', name: 'TransactionsDetailsPage', segment: 'transactions-details', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/transfer/transfer.module#TransferPageModule', name: 'TransferPage', segment: 'transfer', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transactions/transactions.module#TransactionsPageModule', name: 'TransactionsPage', segment: 'transactions', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/vote/vote.module#VotePageModule', name: 'VotePage', segment: 'vote', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/transfer/transfer.module#TransferPageModule', name: 'TransferPage', segment: 'transfer', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/update-profile/update-profile.module#UpdateProfilePageModule', name: 'UpdateProfilePage', segment: 'update-profile', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/welcome/welcome.module#WelcomePageModule', name: 'WelcomePage', segment: 'welcome', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/add-account/add-account.module#AddAccountPageModule', name: 'AddAccountPage', segment: 'add-account', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/vote/vote.module#VotePageModule', name: 'VotePage', segment: 'vote', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/welcome/welcome.module#WelcomePageModule', name: 'WelcomePage', segment: 'welcome', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["a" /* IonicStorageModule */].forRoot()

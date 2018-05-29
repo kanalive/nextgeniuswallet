@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 383:
+/***/ 385:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,8 +8,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VotePageModule", function() { return VotePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vote__ = __webpack_require__(435);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_search_search__ = __webpack_require__(436);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vote__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_search_search__ = __webpack_require__(438);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,7 +44,7 @@ var VotePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 435:
+/***/ 437:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -185,7 +185,7 @@ var VotePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 436:
+/***/ 438:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
