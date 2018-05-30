@@ -95,6 +95,7 @@ var RestProvider = /** @class */ (function () {
         this.account.email = email;
         this.account.privateKey = privateKey;
         this.account.address = address;
+        this.account.profileImage = null;
         this.storage.set('account', this.account);
     };
     RestProvider.prototype.createNewAccount = function (firstName, lastName, email) {
@@ -102,12 +103,18 @@ var RestProvider = /** @class */ (function () {
         this.account.firstName = firstName;
         this.account.lastName = lastName;
         this.account.email = email;
+        this.account.profileImage = null;
         this.storage.set('account', this.account);
     };
-    RestProvider.prototype.getAddressFromPrivateKey = function (prikey) {
-        var addr = Object(__WEBPACK_IMPORTED_MODULE_5__tronscan_client_src_utils_crypto__["privateKeyToAddress"])(prikey);
+    RestProvider.prototype.saveProfileImageintoLocalStorage = function (base64Image) {
+        this.account.profileImage = base64Image;
+        this.storage.set('account', this.account);
+    };
+    RestProvider.prototype.getAddressFromPrivateKey = function (privateKey) {
+        console.log("getAddressFromPrivateKey");
+        var addr = Object(__WEBPACK_IMPORTED_MODULE_5__tronscan_client_src_utils_crypto__["pkToAddress"])(privateKey);
         console.log(addr);
-        this.account = { address: addr, privatekey: prikey };
+        this.account = { address: addr, privatekey: privateKey };
         this.storage.set('account', this.account);
         return addr;
     };
@@ -175,16 +182,12 @@ var RestProvider = /** @class */ (function () {
     };
     RestProvider.prototype.postVote = function (myVotes) {
         return __awaiter(this, void 0, void 0, function () {
-            var pk, witnessVotes;
+            var pk;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         pk = this.account.privateKey;
-                        witnessVotes = myVotes.map(function (vote) { return ({
-                            address: vote.address,
-                            amount: parseInt(vote.amount, 10)
-                        }); }).filter(function (vote) { return vote.amount > 0; });
-                        return [4 /*yield*/, this.client.voteForWitnesses(this.account.address, witnessVotes)(pk)];
+                        return [4 /*yield*/, this.client.voteForWitnesses(this.account.address, myVotes)(pk)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -288,11 +291,11 @@ var map = {
 		7
 	],
 	"../pages/transactions-details/transactions-details.module": [
-		381,
+		382,
 		6
 	],
 	"../pages/transactions/transactions.module": [
-		382,
+		381,
 		5
 	],
 	"../pages/transfer/transfer.module": [
@@ -364,16 +367,9 @@ var MyApp = /** @class */ (function () {
         // used for an example of ngFor and navigation
         this.pages = [
             { title: 'Summary', component: 'SummaryPage', icon: 'banki-summary' },
-            //{ title: 'Personal Accounts', component: 'PersonalAccountPage',icon:'banki-user' },
-            //{ title: 'Benficiariers', component: 'BeneficiariesPage',icon:'banki-exchange' },
-            { title: 'Setting', component: 'SettingPage', icon: 'banki-setting' },
-            { title: 'Profile', component: 'ProfilePage', icon: 'banki-user-1' },
-            //{ title: 'Currancy Converter', component: 'CurrencyConvertorPage',icon:'banki-converter' },
             { title: 'Request Payment', component: 'RequestPage', icon: 'banki-transfer' },
-            { title: 'Transfer Payment', component: 'TransferPage', icon: 'banki-transfer' },
-            { title: 'Tokens', component: 'TokensPage', icon: 'banki-transfer' },
-            { title: 'Votes', component: 'VotePage', icon: 'banki-transfer' },
-            { title: 'Find us', component: 'FindUsPage', icon: 'banki-location' },
+            { title: 'Transfer Payment', component: 'TransferPage', icon: 'banki-exchange' },
+            { title: 'Votes', component: 'VotePage', icon: 'banki-converter' },
             { title: 'Contact us', component: 'ContactUsPage', icon: 'banki-phone' },
         ];
     }
@@ -430,10 +426,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(169);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_barcode_scanner__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_clipboard__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_clipboard__ = __webpack_require__(227);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_qr_scanner__ = __webpack_require__(230);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__tronscan_client__ = __webpack_require__(170);
@@ -500,8 +496,8 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/summary/summary.module#SummaryPageModule', name: 'SummaryPage', segment: 'summary', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tokens/tokens.module#TokensPageModule', name: 'TokensPage', segment: 'tokens', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/transactions-details/transactions-details.module#TransactionsDetailsPageModule', name: 'TransactionsDetailsPage', segment: 'transactions-details', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transactions/transactions.module#TransactionsPageModule', name: 'TransactionsPage', segment: 'transactions', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/transactions-details/transactions-details.module#TransactionsDetailsPageModule', name: 'TransactionsDetailsPage', segment: 'transactions-details', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transfer/transfer.module#TransferPageModule', name: 'TransferPage', segment: 'transfer', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/update-profile/update-profile.module#UpdateProfilePageModule', name: 'UpdateProfilePage', segment: 'update-profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/vote/vote.module#VotePageModule', name: 'VotePage', segment: 'vote', priority: 'low', defaultHistory: [] },

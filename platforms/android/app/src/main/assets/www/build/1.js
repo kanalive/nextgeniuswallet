@@ -8,8 +8,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VotePageModule", function() { return VotePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vote__ = __webpack_require__(435);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_search_search__ = __webpack_require__(436);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vote__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_search_search__ = __webpack_require__(438);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,7 +44,7 @@ var VotePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 435:
+/***/ 437:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77,7 +77,10 @@ var VotePage = /** @class */ (function () {
         this.alertCtrl = alertCtrl;
         this.navParams = navParams;
         this.restProvider = restProvider;
+        this.ONE_TRX = 1000000;
+        this.busy = false;
         this.getWitnesses();
+        this.getAccount();
     }
     // goTo Function
     VotePage.prototype.goTo = function (page) {
@@ -97,9 +100,17 @@ var VotePage = /** @class */ (function () {
             console.log(_this.witnesses);
         });
     };
+    VotePage.prototype.getAccount = function () {
+        var _this = this;
+        this.restProvider.getAccountByAddress(null)
+            .then(function (data) {
+            _this.accountBalance = data;
+            console.log(data);
+        });
+    };
     VotePage.prototype.presentPrompt = function (item) {
         var _this = this;
-        var alert = this.alertCtrl.create({
+        var alertbox = this.alertCtrl.create({
             title: 'Votes',
             inputs: [
                 {
@@ -118,16 +129,33 @@ var VotePage = /** @class */ (function () {
                 {
                     text: 'Submit vote',
                     handler: function (data) {
-                        console.log("Add - " + data["votes"]);
-                        var votes = [{ "address": item.address, "amount": data["votes"] }];
-                        _this.restProvider.postVote(votes).then(function (data) {
-                            _this.showConfirmAlert();
-                        });
+                        console.log("Submiting vote");
+                        var voteCount = data["votes"];
+                        var totalFrozenTrx = _this.accountBalance.frozen.total / _this.ONE_TRX;
+                        console.log("Adding vote - " + voteCount + " to address " + item.address);
+                        if (voteCount > totalFrozenTrx) {
+                            //console.log("Insufficient fronzen account balance, "+ voteCount + " required, only " + totalFrozenTrx + "available.");
+                            alert("Insufficient fronzen account balance, " + voteCount + " required, only " + totalFrozenTrx + " available.");
+                        }
+                        else {
+                            var k = item.address;
+                            var vote = {};
+                            vote[k] = data["votes"];
+                            console.log("Sending vote - " + voteCount + " to address " + item.address);
+                            _this.busy = true;
+                            _this.restProvider.postVote(vote).then(function (data) {
+                                //this.showConfirmAlert();
+                                if (data.code == "SUCCESS") {
+                                    alert("Voting completed, thank you.");
+                                    _this.busy = false;
+                                }
+                            });
+                        }
                     }
                 }
             ]
         });
-        alert.present();
+        alertbox.present();
     };
     VotePage.prototype.showConfirmAlert = function () {
         console.log("show confirmation");
@@ -146,7 +174,7 @@ var VotePage = /** @class */ (function () {
     };
     VotePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-vote',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/vote/vote.html"*/'<ion-header>\n    <ion-navbar>\n      <ion-buttons start >\n        <button ion-button icon-only menuToggle>\n          <ion-icon name="ios-menu"></ion-icon>\n        </button>\n      </ion-buttons>\n      <ion-title>Vote</ion-title>\n      <ion-buttons end >\n        <button ion-button icon-only (click)="logOut()">\n          <ion-icon name="ios-log-out"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-navbar>\n  </ion-header>\n\n\n  <ion-content padding>\n\n      <ion-searchbar [(ngModel)]="terms"></ion-searchbar>\n      <div  *ngIf="witnesses">\n\n          <ion-card *ngFor="let item of witnesses | search : terms">\n            \n              <ion-card-content>\n                \n                  <h3>{{item.url}}</h3>\n                  <p><span>Address</span>{{item.address}}</p>\n                  <p><span>Latest block number</span>{{item.latestBlockNumber}}</p>\n                  <p><span>Total produced</span>{{item.producedTotal}}</p>\n                  <p><span>Total missed</span>{{item.missedTotal}}</p>\n                  <p><span>Votes</span>{{item.votes}}</p>\n                  <button block ion-button  color="color2" (click)="presentPrompt(item);">Vote</button>\n              </ion-card-content>\n          </ion-card>\n      </div>\n\n  </ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/vote/vote.html"*/,
+            selector: 'page-vote',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/vote/vote.html"*/'<ion-header>\n    <ion-navbar>\n      <ion-buttons start >\n        <button ion-button icon-only menuToggle>\n          <ion-icon name="ios-menu"></ion-icon>\n        </button>\n      </ion-buttons>\n      <ion-title>Vote</ion-title>\n      <ion-buttons end >\n        <button ion-button icon-only (click)="logOut()">\n          <ion-icon name="ios-log-out"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-navbar>\n  </ion-header>\n\n\n  <ion-content padding>\n\n      <ion-searchbar [(ngModel)]="terms"></ion-searchbar>\n      <div  *ngIf="witnesses">\n\n          <ion-card *ngFor="let item of witnesses | search : terms">\n            \n              <ion-card-content>\n                \n                  <h3>{{item.url}}</h3>\n                  <p><span>Address</span>{{item.address}}</p>\n                  <p><span>Latest block number</span>{{item.latestBlockNumber}}</p>\n                  <p><span>Total produced</span>{{item.producedTotal}}</p>\n                  <p><span>Total missed</span>{{item.missedTotal}}</p>\n                  <p><span>Votes</span>{{item.votes}}</p>\n                  <button block ion-button color="color2" (click)="presentPrompt(item);">Vote</button>\n              </ion-card-content>\n          </ion-card>\n      </div>\n\n  </ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/vote/vote.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */]])
     ], VotePage);
@@ -157,7 +185,7 @@ var VotePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 436:
+/***/ 438:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

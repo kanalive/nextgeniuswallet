@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WelcomePageModule", function() { return WelcomePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__welcome__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__welcome__ = __webpack_require__(439);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +38,7 @@ var WelcomePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 437:
+/***/ 439:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -90,7 +90,7 @@ var WelcomePage = /** @class */ (function () {
     };
     WelcomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-welcome',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/welcome/welcome.html"*/'<ion-content >\n  <div class="welcome">\n    <div class="logo">\n      <h3>Next Genius</h3>\n      <p>TRON wallet</p>\n    </div>\n    <p>nextgenius.com.au</p>\n    <button ion-button block color="light" (click)="goTo(\'SignUpPage\')">SIGN UP</button>\n    <button ion-button block color="color2"  *ngIf="address!=\'\'" (click)="goTo(\'SummaryPage\')">Sign in {{address}}</button>\n    <button ion-button block color="light"  (click)="goTo(\'SignInPage\')">Sign in other account</button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/welcome/welcome.html"*/,
+            selector: 'page-welcome',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/welcome/welcome.html"*/'<ion-content >\n  <div class="welcome">\n    <div class="logo">\n      <h3>TRON wallet</h3>\n      <p>by Next Genius</p>\n    </div>\n    <p>nextgenius.com.au</p>\n    <button ion-button block color="light" (click)="goTo(\'SignUpPage\')">SIGN UP</button>\n    <button ion-button block color="color2"  *ngIf="address!=\'\'" (click)="goTo(\'SummaryPage\')">Sign in {{address}}</button>\n    <button ion-button block color="light"  (click)="goTo(\'SignInPage\')">Sign in other account</button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/welcome/welcome.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
     ], WelcomePage);

@@ -297,28 +297,49 @@ exports.from = function from (value, defaultValue) {
 
 var isArray = __webpack_require__(390)
 
-var K_MAX_LENGTH = 0x7fffffff
-
-function Buffer (arg, offset, length) {
-  if (typeof arg === 'number') {
-    return allocUnsafe(arg)
+function typedArraySupport () {
+  // Can typed array instances be augmented?
+  try {
+    var arr = new Uint8Array(1)
+    arr.__proto__ = {__proto__: Uint8Array.prototype, foo: function () { return 42 }}
+    return arr.foo() === 42
+  } catch (e) {
+    return false
   }
-
-  return from(arg, offset, length)
 }
 
-Buffer.prototype.__proto__ = Uint8Array.prototype
-Buffer.__proto__ = Uint8Array
+Buffer.TYPED_ARRAY_SUPPORT = typedArraySupport()
 
-// Fix subarray() in ES2016. See: https://github.com/feross/buffer/pull/97
-if (typeof Symbol !== 'undefined' && Symbol.species &&
-    Buffer[Symbol.species] === Buffer) {
-  Object.defineProperty(Buffer, Symbol.species, {
-    value: null,
-    configurable: true,
-    enumerable: false,
-    writable: false
-  })
+var K_MAX_LENGTH = Buffer.TYPED_ARRAY_SUPPORT
+    ? 0x7fffffff
+    : 0x3fffffff
+
+function Buffer (arg, offset, length) {
+  if (!Buffer.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer)) {
+    return new Buffer(arg, offset, length)
+  }
+
+  if (typeof arg === 'number') {
+    return allocUnsafe(this, arg)
+  }
+
+  return from(this, arg, offset, length)
+}
+
+if (Buffer.TYPED_ARRAY_SUPPORT) {
+  Buffer.prototype.__proto__ = Uint8Array.prototype
+  Buffer.__proto__ = Uint8Array
+
+  // Fix subarray() in ES2016. See: https://github.com/feross/buffer/pull/97
+  if (typeof Symbol !== 'undefined' && Symbol.species &&
+      Buffer[Symbol.species] === Buffer) {
+    Object.defineProperty(Buffer, Symbol.species, {
+      value: null,
+      configurable: true,
+      enumerable: false,
+      writable: false
+    })
+  }
 }
 
 function checked (length) {
@@ -335,19 +356,38 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-function createBuffer (length) {
-  var buf = new Uint8Array(length)
-  buf.__proto__ = Buffer.prototype
+function createBuffer (that, length) {
+  var buf
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    buf = new Uint8Array(length)
+    buf.__proto__ = Buffer.prototype
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    buf = that
+    if (buf === null) {
+      buf = new Buffer(length)
+    }
+    buf.length = length
+  }
+
   return buf
 }
 
-function allocUnsafe (size) {
-  return createBuffer(size < 0 ? 0 : checked(size) | 0)
+function allocUnsafe (that, size) {
+  var buf = createBuffer(that, size < 0 ? 0 : checked(size) | 0)
+
+  if (!Buffer.TYPED_ARRAY_SUPPORT) {
+    for (var i = 0; i < size; ++i) {
+      buf[i] = 0
+    }
+  }
+
+  return buf
 }
 
-function fromString (string) {
+function fromString (that, string) {
   var length = byteLength(string) | 0
-  var buf = createBuffer(length)
+  var buf = createBuffer(that, length)
 
   var actual = buf.write(string)
 
@@ -361,16 +401,16 @@ function fromString (string) {
   return buf
 }
 
-function fromArrayLike (array) {
+function fromArrayLike (that, array) {
   var length = array.length < 0 ? 0 : checked(array.length) | 0
-  var buf = createBuffer(length)
+  var buf = createBuffer(that, length)
   for (var i = 0; i < length; i += 1) {
     buf[i] = array[i] & 255
   }
   return buf
 }
 
-function fromArrayBuffer (array, byteOffset, length) {
+function fromArrayBuffer (that, array, byteOffset, length) {
   if (byteOffset < 0 || array.byteLength < byteOffset) {
     throw new RangeError('\'offset\' is out of bounds')
   }
@@ -388,15 +428,21 @@ function fromArrayBuffer (array, byteOffset, length) {
     buf = new Uint8Array(array, byteOffset, length)
   }
 
-  // Return an augmented `Uint8Array` instance
-  buf.__proto__ = Buffer.prototype
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    buf.__proto__ = Buffer.prototype
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    buf = fromArrayLike(that, buf)
+  }
+
   return buf
 }
 
-function fromObject (obj) {
+function fromObject (that, obj) {
   if (Buffer.isBuffer(obj)) {
     var len = checked(obj.length) | 0
-    var buf = createBuffer(len)
+    var buf = createBuffer(that, len)
 
     if (buf.length === 0) {
       return buf
@@ -410,13 +456,13 @@ function fromObject (obj) {
     if ((typeof ArrayBuffer !== 'undefined' &&
         obj.buffer instanceof ArrayBuffer) || 'length' in obj) {
       if (typeof obj.length !== 'number' || isnan(obj.length)) {
-        return createBuffer(0)
+        return createBuffer(that, 0)
       }
-      return fromArrayLike(obj)
+      return fromArrayLike(that, obj)
     }
 
     if (obj.type === 'Buffer' && Array.isArray(obj.data)) {
-      return fromArrayLike(obj.data)
+      return fromArrayLike(that, obj.data)
     }
   }
 
@@ -533,20 +579,20 @@ function utf8Write (buf, string, offset, length) {
   return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length)
 }
 
-function from (value, offset, length) {
+function from (that, value, offset, length) {
   if (typeof value === 'number') {
     throw new TypeError('"value" argument must not be a number')
   }
 
   if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
-    return fromArrayBuffer(value, offset, length)
+    return fromArrayBuffer(that, value, offset, length)
   }
 
   if (typeof value === 'string') {
-    return fromString(value, offset)
+    return fromString(that, value, offset)
   }
 
-  return fromObject(value)
+  return fromObject(that, value)
 }
 
 Buffer.prototype.write = function write (string, offset, length) {
@@ -599,9 +645,19 @@ Buffer.prototype.slice = function slice (start, end) {
 
   if (end < start) end = start
 
-  var newBuf = this.subarray(start, end)
-  // Return an augmented `Uint8Array` instance
-  newBuf.__proto__ = Buffer.prototype
+  var newBuf
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    newBuf = this.subarray(start, end)
+    // Return an augmented `Uint8Array` instance
+    newBuf.__proto__ = Buffer.prototype
+  } else {
+    var sliceLen = end - start
+    newBuf = new Buffer(sliceLen, undefined)
+    for (var i = 0; i < sliceLen; ++i) {
+      newBuf[i] = this[i + start]
+    }
+  }
+
   return newBuf
 }
 
@@ -637,7 +693,7 @@ Buffer.prototype.copy = function copy (target, targetStart, start, end) {
     for (i = len - 1; i >= 0; --i) {
       target[i + targetStart] = this[i + start]
     }
-  } else if (len < 1000) {
+  } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
     // ascending copy from start
     for (i = 0; i < len; ++i) {
       target[i + targetStart] = this[i + start]
@@ -721,7 +777,7 @@ Buffer.concat = function concat (list, length) {
     }
   }
 
-  var buffer = allocUnsafe(length)
+  var buffer = allocUnsafe(null, length)
   var pos = 0
   for (i = 0; i < list.length; ++i) {
     var buf = list[i]
@@ -1141,22 +1197,24 @@ exports.getEncodedBits = function getEncodedBits (version) {
 /***/ (function(module, exports) {
 
 var numeric = '[0-9]+'
-var alphanumeric = '[A-Z $%*+-./:]+'
-var kanji = '(?:[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|' +
-  '[\uFF00-\uFFEF]|[\u4E00-\u9FAF]|[\u2605-\u2606]|[\u2190-\u2195]|\u203B|' +
-  '[\u2010\u2015\u2018\u2019\u2025\u2026\u201C\u201D\u2225\u2260]|' +
-  '[\u0391-\u0451]|[\u00A7\u00A8\u00B1\u00B4\u00D7\u00F7])+'
-var byte = '(?:(?![A-Z0-9 $%*+-./:]|' + kanji + ').)+'
+var alphanumeric = '[A-Z $%*+\\-./:]+'
+var kanji = '(?:[u3000-u303F]|[u3040-u309F]|[u30A0-u30FF]|' +
+  '[uFF00-uFFEF]|[u4E00-u9FAF]|[u2605-u2606]|[u2190-u2195]|u203B|' +
+  '[u2010u2015u2018u2019u2025u2026u201Cu201Du2225u2260]|' +
+  '[u0391-u0451]|[u00A7u00A8u00B1u00B4u00D7u00F7])+'
+kanji = kanji.replace(/u/g, '\\u')
+
+var byte = '(?:(?![A-Z0-9 $%*+\\-./:]|' + kanji + ').)+'
 
 exports.KANJI = new RegExp(kanji, 'g')
-exports.BYTE_KANJI = new RegExp('[^A-Z0-9 $%*+-./:]+', 'g')
+exports.BYTE_KANJI = new RegExp('[^A-Z0-9 $%*+\\-./:]+', 'g')
 exports.BYTE = new RegExp(byte, 'g')
 exports.NUMERIC = new RegExp(numeric, 'g')
 exports.ALPHANUMERIC = new RegExp(alphanumeric, 'g')
 
 var TEST_KANJI = new RegExp('^' + kanji + '$')
 var TEST_NUMERIC = new RegExp('^' + numeric + '$')
-var TEST_ALPHANUMERIC = new RegExp('^[A-Z0-9 $%*+-./:]+$')
+var TEST_ALPHANUMERIC = new RegExp('^[A-Z0-9 $%*+\\-./:]+$')
 
 exports.testKanji = function testKanji (str) {
   return TEST_KANJI.test(str)
@@ -1202,7 +1260,8 @@ function hex2rgba (hex) {
     r: (hexValue >> 24) & 255,
     g: (hexValue >> 16) & 255,
     b: (hexValue >> 8) & 255,
-    a: hexValue & 255
+    a: hexValue & 255,
+    hex: '#' + hexCode.slice(0, 6).join('')
   }
 }
 
@@ -1214,8 +1273,12 @@ exports.getOptions = function getOptions (options) {
     options.margin === null ||
     options.margin < 0 ? 4 : options.margin
 
+  var width = options.width && options.width >= 21 ? options.width : undefined
+  var scale = options.scale || 4
+
   return {
-    scale: options.scale || 4,
+    width: width,
+    scale: width ? 4 : scale,
     margin: margin,
     color: {
       dark: hex2rgba(options.color.dark || '#000000ff'),
@@ -1226,23 +1289,35 @@ exports.getOptions = function getOptions (options) {
   }
 }
 
-exports.qrToImageData = function qrToImageData (imgData, qr, margin, scale, color) {
+exports.getScale = function getScale (qrSize, opts) {
+  return opts.width && opts.width >= qrSize + opts.margin * 2
+    ? opts.width / (qrSize + opts.margin * 2)
+    : opts.scale
+}
+
+exports.getImageWidth = function getImageWidth (qrSize, opts) {
+  var scale = exports.getScale(qrSize, opts)
+  return Math.floor((qrSize + opts.margin * 2) * scale)
+}
+
+exports.qrToImageData = function qrToImageData (imgData, qr, opts) {
   var size = qr.modules.size
   var data = qr.modules.data
-  var scaledMargin = margin * scale
-  var symbolSize = size * scale + scaledMargin * 2
-  var palette = [color.light, color.dark]
+  var scale = exports.getScale(size, opts)
+  var symbolSize = Math.floor((size + opts.margin * 2) * scale)
+  var scaledMargin = opts.margin * scale
+  var palette = [opts.color.light, opts.color.dark]
 
   for (var i = 0; i < symbolSize; i++) {
     for (var j = 0; j < symbolSize; j++) {
       var posDst = (i * symbolSize + j) * 4
-      var pxColor = color.light
+      var pxColor = opts.color.light
 
       if (i >= scaledMargin && j >= scaledMargin &&
         i < symbolSize - scaledMargin && j < symbolSize - scaledMargin) {
         var iSrc = Math.floor((i - scaledMargin) / scale)
         var jSrc = Math.floor((j - scaledMargin) / scale)
-        pxColor = palette[data[iSrc * size + jSrc]]
+        pxColor = palette[data[iSrc * size + jSrc] ? 1 : 0]
       }
 
       imgData[posDst++] = pxColor.r
@@ -1266,7 +1341,7 @@ exports.qrToImageData = function qrToImageData (imgData, qr, margin, scale, colo
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_qrcode__ = __webpack_require__(407);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_qrcode___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_qrcode__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_clipboard__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_clipboard__ = __webpack_require__(227);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_rest_rest__ = __webpack_require__(115);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1303,15 +1378,14 @@ var RequestPage = /** @class */ (function () {
     RequestPage.prototype.displayQrCode = function () {
         return this.generated !== '';
     };
-    RequestPage.prototype.copyToClipboard = function (address) {
-        this.clipboard.copy(address).then(function (data) {
-            console.log(data);
-        }, function (err) {
-            console.log(err);
+    RequestPage.prototype.copy = function (text) {
+        this.clipboard.copy(text).then(function (data) {
+            alert("copied " + data);
         });
     };
     RequestPage.prototype.process = function () {
         var qrcode = __WEBPACK_IMPORTED_MODULE_3_qrcode__["QRCode"];
+        console.log(qrcode);
         var self = this;
         qrcode.toDataURL(self.code, { errorCorrectionLevel: 'H' }, function (err, url) {
             self.generated = url;
@@ -1322,7 +1396,7 @@ var RequestPage = /** @class */ (function () {
     };
     RequestPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-request',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/request/request.html"*/'\n<ion-header>\n    <ion-navbar>\n      <ion-buttons start >\n        <button ion-button icon-only menuToggle>\n          <ion-icon name="ios-menu"></ion-icon>\n        </button>\n      </ion-buttons>\n      <ion-title>Request Payment</ion-title>\n      <ion-buttons end >\n        <button ion-button icon-only (click)="logOut()">\n          <ion-icon name="ios-log-out"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-navbar>\n  </ion-header>\n  <ion-content padding>\n      \n      <ion-card>\n          <ion-card-content>\n              <p>Address</p>\n              <ion-input value="{{restProvider.account.address}}"></ion-input>\n              <br />\n              <button ion-button color="color2" (click)="copyToClipboard();">Copy</button>\n              <!--<button ion-button color="color2" (click)="process();">QRCode</button>-->\n              <!--\n              <ion-card>\n                  <ion-card-content>\n                      <ion-input [(ngModel)]="code" type="text" placeholder="Enter code here"></ion-input>\n                      <button ion-button block (click)="process();">Process</button>\n          \n                      <img *ngIf="displayQrCode()" [src]="generated" />\n                  </ion-card-content>\n              </ion-card>\n            -->\n          </ion-card-content>\n      </ion-card>\n      \n  </ion-content>\n  '/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/request/request.html"*/,
+            selector: 'page-request',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/request/request.html"*/'\n<ion-header>\n    <ion-navbar>\n      <ion-buttons start >\n        <button ion-button icon-only menuToggle>\n          <ion-icon name="ios-menu"></ion-icon>\n        </button>\n      </ion-buttons>\n      <ion-title>Request Payment</ion-title>\n      <ion-buttons end >\n        <button ion-button icon-only (click)="logOut()">\n          <ion-icon name="ios-log-out"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-navbar>\n  </ion-header>\n  <ion-content padding>\n      \n      <ion-card>\n          <ion-card-content>\n              <p>Address</p>\n              <ion-input value="{{restProvider.account.address}}"></ion-input>\n              <br />\n              <button ion-button color="color2" (click)="copy(restProvider.account.address);">Copy</button>\n              <!--<button ion-button color="color2" (click)="process();">QRCode</button>-->\n              \n              <ion-card>\n                  <img *ngIf="displayQrCode()" [src]="generated" />\n              </ion-card>\n            \n          </ion-card-content>\n      </ion-card>\n      \n  </ion-content>\n  '/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/request/request.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_5__providers_rest_rest__["a" /* RestProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__["a" /* BarcodeScanner */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_clipboard__["a" /* Clipboard */]])
     ], RequestPage);
@@ -1336,34 +1410,62 @@ var RequestPage = /** @class */ (function () {
 /***/ 407:
 /***/ (function(module, exports, __webpack_require__) {
 
-var QRCode = __webpack_require__(408)
-var CanvasRenderer = __webpack_require__(424)
-var SvgRenderer = __webpack_require__(425)
+var canPromise = __webpack_require__(408)
+var QRCode = __webpack_require__(410)
+var CanvasRenderer = __webpack_require__(426)
+var SvgRenderer = __webpack_require__(427)
 
 function renderCanvas (renderFunc, canvas, text, opts, cb) {
-  var argsNum = arguments.length - 1
-  if (argsNum < 2) {
-    throw new Error('Too few arguments provided')
+  var args = [].slice.call(arguments, 1)
+  var argsNum = args.length
+  var isLastArgCb = typeof args[argsNum - 1] === 'function'
+
+  if (!isLastArgCb && !canPromise()) {
+    throw new Error('Callback required as last argument')
   }
 
-  if (argsNum === 2) {
-    cb = text
-    text = canvas
-    canvas = opts = undefined
-  } else if (argsNum === 3) {
-    if (canvas.getContext && typeof cb === 'undefined') {
-      cb = opts
-      opts = undefined
-    } else {
-      cb = opts
+  if (isLastArgCb) {
+    if (argsNum < 2) {
+      throw new Error('Too few arguments provided')
+    }
+
+    if (argsNum === 2) {
+      cb = text
+      text = canvas
+      canvas = opts = undefined
+    } else if (argsNum === 3) {
+      if (canvas.getContext && typeof cb === 'undefined') {
+        cb = opts
+        opts = undefined
+      } else {
+        cb = opts
+        opts = text
+        text = canvas
+        canvas = undefined
+      }
+    }
+  } else {
+    if (argsNum < 1) {
+      throw new Error('Too few arguments provided')
+    }
+
+    if (argsNum === 1) {
+      text = canvas
+      canvas = opts = undefined
+    } else if (argsNum === 2 && !canvas.getContext) {
       opts = text
       text = canvas
       canvas = undefined
     }
-  }
 
-  if (typeof cb !== 'function') {
-    throw new Error('Callback required as last argument')
+    return new Promise(function (resolve, reject) {
+      try {
+        var data = QRCode.create(text, opts)
+        resolve(renderFunc(data, canvas, opts))
+      } catch (e) {
+        reject(e)
+      }
+    })
   }
 
   try {
@@ -1383,35 +1485,57 @@ exports.toString = renderCanvas.bind(null, function (data, _, opts) {
   return SvgRenderer.render(data, opts)
 })
 
-/**
- * Legacy API
- */
-exports.qrcodedraw = function () {
-  return {
-    draw: exports.toCanvas
-  }
-}
-
 
 /***/ }),
 
 /***/ 408:
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+var G = __webpack_require__(409)
+
+module.exports = function() {
+  return (
+    typeof G.Promise === 'function' &&
+    typeof G.Promise.prototype.then === 'function'
+  )
+}
+
+
+/***/ }),
+
+/***/ 409:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+module.exports = (typeof self === 'object' && self.self === self && self) ||
+  (typeof global === 'object' && global.global === global && global) ||
+  this
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)))
+
+/***/ }),
+
+/***/ 410:
+/***/ (function(module, exports, __webpack_require__) {
+
 var Buffer = __webpack_require__(389)
 var Utils = __webpack_require__(387)
 var ECLevel = __webpack_require__(391)
-var BitBuffer = __webpack_require__(409)
-var BitMatrix = __webpack_require__(410)
-var AlignmentPattern = __webpack_require__(411)
-var FinderPattern = __webpack_require__(412)
-var MaskPattern = __webpack_require__(413)
+var BitBuffer = __webpack_require__(411)
+var BitMatrix = __webpack_require__(412)
+var AlignmentPattern = __webpack_require__(413)
+var FinderPattern = __webpack_require__(414)
+var MaskPattern = __webpack_require__(415)
 var ECCode = __webpack_require__(392)
-var ReedSolomonEncoder = __webpack_require__(414)
+var ReedSolomonEncoder = __webpack_require__(416)
 var Version = __webpack_require__(393)
-var FormatInfo = __webpack_require__(417)
+var FormatInfo = __webpack_require__(419)
 var Mode = __webpack_require__(388)
-var Segments = __webpack_require__(418)
+var Segments = __webpack_require__(420)
 var isArray = __webpack_require__(390)
 
 /**
@@ -1774,9 +1898,10 @@ function createCodewords (bitBuffer, version, errorCorrectionLevel) {
  * @param  {String} data                 Input string
  * @param  {Number} version              QR Code version
  * @param  {ErrorCorretionLevel} errorCorrectionLevel Error level
+ * @param  {MaskPattern} maskPattern     Mask pattern
  * @return {Object}                      Object containing symbol data
  */
-function createSymbol (data, version, errorCorrectionLevel) {
+function createSymbol (data, version, errorCorrectionLevel, maskPattern) {
   var segments
 
   if (isArray(data)) {
@@ -1794,7 +1919,7 @@ function createSymbol (data, version, errorCorrectionLevel) {
 
     // Build optimized segments
     // If estimated version is undefined, try with the highest version
-    segments = Segments.fromString(data, estimatedVersion)
+    segments = Segments.fromString(data, estimatedVersion || 40)
   } else {
     throw new Error('Invalid data')
   }
@@ -1844,9 +1969,11 @@ function createSymbol (data, version, errorCorrectionLevel) {
   // Add data codewords
   setupData(modules, dataBits)
 
-  // Find best mask pattern
-  var maskPattern = MaskPattern.getBestMask(modules,
-    setupFormatInfo.bind(null, modules, errorCorrectionLevel))
+  if (!maskPattern) {
+    // Find best mask pattern
+    maskPattern = MaskPattern.getBestMask(modules,
+      setupFormatInfo.bind(null, modules, errorCorrectionLevel))
+  }
 
   // Apply mask pattern
   MaskPattern.applyMask(maskPattern, modules)
@@ -1879,24 +2006,26 @@ exports.create = function create (data, options) {
 
   var errorCorrectionLevel = ECLevel.M
   var version
+  var mask
 
   if (typeof options !== 'undefined') {
     // Use higher error correction level as default
     errorCorrectionLevel = ECLevel.from(options.errorCorrectionLevel, ECLevel.M)
     version = Version.from(options.version)
+    mask = MaskPattern.from(options.maskPattern)
 
     if (options.toSJISFunc) {
       Utils.setToSJISFunction(options.toSJISFunc)
     }
   }
 
-  return createSymbol(data, version, errorCorrectionLevel)
+  return createSymbol(data, version, errorCorrectionLevel, mask)
 }
 
 
 /***/ }),
 
-/***/ 409:
+/***/ 411:
 /***/ (function(module, exports) {
 
 function BitBuffer () {
@@ -1940,7 +2069,7 @@ module.exports = BitBuffer
 
 /***/ }),
 
-/***/ 410:
+/***/ 412:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
@@ -2016,7 +2145,7 @@ module.exports = BitMatrix
 
 /***/ }),
 
-/***/ 411:
+/***/ 413:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -2106,7 +2235,7 @@ exports.getPositions = function getPositions (version) {
 
 /***/ }),
 
-/***/ 412:
+/***/ 414:
 /***/ (function(module, exports, __webpack_require__) {
 
 var getSymbolSize = __webpack_require__(387).getSymbolSize
@@ -2135,7 +2264,7 @@ exports.getPositions = function getPositions (version) {
 
 /***/ }),
 
-/***/ 413:
+/***/ 415:
 /***/ (function(module, exports) {
 
 /**
@@ -2162,6 +2291,27 @@ var PenaltyScores = {
   N2: 3,
   N3: 40,
   N4: 10
+}
+
+/**
+ * Check if mask pattern value is valid
+ *
+ * @param  {Number}  mask    Mask pattern
+ * @return {Boolean}         true if valid, false otherwise
+ */
+exports.isValid = function isValid (mask) {
+  return mask && mask !== '' && !isNaN(mask) && mask >= 0 && mask <= 7
+}
+
+/**
+ * Returns mask pattern from a value.
+ * If value is not valid, returns undefined
+ *
+ * @param  {Number|String} value        Mask pattern value
+ * @return {Number}                     Valid mask pattern or undefined
+ */
+exports.from = function from (value) {
+  return exports.isValid(value) ? parseInt(value, 10) : undefined
 }
 
 /**
@@ -2355,11 +2505,11 @@ exports.getBestMask = function getBestMask (data, setupFormatFunc) {
 
 /***/ }),
 
-/***/ 414:
+/***/ 416:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
-var Polynomial = __webpack_require__(415)
+var Polynomial = __webpack_require__(417)
 
 function ReedSolomonEncoder (degree) {
   this.genPoly = undefined
@@ -2421,11 +2571,11 @@ module.exports = ReedSolomonEncoder
 
 /***/ }),
 
-/***/ 415:
+/***/ 417:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
-var GF = __webpack_require__(416)
+var GF = __webpack_require__(418)
 
 /**
  * Multiplies two polynomials inside Galois Field
@@ -2492,7 +2642,7 @@ exports.generateECPolynomial = function generateECPolynomial (degree) {
 
 /***/ }),
 
-/***/ 416:
+/***/ 418:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
@@ -2571,7 +2721,7 @@ exports.mul = function mul (x, y) {
 
 /***/ }),
 
-/***/ 417:
+/***/ 419:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Utils = __webpack_require__(387)
@@ -2607,17 +2757,17 @@ exports.getEncodedBits = function getEncodedBits (errorCorrectionLevel, mask) {
 
 /***/ }),
 
-/***/ 418:
+/***/ 420:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Mode = __webpack_require__(388)
-var NumericData = __webpack_require__(419)
-var AlphanumericData = __webpack_require__(420)
-var ByteData = __webpack_require__(421)
-var KanjiData = __webpack_require__(422)
+var NumericData = __webpack_require__(421)
+var AlphanumericData = __webpack_require__(422)
+var ByteData = __webpack_require__(423)
+var KanjiData = __webpack_require__(424)
 var Regex = __webpack_require__(394)
 var Utils = __webpack_require__(387)
-var dijkstra = __webpack_require__(423)
+var dijkstra = __webpack_require__(425)
 
 /**
  * Returns UTF8 byte length
@@ -2944,7 +3094,7 @@ exports.rawSplit = function rawSplit (data) {
 
 /***/ }),
 
-/***/ 419:
+/***/ 421:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Mode = __webpack_require__(388)
@@ -2994,7 +3144,7 @@ module.exports = NumericData
 
 /***/ }),
 
-/***/ 420:
+/***/ 422:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Mode = __webpack_require__(388)
@@ -3060,7 +3210,7 @@ module.exports = AlphanumericData
 
 /***/ }),
 
-/***/ 421:
+/***/ 423:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(389)
@@ -3094,7 +3244,7 @@ module.exports = ByteData
 
 /***/ }),
 
-/***/ 422:
+/***/ 424:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Mode = __webpack_require__(388)
@@ -3155,7 +3305,7 @@ module.exports = KanjiData
 
 /***/ }),
 
-/***/ 423:
+/***/ 425:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3328,7 +3478,7 @@ if (true) {
 
 /***/ }),
 
-/***/ 424:
+/***/ 426:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Utils = __webpack_require__(395)
@@ -3365,11 +3515,11 @@ exports.render = function render (qrData, canvas, options) {
   }
 
   opts = Utils.getOptions(opts)
-  var size = (qrData.modules.size + opts.margin * 2) * opts.scale
+  var size = Utils.getImageWidth(qrData.modules.size, opts)
 
   var ctx = canvasEl.getContext('2d')
   var image = ctx.createImageData(size, size)
-  Utils.qrToImageData(image.data, qrData, opts.margin, opts.scale, opts.color)
+  Utils.qrToImageData(image.data, qrData, opts)
 
   clearCanvas(ctx, canvasEl, size)
   ctx.putImageData(image, 0, 0)
@@ -3398,50 +3548,89 @@ exports.renderToDataURL = function renderToDataURL (qrData, canvas, options) {
 
 /***/ }),
 
-/***/ 425:
+/***/ 427:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Utils = __webpack_require__(395)
 
-function getColorAttrib (color) {
-  return 'fill="rgb(' + [color.r, color.g, color.b].join(',') + ')" ' +
-    'fill-opacity="' + (color.a / 255).toFixed(2) + '"'
+function getColorAttrib (color, attrib) {
+  var alpha = color.a / 255
+  var str = attrib + '="' + color.hex + '"'
+
+  return alpha < 1
+    ? str + ' ' + attrib + '-opacity="' + alpha.toFixed(2).slice(1) + '"'
+    : str
 }
 
-exports.render = function render (qrData, options) {
-  var opts = Utils.getOptions(options)
-  var size = qrData.modules.size
-  var data = qrData.modules.data
-  var qrcodesize = (size + opts.margin * 2) * opts.scale
+function svgCmd (cmd, x, y) {
+  var str = cmd + x
+  if (typeof y !== 'undefined') str += ' ' + y
 
-  var xmlStr = '<?xml version="1.0" encoding="utf-8"?>\n'
-  xmlStr += '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n'
+  return str
+}
 
-  xmlStr += '<svg version="1.1" baseProfile="full"'
-  xmlStr += ' width="' + qrcodesize + '" height="' + qrcodesize + '"'
-  xmlStr += ' viewBox="0 0 ' + qrcodesize + ' ' + qrcodesize + '"'
-  xmlStr += ' xmlns="http://www.w3.org/2000/svg"'
-  xmlStr += ' xmlns:xlink="http://www.w3.org/1999/xlink"'
-  xmlStr += ' xmlns:ev="http://www.w3.org/2001/xml-events">\n'
+function qrToPath (data, size, margin) {
+  var path = ''
+  var moveBy = 0
+  var newRow = false
+  var lineLength = 0
 
-  xmlStr += '<rect x="0" y="0" width="' + qrcodesize + '" height="' + qrcodesize + '" ' + getColorAttrib(opts.color.light) + ' />\n'
-  xmlStr += '<defs><rect id="p" width="' + opts.scale + '" height="' + opts.scale + '" /></defs>\n'
-  xmlStr += '<g ' + getColorAttrib(opts.color.dark) + '>\n'
+  for (var i = 0; i < data.length; i++) {
+    var col = Math.floor(i % size)
+    var row = Math.floor(i / size)
 
-  for (var i = 0; i < size; i++) {
-    for (var j = 0; j < size; j++) {
-      if (!data[i * size + j]) continue
+    if (!col && !newRow) newRow = true
 
-      var x = (opts.margin + j) * opts.scale
-      var y = (opts.margin + i) * opts.scale
-      xmlStr += '<use x="' + x + '" y="' + y + '" xlink:href="#p" />\n'
+    if (data[i]) {
+      lineLength++
+
+      if (!(i > 0 && col > 0 && data[i - 1])) {
+        path += newRow
+          ? svgCmd('M', col + margin, 0.5 + row + margin)
+          : svgCmd('m', moveBy, 0)
+
+        moveBy = 0
+        newRow = false
+      }
+
+      if (!(col + 1 < size && data[i + 1])) {
+        path += svgCmd('h', lineLength)
+        lineLength = 0
+      }
+    } else {
+      moveBy++
     }
   }
 
-  xmlStr += '</g>\n'
-  xmlStr += '</svg>'
+  return path
+}
 
-  return xmlStr
+exports.render = function render (qrData, options, cb) {
+  var opts = Utils.getOptions(options)
+  var size = qrData.modules.size
+  var data = qrData.modules.data
+  var qrcodesize = size + opts.margin * 2
+
+  var bg = !opts.color.light.a
+    ? ''
+    : '<path ' + getColorAttrib(opts.color.light, 'fill') +
+      ' d="M0 0h' + qrcodesize + 'v' + qrcodesize + 'H0z"/>'
+
+  var path =
+    '<path ' + getColorAttrib(opts.color.dark, 'stroke') +
+    ' d="' + qrToPath(data, size, opts.margin) + '"/>'
+
+  var viewBox = 'viewBox="' + '0 0 ' + qrcodesize + ' ' + qrcodesize + '"'
+
+  var width = !opts.width ? '' : 'width="' + opts.width + '" height="' + opts.width + '" '
+
+  var svgTag = '<svg xmlns="http://www.w3.org/2000/svg" ' + width + viewBox + '>' + bg + path + '</svg>'
+
+  if (typeof cb === 'function') {
+    cb(null, svgTag)
+  }
+
+  return svgTag
 }
 
 
