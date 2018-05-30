@@ -32,7 +32,7 @@ export class TransferPage {
       console.log(this.accountBalance);
       this.accountBalance = data;
 
-      this.availableFund = (data.balance - data.frozen.total)/this.ONE_TRX;
+      this.availableFund = (data.balance)/this.ONE_TRX;
       
       console.log(data);
     });
