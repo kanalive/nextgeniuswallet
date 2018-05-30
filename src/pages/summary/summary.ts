@@ -170,7 +170,7 @@ export class SummaryPage {
       });
       alertbox.present();
     }else{
-      alert("Cannot unfreeze token, please only unfreeze tokens when frozen term expired.");
+      alert("Cannot unfreeze token, please only unfreeze tokens after frozen term expired.");
     }
 
     
