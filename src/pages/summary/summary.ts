@@ -17,11 +17,17 @@ export class SummaryPage {
   fronzenNetWorth=0;
   accountBalance :any;
   tronPrice :any;
+  totalBalance:any;
   totalNumOfTransactions: any;
   ONE_TRX = 1000000;
+  price_btc = 0;
+  price_usd = 0;
   constructor(public navCtrl: NavController,public camera:Camera, public modalCtrl: ModalController, public alertCtrl:AlertController, public clipboard: Clipboard, public navParams: NavParams, public restProvider: RestProvider) {
     this.getAccount();
     this.getTronPrice();
+    if(restProvider.account.profileImage!= null){
+      this.base64Image = 'data:image/jpeg;base64,'+restProvider.account.profileImage;
+    }
   }
  
   callModal() {
@@ -67,6 +73,7 @@ export class SummaryPage {
 
       this.netWorth = balance / total * 100;
       this.fronzenNetWorth = fronzenBalance / total * 100;
+      this.totalBalance = total;
 
       console.log(balance);
       console.log(fronzenBalance);
@@ -83,6 +90,10 @@ export class SummaryPage {
     .then(data => {
       console.log(data);
       this.tronPrice = data;
+      if(this.tronPrice.length>0){
+        this.price_btc = this.tronPrice[0].price_btc;
+        this.price_usd = this.tronPrice[0].price_usd;
+      }
     });
   }
 

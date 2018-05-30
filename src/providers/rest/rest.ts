@@ -39,6 +39,7 @@ export class RestProvider {
     this.account.email = email;
     this.account.privateKey = privateKey;
     this.account.address = address;
+    this.account.profileImage = null;
     this.storage.set('account', this.account);
   }
 
@@ -47,6 +48,12 @@ export class RestProvider {
     this.account.firstName = firstName;
     this.account.lastName = lastName;
     this.account.email = email;
+    this.account.profileImage = null;
+    this.storage.set('account', this.account);
+  }
+
+  public saveProfileImageintoLocalStorage(base64Image){
+    this.account.profileImage = base64Image;
     this.storage.set('account', this.account);
   }
 

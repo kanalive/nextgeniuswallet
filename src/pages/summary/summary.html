@@ -65,7 +65,7 @@
       </ion-item>
       <button  ion-button color="color2" (click)="copy(restProvider.account.address)">Copy Address</button>
       <button  ion-button color="color2" (click)="copy(restProvider.account.privateKey)">Copy Private Key</button>
-
+      <p></p>
       <div *ngIf="!accountBalance">
         <ion-item>
           <p>Loading account balance, please wait....</p>
@@ -73,8 +73,24 @@
       </div>
 
       <div *ngIf="accountBalance">
+
+
+          <ion-item>
+              <p>Account total net worth</p>
+              <div class="container">
+                  <p>
+                      <span>{{totalBalance}} TRX </span>
+                      <span>  |  </span>
+                      <span>{{totalBalance * price_btc | number}} BTC</span>
+                      <span>  |  </span>
+                      <span>{{totalBalance * price_usd | currency:"USD $ " }}</span>
+                  </p>
+              </div>
+            </ion-item>
+
+
         <ion-item *ngFor="let balance of accountBalance.balances">
-          <p>{{balance.name}}</p>
+          <p>Available {{balance.name}}</p>
           <div class="container">
             <ion-item>
               <ion-range disabled="true" [(ngModel)]="netWorth"  ></ion-range> 
@@ -108,6 +124,7 @@
           <button  ion-button color="color2" (click)="getAccount()">Reload balance</button>
           
       </div>
+      <p></p>
       <div *ngIf="tronPrice">
       <ion-item *ngFor="let price of tronPrice">
           <p>Tron price</p>
