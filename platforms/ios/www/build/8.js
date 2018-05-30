@@ -1,6 +1,6 @@
 webpackJsonp([8],{
 
-/***/ 379:
+/***/ 380:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SummaryPageModule", function() { return SummaryPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__summary__ = __webpack_require__(431);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__summary__ = __webpack_require__(432);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +38,7 @@ var SummaryPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 431:
+/***/ 432:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77,10 +77,15 @@ var SummaryPage = /** @class */ (function () {
         this.deposits = 70;
         this.fronzenNetWorth = 0;
         this.ONE_TRX = 1000000;
+        this.price_btc = 0;
+        this.price_usd = 0;
         // change Image
         this.base64Image = 'assets/img/kana.jpeg';
         this.getAccount();
         this.getTronPrice();
+        if (restProvider.account.profileImage != null) {
+            this.base64Image = 'data:image/jpeg;base64,' + restProvider.account.profileImage;
+        }
     }
     SummaryPage.prototype.callModal = function () {
         var modal = this.modalCtrl.create('UpdateProfilePage');
@@ -120,6 +125,7 @@ var SummaryPage = /** @class */ (function () {
             }
             _this.netWorth = balance / total * 100;
             _this.fronzenNetWorth = fronzenBalance / total * 100;
+            _this.totalBalance = total;
             console.log(balance);
             console.log(fronzenBalance);
             console.log(total);
@@ -133,6 +139,10 @@ var SummaryPage = /** @class */ (function () {
             .then(function (data) {
             console.log(data);
             _this.tronPrice = data;
+            if (_this.tronPrice.length > 0) {
+                _this.price_btc = _this.tronPrice[0].price_btc;
+                _this.price_usd = _this.tronPrice[0].price_usd;
+            }
         });
     };
     SummaryPage.prototype.copy = function (text) {
@@ -205,12 +215,12 @@ var SummaryPage = /** @class */ (function () {
             alertbox.present();
         }
         else {
-            alert("Cannot unfreeze token, please only unfreeze tokens when frozen term expired.");
+            alert("Cannot unfreeze token, please only unfreeze tokens after frozen term expired.");
         }
     };
     SummaryPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-summary',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/summary/summary.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Summary</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <!-- balance and login information  -->\n  <ion-grid class="blanceGrid">\n    <ion-row>\n      <ion-col col-auto>\n        <div class="avatarContent">\n          <img src="{{base64Image}}" (click)="accessGallery()"/>\n          \n        </div>\n      </ion-col>\n      <ion-col col>\n        <div class="loginInfo">\n          <h5>Welcome</h5>\n          <h4>{{restProvider.account.firstName}} {{restProvider.account.lastName}}</h4>\n          <span>{{restProvider.account.email}}</span>\n          <hr />\n          <p>Click on profile picture to update photo</p>\n          <div>\n          <!--<button  ion-button color="color2" (click)="accessGallery()">Change profile picture</button>-->\n            \n          </div>\n\n          \n        </div>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- graphs container -->\n  <ion-list class="graphs" *ngIf="restProvider.account">\n\n    <ion-item>\n        <p>Account</p>\n        <div class="container">\n            <p>\n              <span>Address</span>\n              <span>{{restProvider.account.address}}</span>\n            </p>\n        </div>\n        \n        <div class="container">\n            <p>\n                <span>Private key</span>\n                <span>{{restProvider.account.privateKey}}</span>\n              </p>\n        </div>\n        \n      </ion-item>\n      <button  ion-button color="color2" (click)="copy(restProvider.account.address)">Copy Address</button>\n      <button  ion-button color="color2" (click)="copy(restProvider.account.privateKey)">Copy Private Key</button>\n\n      <div *ngIf="!accountBalance">\n        <ion-item>\n          <p>Loading account balance, please wait....</p>\n        </ion-item>\n      </div>\n\n      <div *ngIf="accountBalance">\n        <ion-item *ngFor="let balance of accountBalance.balances">\n          <p>{{balance.name}}</p>\n          <div class="container">\n            <ion-item>\n              <ion-range disabled="true" [(ngModel)]="netWorth"  ></ion-range> \n            </ion-item>\n              <p>\n                <span>{{balance.name}}</span>\n                <span>{{balance.balance}}</span>\n              </p>\n          </div>\n        </ion-item>\n        \n\n        <ion-item *ngFor="let frozen of accountBalance.frozen.balances">\n            <p>Frozen TRX</p>\n            <div class="container">\n                <ion-item>\n                    <ion-range disabled="true" [(ngModel)]="fronzenNetWorth"  ></ion-range> \n                  </ion-item>\n                <p>\n                  <span>{{frozen.amount/ONE_TRX}}</span>\n                  <span>TRX</span>\n                  <span>Expires in</span>\n                  <span>{{frozen.expires| date:\'yyyy-MM-dd HH:mm a z\':\'+0800\'}}</span>\n                </p>\n\n            </div>\n          </ion-item>\n        <button ion-button color="color2" (click)="freeze(\'freeze\')">Freeze</button>\n          \n          <button  ion-button color="color2" (click)="unfreeze(\'release\')">Unfreeze</button>\n          <button  ion-button color="color2" (click)="getAccount()">Reload balance</button>\n          \n      </div>\n      <div *ngIf="tronPrice">\n      <ion-item *ngFor="let price of tronPrice">\n          <p>Tron price</p>\n        <div class="container">\n            <p>\n              <span>TRX / BTC</span>\n              <span>{{price.price_btc}}</span>\n            </p>\n        </div>\n        \n        <div class="container">\n            <p>\n              <span>TRX / USD</span>\n              <span>$ {{price.price_usd}}</span>\n            </p>\n        </div>\n      </ion-item>\n    </div> \n  </ion-list>\n\n  <!-- most use -->\n  <div class="mostUse">\n    <p class="myTitle">Most Use</p>\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <button block ion-button (click)="goTo(\'TransferPage\')">\n            <ion-icon class="banki-transfer"></ion-icon>\n            <p>Transfer Payment</p>\n          </button>\n        </ion-col>\n        <ion-col col-3>\n          <button block ion-button (click)="goTo(\'RequestPage\')">\n            <ion-icon class="banki-converter"></ion-icon>\n            <p>Request Payment</p>\n          </button>\n        </ion-col>\n        <ion-col col-3>\n          <button block ion-button (click)="goTo(\'VotePage\')" >\n            <ion-icon class="banki-exchange"></ion-icon>\n            <p>Vote</p>\n          </button>\n        </ion-col>\n        <ion-col col-3>\n          <button block ion-button (click)="goTo(\'ContactUsPage\')">\n            <ion-icon class="banki-user"></ion-icon>\n            <p>Contact</p>\n          </button>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/summary/summary.html"*/,
+            selector: 'page-summary',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/summary/summary.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Summary</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <!-- balance and login information  -->\n  <ion-grid class="blanceGrid">\n    <ion-row>\n      <ion-col col-auto>\n        <div class="avatarContent">\n          <img src="{{base64Image}}" (click)="accessGallery()"/>\n          \n        </div>\n      </ion-col>\n      <ion-col col>\n        <div class="loginInfo">\n          <h5>Welcome</h5>\n          <h4>{{restProvider.account.firstName}} {{restProvider.account.lastName}}</h4>\n          <span>{{restProvider.account.email}}</span>\n          <hr />\n          <p>Click on profile picture to update photo</p>\n          <div>\n          <!--<button  ion-button color="color2" (click)="accessGallery()">Change profile picture</button>-->\n            \n          </div>\n\n          \n        </div>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- graphs container -->\n  <ion-list class="graphs" *ngIf="restProvider.account">\n\n    <ion-item>\n        <p>Account</p>\n        <div class="container">\n            <p>\n              <span>Address</span>\n              <span>{{restProvider.account.address}}</span>\n            </p>\n        </div>\n        \n        <div class="container">\n            <p>\n                <span>Private key</span>\n                <span>{{restProvider.account.privateKey}}</span>\n              </p>\n        </div>\n        \n      </ion-item>\n      <button  ion-button color="color2" (click)="copy(restProvider.account.address)">Copy Address</button>\n      <button  ion-button color="color2" (click)="copy(restProvider.account.privateKey)">Copy Private Key</button>\n      <p></p>\n      <div *ngIf="!accountBalance">\n        <ion-item>\n          <p>Loading account balance, please wait....</p>\n        </ion-item>\n      </div>\n\n      <div *ngIf="accountBalance">\n\n\n          <ion-item>\n              <p>Account total net worth</p>\n              <div class="container">\n                  <p>\n                      <span>{{totalBalance}} TRX </span>\n                      <span>  |  </span>\n                      <span>{{totalBalance * price_btc | number}} BTC</span>\n                      <span>  |  </span>\n                      <span>{{totalBalance * price_usd | currency:"USD $ " }}</span>\n                  </p>\n              </div>\n            </ion-item>\n\n\n        <ion-item *ngFor="let balance of accountBalance.balances">\n          <p>Available {{balance.name}}</p>\n          <div class="container">\n            <ion-item>\n              <ion-range disabled="true" [(ngModel)]="netWorth"  ></ion-range> \n            </ion-item>\n              <p>\n                <span>{{balance.name}}</span>\n                <span>{{balance.balance}}</span>\n              </p>\n          </div>\n        </ion-item>\n        \n\n        <ion-item *ngFor="let frozen of accountBalance.frozen.balances">\n            <p>Frozen TRX</p>\n            <div class="container">\n                <ion-item>\n                    <ion-range disabled="true" [(ngModel)]="fronzenNetWorth"  ></ion-range> \n                  </ion-item>\n                <p>\n                  <span>{{frozen.amount/ONE_TRX}}</span>\n                  <span>TRX</span>\n                  <span>Expires in</span>\n                  <span>{{frozen.expires| date:\'yyyy-MM-dd HH:mm a z\':\'+0800\'}}</span>\n                </p>\n\n            </div>\n          </ion-item>\n        <button ion-button color="color2" (click)="freeze(\'freeze\')">Freeze</button>\n          \n          <button  ion-button color="color2" (click)="unfreeze(\'release\')">Unfreeze</button>\n          <button  ion-button color="color2" (click)="getAccount()">Reload balance</button>\n          \n      </div>\n      <p></p>\n      <div *ngIf="tronPrice">\n      <ion-item *ngFor="let price of tronPrice">\n          <p>Tron price</p>\n        <div class="container">\n            <p>\n              <span>TRX / BTC</span>\n              <span>{{price.price_btc}}</span>\n            </p>\n        </div>\n        \n        <div class="container">\n            <p>\n              <span>TRX / USD</span>\n              <span>$ {{price.price_usd}}</span>\n            </p>\n        </div>\n      </ion-item>\n    </div> \n  </ion-list>\n\n  <!-- most use -->\n  <div class="mostUse">\n    <p class="myTitle">Most Use</p>\n    <ion-grid>\n      <ion-row>\n        <ion-col col-3>\n          <button block ion-button (click)="goTo(\'TransferPage\')">\n            <ion-icon class="banki-transfer"></ion-icon>\n            <p>Transfer Payment</p>\n          </button>\n        </ion-col>\n        <ion-col col-3>\n          <button block ion-button (click)="goTo(\'RequestPage\')">\n            <ion-icon class="banki-converter"></ion-icon>\n            <p>Request Payment</p>\n          </button>\n        </ion-col>\n        <ion-col col-3>\n          <button block ion-button (click)="goTo(\'VotePage\')" >\n            <ion-icon class="banki-exchange"></ion-icon>\n            <p>Vote</p>\n          </button>\n        </ion-col>\n        <ion-col col-3>\n          <button block ion-button (click)="goTo(\'ContactUsPage\')">\n            <ion-icon class="banki-user"></ion-icon>\n            <p>Contact</p>\n          </button>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/summary/summary.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_clipboard__["a" /* Clipboard */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */]])
     ], SummaryPage);

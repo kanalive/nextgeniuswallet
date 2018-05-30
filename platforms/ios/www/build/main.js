@@ -95,6 +95,7 @@ var RestProvider = /** @class */ (function () {
         this.account.email = email;
         this.account.privateKey = privateKey;
         this.account.address = address;
+        this.account.profileImage = null;
         this.storage.set('account', this.account);
     };
     RestProvider.prototype.createNewAccount = function (firstName, lastName, email) {
@@ -102,6 +103,11 @@ var RestProvider = /** @class */ (function () {
         this.account.firstName = firstName;
         this.account.lastName = lastName;
         this.account.email = email;
+        this.account.profileImage = null;
+        this.storage.set('account', this.account);
+    };
+    RestProvider.prototype.saveProfileImageintoLocalStorage = function (base64Image) {
+        this.account.profileImage = base64Image;
         this.storage.set('account', this.account);
     };
     RestProvider.prototype.getAddressFromPrivateKey = function (privateKey) {
@@ -225,11 +231,11 @@ var map = {
 		21
 	],
 	"../pages/add-account/add-account.module": [
-		366,
+		367,
 		20
 	],
 	"../pages/address-details/address-details.module": [
-		367,
+		366,
 		19
 	],
 	"../pages/beneficiaries/beneficiaries.module": [
@@ -253,11 +259,11 @@ var map = {
 		14
 	],
 	"../pages/personal-account/personal-account.module": [
-		373,
+		374,
 		13
 	],
 	"../pages/profile/profile.module": [
-		374,
+		373,
 		12
 	],
 	"../pages/request/request.module": [
@@ -277,11 +283,11 @@ var map = {
 		9
 	],
 	"../pages/summary/summary.module": [
-		379,
+		380,
 		8
 	],
 	"../pages/tokens/tokens.module": [
-		380,
+		379,
 		7
 	],
 	"../pages/transactions-details/transactions-details.module": [
@@ -475,21 +481,21 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* MyApp */], config, {
                     links: [
                         { loadChildren: '../pages/account-details/account-details.module#AccountDetailsPageModule', name: 'AccountDetailsPage', segment: 'account-details', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/add-account/add-account.module#AddAccountPageModule', name: 'AddAccountPage', segment: 'add-account', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/address-details/address-details.module#AddressDetailsPageModule', name: 'AddressDetailsPage', segment: 'address-details', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/add-account/add-account.module#AddAccountPageModule', name: 'AddAccountPage', segment: 'add-account', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/beneficiaries/beneficiaries.module#BeneficiariesPageModule', name: 'BeneficiariesPage', segment: 'beneficiaries', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/contact-us/contact-us.module#ContactUsPageModule', name: 'ContactUsPage', segment: 'contact-us', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currency-convertor/currency-convertor.module#CurrencyConvertorPageModule', name: 'CurrencyConvertorPage', segment: 'currency-convertor', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/find-us/find-us.module#FindUsPageModule', name: 'FindUsPage', segment: 'find-us', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/forgot-password/forgot-password.module#ForgotPasswordPageModule', name: 'ForgotPasswordPage', segment: 'forgot-password', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/personal-account/personal-account.module#PersonalAccountPageModule', name: 'PersonalAccountPage', segment: 'personal-account', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/personal-account/personal-account.module#PersonalAccountPageModule', name: 'PersonalAccountPage', segment: 'personal-account', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/request/request.module#RequestPageModule', name: 'RequestPage', segment: 'request', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/setting/setting.module#SettingPageModule', name: 'SettingPage', segment: 'setting', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/sign-in/sign-in.module#SignInPageModule', name: 'SignInPage', segment: 'sign-in', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/summary/summary.module#SummaryPageModule', name: 'SummaryPage', segment: 'summary', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tokens/tokens.module#TokensPageModule', name: 'TokensPage', segment: 'tokens', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/summary/summary.module#SummaryPageModule', name: 'SummaryPage', segment: 'summary', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transactions-details/transactions-details.module#TransactionsDetailsPageModule', name: 'TransactionsDetailsPage', segment: 'transactions-details', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transactions/transactions.module#TransactionsPageModule', name: 'TransactionsPage', segment: 'transactions', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transfer/transfer.module#TransferPageModule', name: 'TransferPage', segment: 'transfer', priority: 'low', defaultHistory: [] },

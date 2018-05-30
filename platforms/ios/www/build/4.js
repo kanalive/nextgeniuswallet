@@ -83,7 +83,7 @@ var TransferPage = /** @class */ (function () {
             .then(function (data) {
             console.log(_this.accountBalance);
             _this.accountBalance = data;
-            _this.availableFund = (data.balance - data.frozen.total) / _this.ONE_TRX;
+            _this.availableFund = (data.balance) / _this.ONE_TRX;
             console.log(data);
         });
     };
