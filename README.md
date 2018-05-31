@@ -3,9 +3,7 @@ A Tron wallet for iOS and Android
 - Wen Karina Li (kana.live) from Next Genius Community (www.nextgenius.com.au)
 # Screenshots
 <img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2680.PNG"></img>
-<img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2681.PNG"></img>
 <img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2683.PNG"></img>
-<img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2684.PNG"></img>
 <img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2685.PNG"></img>
 <img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2689.PNG"></img>
 
