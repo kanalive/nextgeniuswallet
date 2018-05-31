@@ -4,15 +4,10 @@ A Tron wallet for iOS and Android
 # Screenshots
 <img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2680.PNG"></img>
 <img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2681.PNG"></img>
-<img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2682.PNG"></img>
 <img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2683.PNG"></img>
 <img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2684.PNG"></img>
 <img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2685.PNG"></img>
-<img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2686.PNG"></img>
-<img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2687.PNG"></img>
-<img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2688.PNG"></img>
 <img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2689.PNG"></img>
-<img width="20%" height="20%" src="https://github.com/kanalive/nextgeniuswallet/blob/master/IMG_2690.PNG"></img>
 
 # Video
 https://github.com/kanalive/nextgeniuswallet/blob/master/ScreenRecording_05-30-2018%2020-29-37.MP4
