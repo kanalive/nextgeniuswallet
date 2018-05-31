@@ -20,3 +20,4 @@ A Tron wallet for iOS and Android
 * Unfreeze tron token
 * Request payment - copy address to clipboard
 * Transfer payment - check available balance
+* Vote
