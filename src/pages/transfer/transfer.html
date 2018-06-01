@@ -24,7 +24,7 @@
         <p>Loading account balance, please wait...</p>
       </div>
       <div *ngIf="accountBalance">
-      <ion-item *ngFor="let balance of accountBalance.balances">
+      <ion-item>
           <ion-label stacked>From account - {{fromAccount}}</ion-label>
           <ion-input disabled="true" value="{{availableFund + ' TRX'}}"></ion-input>
          
