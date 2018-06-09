@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
-
+import { SearchPipe } from '../../pipes/search/search';
 /**
  * Generated class for the TokensPage page.
  *
@@ -16,17 +16,28 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class TokensPage {
   tokens: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
-    this.getTokens();
+  terms: string;
+  pageLimit: number;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider, public searchPipe: SearchPipe) {
+    this.getTokens(0);
+    //this.pageLimit = 50;
   }
 
-  // get accounts
-  getTokens() {
+  // get tokens
+  getTokens(start) {
     console.log("token page function called");
+    this.restProvider.getTokens(start).then(data => {
+      console.log(data);
+      this.tokens = data;
+    });
     
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TokensPage');
   }
 
+  goTo(page, tokenName){
+    console.log("go to page token detail - " + tokenName);
+    this.navCtrl.push(page, {TokenName: tokenName});
+  }
 }

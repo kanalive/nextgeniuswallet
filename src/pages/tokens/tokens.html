@@ -14,29 +14,30 @@
       </ion-buttons>
     </ion-navbar>
   </ion-header>
-  <ion-content >
-    <p class="myTitle">Tokens</p>
-    <ion-grid>
-      <ion-row>
-        <div *ngIf="tokens">
-          <div class="account">{{(tokens.length)}} tokens</div>
-          <ion-col col-6 col-md-4 col-lg-3 *ngFor="let item of tokens; let i=index">
-            <div *ngIf="i<20">
-              <div class="account" >
-                <p>{{item.name}}</p>
-                <p>{{item.ownerAddress}}</p>
-                <p>{{item.totalSupply}}</p>
-                <p>{{item.startTime}}</p>
-                <p>{{item.endTime}}</p>
-                <p>{{item.description}}</p>
-                <p>{{item.trxNum}}</p>
-                <p>{{item.price}}</p>
-              </div>
-            </div>
+  <ion-content>
+    <div *ngIf="!tokens">
+      Loading tokens...
+    </div>
+    <div *ngIf="tokens">
+
+    <div class="appForm">
+      
+      <ion-searchbar [(ngModel)]="terms"></ion-searchbar>
+      <p class="myLabel">{{(tokens.total)}} tokens in total</p>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12 col-md-6 col-lg-4  *ngFor="let item of tokens.tokens| search : terms" (click)="goTo('TokenDetailPage', item.name)">
+            <button ion-item>
+              <ion-icon item-right name="md-arrow-dropright"></ion-icon>
+                <p><span>Token: </span>{{item.name}} - {{item.abbr}}</p>
+                <p><span>Total Supply: </span>{{item.totalSupply}}</p>
+                <p><span>Total issued: </span>{{item.issued}}</p>
+                <p><span>Registered: </span>{{item.dateCreated}}</p>
+            </button>
           </ion-col>
-        </div>
-      </ion-row>
-    </ion-grid>
-  
+        </ion-row>
+      </ion-grid>
+    </div>  
+  </div>
   </ion-content>
   

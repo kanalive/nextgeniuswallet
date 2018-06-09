@@ -85,7 +85,17 @@ export class RestProvider {
 
 
 
-
+  public getTransfers(address, start){
+    console.log("rest service called - getTransfers")
+    if(!address){
+      address = this.account.address;
+    }
+    if(!start){
+      start = 0;
+    }
+    let options = {address: address, start: start};
+    return this.client.getTransfers(options);
+  }
 
 
 
@@ -97,7 +107,21 @@ export class RestProvider {
     return this.client.getAccountByAddress(address);
   }
 
+  public getTokens(start){
+    console.log("rest service called - getTokens");
+    let options = {start: start};
+    return this.client.getTokens(options);
+  }
 
+  public getToken(name){
+    console.log("rest service called - getToken");
+    return this.client.getToken(name);
+  }
+
+  public getTokenHolders(name){
+    console.log("rest service called - getTokenHolders");
+    return this.client.getTokenHolders(name);
+  }
 
   public getWitnesses(){
     console.log("rest service called - getWitnesses")
@@ -105,7 +129,7 @@ export class RestProvider {
   }
 
 
-  async send(token,  to, amount){
+  async send(token, to, amount){
     let pk = this.account.privateKey;    
     console.log("transfer " + amount + token + " to " + to);
     return await this.client.send(token, this.account.address, to, amount*this.ONE_TRX)(pk);

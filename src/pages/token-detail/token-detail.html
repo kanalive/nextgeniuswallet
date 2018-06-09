@@ -1,0 +1,90 @@
+<ion-header>
+    <ion-navbar>
+      <ion-buttons start >
+        <button ion-button icon-only menuToggle>
+          <ion-icon name="ios-menu"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>Token details</ion-title>
+      <ion-buttons end >
+        <button ion-button icon-only (click)="logOut()">
+          <ion-icon name="ios-log-out"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+  
+    <ion-list *ngIf="token">
+  
+      <ion-item>
+          <p>Token - {{token.name}}</p>
+          <span>{{token.description}}</span>
+          <hr />
+          <div class="container">
+              <p>
+                <span>Website</span>
+                <span>{{token.url}}</span>
+              </p>
+          </div>
+          
+          <div class="container">
+              <p>
+                  <span>Total supply</span>
+                  <span>{{token.totalSupply}}</span>
+                </p>
+          </div>
+          
+  
+          <div class="container">
+              <p>
+                <span>Issuer</span>
+                <span>{{token.ownerAddress}}</span>
+              </p>
+          </div>
+
+          <div class="container">
+              <p>
+                <span>Date created</span>
+                <span>{{token.dateCreated| date:'yyyy-MM-dd HH:mm a z':'+0800'}}</span>
+              </p>
+          </div>
+
+          <div class="container">
+              <p>
+                <span>Start date</span>
+                <span>{{token.startTime| date:'yyyy-MM-dd HH:mm a z':'+0800'}}</span>
+              </p>
+          </div>
+
+          <div class="container">
+              <p>
+                <span>End date</span>
+                <span>{{token.endTime| date:'yyyy-MM-dd HH:mm a z':'+0800'}}</span>
+              </p>
+          </div>
+
+          <div class="container">
+              <p>
+                <span>Token holders</span>
+                <span>{{token.nrOfTokenHolders}}</span>
+              </p>
+          </div>
+
+          <div class="container">
+              <p>
+                <span>No. of Transfers</span>
+                <span>{{token.totalTransactions}}</span>
+              </p>
+          </div>
+
+        </ion-item>
+
+
+    </ion-list>
+  
+    <!-- most use -->
+
+  </ion-content>
+  
