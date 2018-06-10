@@ -63,8 +63,10 @@ var TokenDetailPage = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.restProvider = restProvider;
-        this.getToken(this.navParams.get('TokenName'));
     }
+    TokenDetailPage.prototype.ionViewDidLoad = function () {
+        this.getToken(this.navParams.get('TokenName'));
+    };
     // get token
     TokenDetailPage.prototype.getToken = function (name) {
         var _this = this;

@@ -74,8 +74,10 @@ var TransferPage = /** @class */ (function () {
         this.busy = false;
         this.availableFund = 0;
         this.ONE_TRX = 1000000;
-        this.getAccountByAddress();
     }
+    TransferPage.prototype.ionViewDidLoad = function () {
+        this.getAccountByAddress();
+    };
     TransferPage.prototype.getAccountByAddress = function () {
         var _this = this;
         console.log("getbalance in transfer page called");

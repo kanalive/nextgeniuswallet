@@ -9,20 +9,34 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class TokenDetailPage {
   token : any;
+  holders : any;
+  percentage = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
     
   }
 
   ionViewDidLoad() {
-    this.getToken(this.navParams.get('TokenName'));
+    let name = this.navParams.get('TokenName');
+    this.token = this.restProvider.getCurrentToken();
+    console.log(this.token);
+    this.percentage = this.token.issuedPercentage;
+    console.log(this.percentage);
+    
+    this.getTokenHolders(name);
   }
   // get token
-  getToken(name) {
-    this.restProvider.getToken(name).then(data => {
+  // getToken(name) {
+  //   this.restProvider.getToken(name).then(data => {
+  //     console.log(data);
+  //     this.token = data;
+  //   });
+  // }
+
+  getTokenHolders(name){
+    this.restProvider.getTokenHolders(name).then(data => {
       console.log(data);
-      this.token = data;
+      this.holders = data;
     });
-    
   }
 
 }

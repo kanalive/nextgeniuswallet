@@ -30,16 +30,63 @@ page-token-detail {
                 }
             }
         }
-
-        .item-range{
-            width:calc(100% - #{$mainMarg});
-            margin:0px auto;
-            .range-ios{
-                    .range-bar{
-                        &.range-bar-active{
-                            background:color($colors,color1);
+        .graphs{
+            border-top:0px solid color($colors,color3);
+            border-bottom:1px solid color($colors,color3);
+            padding:$mainMarg 0px;
+            .list-header-ios{
+                padding:0px;
+                border-bottom:0px;
+                min-height:0px;
+                margin:$mainMarg 0px;
+                .label-ios{
+                    @extend .myTitle;   
+                }
+            }
+            .item-range{
+                width:calc(100% - #{$mainMarg});
+                margin:0px auto;
+                .range-ios{
+                        .range-bar{
+                            &.range-bar-active{
+                                background:color($colors,color1)!important;
+                            }
+                        }
+                }
+            }
+            .item-ios{
+                margin-bottom:$mainMarg!important;
+                .label{
+                    margin:0px;
+                    width:100%;
+                    >p{
+                        @extend .myLabel;
+                    }
+                }
+                .container{
+                    background-color:color($colors,light);
+                    padding:$mainMarg $mainMarg/2;
+                    @extend %boxShadow;
+                    margin: 1px;
+                    p{
+                        display:inline-block;
+                        width:100%;
+                        margin:$mainMarg 0px 0px;
+                        span{
+                            color:color($colors,color3);
+                            @include whiteNormal(15px,1);
+                            display:inline-block;
+                            max-width:50%;
+                            padding:0px $mainMarg/2;
+                        }
+                        button{
+                            vertical-align: bottom;
+                            color: color($colors,color4);
                         }
                     }
+                }
+    
+                
             }
         }
     }

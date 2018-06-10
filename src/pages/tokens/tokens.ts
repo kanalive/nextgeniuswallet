@@ -34,8 +34,10 @@ export class TokensPage {
     this.getTokens(0);
   }
 
-  goTo(page, tokenName){
-    console.log("go to page token detail - " + tokenName);
-    this.navCtrl.push(page, {TokenName: tokenName});
+  goTo(page, token){
+    console.log("go to page token detail - " + token.name);
+    this.restProvider.cacheCurrentToken(token);
+    this.navCtrl.push(page, {TokenName: token.name});
   }
+
 }

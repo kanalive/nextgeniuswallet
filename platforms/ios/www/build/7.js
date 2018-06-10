@@ -60,18 +60,18 @@ var TransactionsDetailsPage = /** @class */ (function () {
     function TransactionsDetailsPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.items = [
-            { col1: 'Amount', col2: 100000 },
-            { col1: 'Transaction Date', col2: '15-8-2017' },
-            { col1: 'Posting Date', col2: '12-8-2017' },
-            { col1: 'Description', col2: 'ATM Withdrawal Street name ATM Withdrawal Street name' },
-            { col1: 'Debit/Credit', col2: 'Debit' },
-            { col1: 'Reference', col2: '02154860.15463' },
-        ];
     }
+    TransactionsDetailsPage.prototype.ionViewDidLoad = function () {
+        console.log("view loaded");
+        this.getTranferFromParam();
+    };
+    TransactionsDetailsPage.prototype.getTranferFromParam = function () {
+        this.transfer = this.navParams.get('transferData');
+        console.log(this.navParams.data);
+    };
     TransactionsDetailsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-transactions-details',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/transactions-details/transactions-details.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Transactions Details</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <!-- account name , number and currancy -->\n  <div class="acountTitle"> \n    <span>Account</span>\n\n    <p class="countNum">\n      123\n      <span>xxxxx</span>\n      12345\n    </p>\n\n    <span>33324 $</span>\n  </div>\n  <!-- Transaction Details -->\n  <div class="details">\n    <p class="myLabel">Transaction Details</p>\n    <ion-grid>\n      <ion-row *ngFor="let item of items">\n        <ion-col col-6 text-left>\n          <p>{{item.col1}}</p>\n        </ion-col>\n        <ion-col col-6 text-right>\n          <p> \n            <span *ngIf="item.col1==\'Amount\'">$</span>\n            {{item.col2}}</p>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n</ion-content>'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/transactions-details/transactions-details.html"*/,
+            selector: 'page-transactions-details',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/transactions-details/transactions-details.html"*/'<ion-header>\n    <ion-navbar>\n      <ion-buttons start >\n        <button ion-button icon-only menuToggle>\n          <ion-icon name="ios-menu"></ion-icon>\n        </button>\n      </ion-buttons>\n      <ion-title>Transaction details</ion-title>\n      <ion-buttons end >\n        <button ion-button icon-only (click)="logOut()">\n          <ion-icon name="ios-log-out"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-navbar>\n  </ion-header>\n  \n  <ion-content padding>\n  \n    <ion-list *ngIf="transfer">\n  \n      <ion-item>\n          <div class="container">\n              <p>\n                <span>Timestamp</span>\n                <span>{{transfer.timestamp| date:\'yyyy-MM-dd HH:mm a z\':\'+0800\'}}</span>\n              </p>\n          </div>\n          \n          <div class="container">\n              <p>\n                  <span>Amount</span>\n                  <span>{{transfer.amount}} {{transfer.tokenName}}</span>\n                </p>\n          </div>\n          \n  \n          <div class="container">\n              <p>\n                <span>Status</span>\n                <span *ngIf="transfer.confirmed">Confirmed</span>\n                <span *ngIf="!transfer.confirmed">Pending</span>\n              </p>\n          </div>\n\n          <div class="container">\n              <p>\n                <span>From</span>\n                <span>{{transfer.transferFromAddress}}</span>\n              </p>\n          </div>\n\n          <div class="container">\n              <p>\n                <span>To</span>\n                <span>{{transfer.transferToAddress}}</span>\n              </p>\n          </div>\n\n        </ion-item>\n\n\n    </ion-list>\n  \n    <!-- most use -->\n\n  </ion-content>\n  '/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/transactions-details/transactions-details.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
     ], TransactionsDetailsPage);

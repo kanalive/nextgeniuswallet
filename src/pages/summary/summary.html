@@ -58,7 +58,7 @@
         <div class="container">
             <p>
                 <span>Private key</span>
-                <span>{{restProvider.account.privateKey}}</span>
+                <span>{{restProvider.account.privateKey.substr(0,5)}}**********</span>
               </p>
         </div>
         
@@ -92,9 +92,6 @@
         <ion-item *ngFor="let balance of accountBalance.balances">
           <p>Available {{balance.name}}</p>
           <div class="container">
-            <ion-item>
-              <ion-range disabled="true" [(ngModel)]="netWorth"  ></ion-range> 
-            </ion-item>
               <p>
                 <span>{{balance.name}}</span>
                 <span>{{balance.balance}}</span>

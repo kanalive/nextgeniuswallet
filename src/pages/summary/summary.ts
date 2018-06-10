@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ModalController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ModalController, LoadingController} from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { Clipboard } from '@ionic-native/clipboard';
 import { AlertController } from 'ionic-angular';
@@ -22,12 +22,21 @@ export class SummaryPage {
   ONE_TRX = 1000000;
   price_btc = 0;
   price_usd = 0;
-  constructor(public navCtrl: NavController,public camera:Camera, public modalCtrl: ModalController, public alertCtrl:AlertController, public clipboard: Clipboard, public navParams: NavParams, public restProvider: RestProvider) {
+  loading : any;
+  constructor(public navCtrl: NavController,public camera:Camera, public modalCtrl: ModalController, public alertCtrl:AlertController, public clipboard: Clipboard, public navParams: NavParams, public restProvider: RestProvider, public loadingCtrl: LoadingController) {
+    
+  }
+
+
+  ionViewDidLoad() {
     this.getAccount();
     this.getTronPrice();
-    if(restProvider.account.profileImage!= null){
-      this.base64Image = 'data:image/jpeg;base64,'+restProvider.account.profileImage;
+    if(this.restProvider.account.profileImage!= null){
+      this.base64Image = 'data:image/jpeg;base64,'+this.restProvider.account.profileImage;
     }
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
   }
  
   callModal() {
@@ -124,15 +133,16 @@ export class SummaryPage {
           text: 'Cancel',
           role: 'cancel',
           handler: data => {
-            console.log('Cancel clicked');
+            //console.log('Cancel clicked');
           }
         },
         {
           text: actionTitle,
           handler: data => {
-            console.log(actionTitle + " - " + data["amount"]);
+            this.loading.present();
             let freezeResult = this.restProvider.freezeBalance(this.restProvider.account.address, data["amount"], 3).then(data =>{
               if(data.code == "SUCCESS"){
+                this.loading.dismiss();
                 alert("Freeze TRX successfully completed.");
               }
             });
@@ -156,14 +166,16 @@ export class SummaryPage {
             text: 'Cancel',
             role: 'cancel',
             handler: data => {
-              alert("Unfreeze TRX successfully completed.");
+              
             }
           },
           {
             text: actionTitle,
             handler: data => {
+              this.loading.present();
               let unfreezeResult = this.restProvider.unfreezeBalance(this.restProvider.account.address).then(data =>{
-                console.log(data);
+                alert("Unfreeze TRX successfully completed.");
+                this.loading.dismiss();
               });
             }
           }
@@ -173,9 +185,8 @@ export class SummaryPage {
     }else{
       alert("Cannot unfreeze token, please only unfreeze tokens after frozen term expired.");
     }
-
-    
   }
+
 
   
 } 

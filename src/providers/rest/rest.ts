@@ -17,6 +17,7 @@ export class RestProvider {
   public account : any;
   private ONE_TRX = 1000000;
   private secureStorage : any;
+  private currentToken : any;
 
   constructor(public http: HttpClient, private storage: Storage, private client: Client ) {
     console.log('Hello RestProvider Provider');
@@ -89,6 +90,13 @@ export class RestProvider {
     
   }
 
+  public cacheCurrentToken(token){
+    this.currentToken = token;
+  }
+
+  public getCurrentToken(){
+    return this.currentToken;
+  }
 
 
 

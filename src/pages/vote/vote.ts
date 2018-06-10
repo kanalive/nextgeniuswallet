@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
 
@@ -24,10 +24,18 @@ export class VotePage {
   accountBalance: any;
   ONE_TRX=1000000;
   busy = false;
+  loading : any;
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public restProvider: RestProvider) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public restProvider: RestProvider, private loadingCtrl: LoadingController) {
+    
+  }
+
+  ionViewDidLoad() {
     this.getWitnesses();
     this.getAccount();
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
   }
 
 
@@ -73,17 +81,17 @@ export class VotePage {
           text: 'Cancel',
           role: 'cancel',
           handler: data => {
-            console.log('Cancel clicked');
+            //console.log('Cancel clicked');
           }
         },
         {
           text: 'Submit vote',
           handler: data => {
-            console.log("Submiting vote");
+            //console.log("Submiting vote");
             
             let voteCount = data["votes"];
             let totalFrozenTrx = this.accountBalance.frozen.total/this.ONE_TRX;
-            console.log("Adding vote - " + voteCount + " to address " + item.address);
+            //console.log("Adding vote - " + voteCount + " to address " + item.address);
             
             if(voteCount > totalFrozenTrx){
             //console.log("Insufficient fronzen account balance, "+ voteCount + " required, only " + totalFrozenTrx + "available.");
@@ -93,13 +101,13 @@ export class VotePage {
               let k = item.address;
               var vote = {};
               vote[k] = data["votes"];
-              console.log("Sending vote - " + voteCount + " to address " + item.address);
-              this.busy = true;
+              //console.log("Sending vote - " + voteCount + " to address " + item.address);
+              this.loading.present();
               this.restProvider.postVote(vote).then(data => {
                 //this.showConfirmAlert();
                 if(data.code == "SUCCESS"){
-                  alert("Voting completed, thank you.");
-                  this.busy = false;
+                  this.loading.dismiss();
+                  alert("Your votes are successfully submitted, they will take effect when the next voting cycle starts. You may redistribute your votes anytime you like");
                 }
               });
             }

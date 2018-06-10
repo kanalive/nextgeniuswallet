@@ -80,7 +80,7 @@ var SummaryPage = /** @class */ (function () {
         this.price_btc = 0;
         this.price_usd = 0;
         // change Image
-        this.base64Image = 'assets/img/kana.jpeg';
+        this.base64Image = 'assets/img/default-profile.png';
         this.getAccount();
         this.getTronPrice();
         if (restProvider.account.profileImage != null) {
@@ -99,6 +99,7 @@ var SummaryPage = /** @class */ (function () {
             destinationType: this.camera.DestinationType.DATA_URL
         }).then(function (imageData) {
             _this.base64Image = 'data:image/jpeg;base64,' + imageData;
+            _this.restProvider.saveProfileImageintoLocalStorage(_this.base64Image);
         }, function (err) {
             console.log(err);
         });

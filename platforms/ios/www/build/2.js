@@ -171,8 +171,6 @@ var TokensPage = /** @class */ (function () {
         this.navParams = navParams;
         this.restProvider = restProvider;
         this.searchPipe = searchPipe;
-        this.getTokens(0);
-        //this.pageLimit = 50;
     }
     // get tokens
     TokensPage.prototype.getTokens = function (start) {
@@ -184,7 +182,7 @@ var TokensPage = /** @class */ (function () {
         });
     };
     TokensPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad TokensPage');
+        this.getTokens(0);
     };
     TokensPage.prototype.goTo = function (page, tokenName) {
         console.log("go to page token detail - " + tokenName);

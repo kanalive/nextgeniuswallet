@@ -16,7 +16,7 @@
   
   <ion-content padding>
   
-    <ion-list *ngIf="token">
+    <ion-list *ngIf="token"  class="graphs">
   
       <ion-item>
           <p>Token - {{token.name}}</p>
@@ -81,10 +81,34 @@
 
         </ion-item>
 
+          <ion-item>
+              <p>Issued / remaining supply</p>
+              <div class="container">
+                <ion-item>
+                  <ion-range [(ngModel)]="percentage"  ></ion-range> 
+                </ion-item>
+                  <p>
+                      <span>{{token.issued}} / </span>
+                      <span>{{token.remaining}}</span>
+                  </p>
+              </div>
+            </ion-item>
 
     </ion-list>
   
-    <!-- most use -->
+    <ion-list *ngIf="holders">
+        <p>Token holders</p>
+        <ion-item *ngFor="let data of holders.addresses">
+            
+            <div class="container">
+                <p>
+                  <span>{{data.address}} | quantity : </span> 
+                  <span>{{data.balance}}</span> 
+                </p>
+            </div>
+          </ion-item>
+
+    </ion-list>  
 
   </ion-content>
   

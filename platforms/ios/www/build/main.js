@@ -62,6 +62,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 
 
+//import { SecureStorage } from 'cordova-plugin-secure-storage';
 
 
 /*
@@ -77,6 +78,7 @@ var RestProvider = /** @class */ (function () {
         this.client = client;
         this.ONE_TRX = 1000000;
         console.log('Hello RestProvider Provider');
+        //this.loadAccountFromSecureStorage();
     }
     RestProvider.prototype.loadAccountFromLocalSql = function () {
         var _this = this;
@@ -88,6 +90,17 @@ var RestProvider = /** @class */ (function () {
                 _this.account = val;
             });
         });
+    };
+    RestProvider.prototype.loadAccountFromSecureStorage = function () {
+        console.log("loadAccountFromSecureStorage");
+        // this.secureStorage = new SecureStorage(
+        //   function () { alert('secure storage loading - Success')},
+        //   function (error) { alert('Error ' + error); },
+        //   'my_app');
+        // this.secureStorage.set(
+        //   function (key) { alert('Set ' + key); },
+        //   function (error) {alert('Error ' + error); },
+        //   'mykey', 'myvalue');
     };
     RestProvider.prototype.loginOtherAccount = function (firstName, lastName, email, privateKey, address) {
         this.account.firstName = firstName;
@@ -482,6 +495,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+//import { SecureStorage } from 'cordova-plugin-secure-storage';
 
 
 

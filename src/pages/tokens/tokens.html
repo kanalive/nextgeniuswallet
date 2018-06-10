@@ -26,7 +26,7 @@
       <p class="myLabel">{{(tokens.total)}} tokens in total</p>
       <ion-grid>
         <ion-row>
-          <ion-col col-12 col-md-6 col-lg-4  *ngFor="let item of tokens.tokens| search : terms" (click)="goTo('TokenDetailPage', item.name)">
+          <ion-col col-12 col-md-6 col-lg-4  *ngFor="let item of tokens.tokens| search : terms" (click)="goTo('TokenDetailPage', item)">
             <button ion-item>
               <ion-icon item-right name="md-arrow-dropright"></ion-icon>
                 <p><span>Token: </span>{{item.name}} - {{item.abbr}}</p>
