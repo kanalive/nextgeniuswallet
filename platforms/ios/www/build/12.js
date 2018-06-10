@@ -1,14 +1,14 @@
 webpackJsonp([12],{
 
-/***/ 374:
+/***/ 377:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfilePageModule", function() { return ProfilePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SettingPageModule", function() { return SettingPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile__ = __webpack_require__(405);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setting__ = __webpack_require__(432);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,35 +18,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ProfilePageModule = /** @class */ (function () {
-    function ProfilePageModule() {
+var SettingPageModule = /** @class */ (function () {
+    function SettingPageModule() {
     }
-    ProfilePageModule = __decorate([
+    SettingPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */],
+                __WEBPACK_IMPORTED_MODULE_2__setting__["a" /* SettingPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__setting__["a" /* SettingPage */]),
             ],
         })
-    ], ProfilePageModule);
-    return ProfilePageModule;
+    ], SettingPageModule);
+    return SettingPageModule;
 }());
 
-//# sourceMappingURL=profile.module.js.map
+//# sourceMappingURL=setting.module.js.map
 
 /***/ }),
 
-/***/ 405:
+/***/ 432:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfilePage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_component__ = __webpack_require__(230);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59,50 +58,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-var ProfilePage = /** @class */ (function () {
-    function ProfilePage(camera, navCtrl, navParams, modalCtrl, restProvider) {
-        this.camera = camera;
+var SettingPage = /** @class */ (function () {
+    function SettingPage(_myApp, navCtrl) {
+        this._myApp = _myApp;
         this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.modalCtrl = modalCtrl;
-        this.restProvider = restProvider;
-        // change Image
-        this.base64Image = 'assets/img/kana.jpeg';
+        this.language = 'en';
+        this.action = false;
+        this.action = this._myApp.animateVarible;
     }
-    // call address details modal
-    ProfilePage.prototype.callModal = function () {
-        var modal = this.modalCtrl.create('UpdateProfilePage');
-        modal.present();
+    SettingPage.prototype.animateApp = function (e) {
+        this._myApp.animateVarible = e.checked;
+        this.action = this._myApp.animateVarible;
     };
-    ProfilePage.prototype.accessGallery = function () {
-        var _this = this;
-        this.camera.getPicture({
-            sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
-            destinationType: this.camera.DestinationType.DATA_URL
-        }).then(function (imageData) {
-            _this.base64Image = 'data:image/jpeg;base64,' + imageData;
-        }, function (err) {
-            console.log(err);
-        });
-    };
-    ProfilePage.prototype.createNewAccount = function () {
-        //this.restProvider.createNewAccount();
-    };
-    // logOut Function
-    ProfilePage.prototype.logOut = function () {
+    // logOut Function 
+    SettingPage.prototype.logOut = function () {
         this.navCtrl.setRoot('WelcomePage');
     };
-    ProfilePage = __decorate([
+    SettingPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-profile',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/profile/profile.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Profile</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <div class="profile">\n    <div class="imgBg" [ngStyle]="{\'background-image\':\'url(\' + base64Image + \')\'}">\n      <ion-icon name="ios-camera"  (click)="accessGallery()"></ion-icon>\n    </div>\n    <h4>Karina Li</h4>\n     <p>\n      <ion-icon name="ios-pin"></ion-icon>\n      Sydney\n    </p>\n    <div class="appForm">\n      <ion-list>\n        <!-- ============ Name ============== -->\n        <button  block ion-item>\n          <ion-icon item-left name="md-contact"></ion-icon>\n          Wen Karina Li\n        </button>\n        <!-- ============== Location =============== -->\n        <button  block ion-item >\n          <ion-icon item-left name="ios-pin"></ion-icon>\n          Sydney\n        </button>\n         <!-- ============== Telephone Number =============== -->\n        <button  block ion-item>\n          <ion-icon item-left name="ios-call"></ion-icon>\n          12345343543\n        </button>\n         <!-- ============== Email =============== -->\n        <button  block ion-item >\n          <ion-icon item-left name="ios-mail"></ion-icon>\n          wen.k.li@outlook.com\n        </button>\n        <div *ngIf="restProvider.account">\n            <!-- ============== address =============== -->\n            <button  block ion-item >\n            <ion-icon item-left name="ios-home"></ion-icon>\n            {{restProvider.account.address}}\n            </button>\n            <!-- ============== privateKey =============== -->\n            <button  block ion-item >\n            <ion-icon item-left name="md-key"></ion-icon>\n            {{restProvider.account.privateKey}}\n          </button>\n        </div>\n        <div *ngIf="!restProvider.account">\n            <button ion-button block color="color2" (click)="createNewAccount()">Create New Account</button>\n        </div>\n        \n      </ion-list>\n    </div>\n  </div>\n</ion-content>\n<ion-footer>\n  <button ion-button block color="color2" (click)="callModal()">Update</button>\n</ion-footer>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/profile/profile.html"*/,
+            selector: 'page-setting',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/setting/setting.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Setting</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <div class="appForm">\n    <ion-list>\n      <ion-item>\n        <ion-label stacked>Password</ion-label>\n        <ion-input type="password" value="5672897892"  placeholder="password"></ion-input>\n      </ion-item> \n      <!-- Language Select -->\n      <ion-item >\n        <ion-label stacked>App Language</ion-label>\n          <ion-select  [(ngModel)]="language">\n             <ion-option value="en" >English</ion-option> \n             <ion-option value="fr" >French</ion-option> \n          </ion-select>\n      </ion-item>\n    </ion-list> \n    <!-- Notification checkbox list -->\n    <ion-list>\n      <ion-list-header>\n          Notification\n      </ion-list-header>\n      <ion-item>\n        <ion-label>Send me sms when i login</ion-label>\n        <ion-checkbox></ion-checkbox>\n      </ion-item>\n      <ion-item>\n        <ion-label>Notify me when there is new deposits</ion-label>\n        <ion-checkbox></ion-checkbox>\n      </ion-item>\n    </ion-list> \n    <!-- Animation checkbox  -->\n    <!-- list in you need to add another checkbox -->\n    <ion-list>\n      <ion-list-header>\n          Animation\n      </ion-list-header>\n      <ion-item>\n        <ion-label>Animation Avilability</ion-label>\n        <ion-checkbox (ionChange)="animateApp($event)"  checked="{{action}}"></ion-checkbox>\n      </ion-item>\n    </ion-list> \n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/setting/setting.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__["a" /* RestProvider */]])
-    ], ProfilePage);
-    return ProfilePage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__app_app_component__["a" /* MyApp */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]])
+    ], SettingPage);
+    return SettingPage;
 }());
 
-//# sourceMappingURL=profile.js.map
+//# sourceMappingURL=setting.js.map
 
 /***/ })
 

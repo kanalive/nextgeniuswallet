@@ -20,6 +20,9 @@ page-transactions {
                         &.cost{
                             color: color($colors,color2);
                         }
+                        &.in{
+                            color: color($colors,color6);
+                        }
                     }
                     .label{
                         height:auto!important;

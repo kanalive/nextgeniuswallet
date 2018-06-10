@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Clipboard } from '@ionic-native/clipboard';
 import { IonicStorageModule, Storage } from '@ionic/storage';
+//import { SecureStorage } from 'cordova-plugin-secure-storage';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { Client } from "@tronscan/client";
 import { MyApp } from './app.component';

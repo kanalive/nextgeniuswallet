@@ -1,14 +1,14 @@
 webpackJsonp([11],{
 
-/***/ 377:
+/***/ 378:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SettingPageModule", function() { return SettingPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignInPageModule", function() { return SignInPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setting__ = __webpack_require__(429);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sign_in__ = __webpack_require__(433);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,34 +18,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var SettingPageModule = /** @class */ (function () {
-    function SettingPageModule() {
+var SignInPageModule = /** @class */ (function () {
+    function SignInPageModule() {
     }
-    SettingPageModule = __decorate([
+    SignInPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__setting__["a" /* SettingPage */],
+                __WEBPACK_IMPORTED_MODULE_2__sign_in__["a" /* SignInPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__setting__["a" /* SettingPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__sign_in__["a" /* SignInPage */]),
             ],
         })
-    ], SettingPageModule);
-    return SettingPageModule;
+    ], SignInPageModule);
+    return SignInPageModule;
 }());
 
-//# sourceMappingURL=setting.module.js.map
+//# sourceMappingURL=sign-in.module.js.map
 
 /***/ }),
 
-/***/ 429:
+/***/ 433:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignInPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_component__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(115);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58,32 +58,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var SettingPage = /** @class */ (function () {
-    function SettingPage(_myApp, navCtrl) {
-        this._myApp = _myApp;
+var SignInPage = /** @class */ (function () {
+    function SignInPage(modalCtrl, navCtrl, navParams, restProvider) {
+        this.modalCtrl = modalCtrl;
         this.navCtrl = navCtrl;
-        this.language = 'en';
-        this.action = false;
-        this.action = this._myApp.animateVarible;
+        this.navParams = navParams;
+        this.restProvider = restProvider;
+        this.privateKey = '';
+        this.firstName = "";
+        this.lastName = "";
+        this.email = "";
     }
-    SettingPage.prototype.animateApp = function (e) {
-        this._myApp.animateVarible = e.checked;
-        this.action = this._myApp.animateVarible;
+    SignInPage.prototype.doLogin = function (page) {
+        if (this.IsValidAddress()) {
+            this.restProvider.loginOtherAccount(this.firstName, this.lastName, this.email, this.privateKey, this.address);
+            this.navCtrl.setRoot(page);
+        }
     };
-    // logOut Function 
-    SettingPage.prototype.logOut = function () {
-        this.navCtrl.setRoot('WelcomePage');
+    // Call Forgot Password Modal
+    SignInPage.prototype.presentModal = function (modalPage) {
+        var modal = this.modalCtrl.create(modalPage);
+        modal.present();
     };
-    SettingPage = __decorate([
+    SignInPage.prototype.getAddress = function () {
+        if (this.privateKey != '') {
+            this.address = this.restProvider.getAddressFromPrivateKey(this.privateKey);
+        }
+    };
+    SignInPage.prototype.IsValidAddress = function () {
+        if (this.address != null)
+            return true;
+        else
+            return false;
+    };
+    SignInPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-setting',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/setting/setting.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Setting</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <div class="appForm">\n    <ion-list>\n      <ion-item>\n        <ion-label stacked>Password</ion-label>\n        <ion-input type="password" value="5672897892"  placeholder="password"></ion-input>\n      </ion-item> \n      <!-- Language Select -->\n      <ion-item >\n        <ion-label stacked>App Language</ion-label>\n          <ion-select  [(ngModel)]="language">\n             <ion-option value="en" >English</ion-option> \n             <ion-option value="fr" >French</ion-option> \n          </ion-select>\n      </ion-item>\n    </ion-list> \n    <!-- Notification checkbox list -->\n    <ion-list>\n      <ion-list-header>\n          Notification\n      </ion-list-header>\n      <ion-item>\n        <ion-label>Send me sms when i login</ion-label>\n        <ion-checkbox></ion-checkbox>\n      </ion-item>\n      <ion-item>\n        <ion-label>Notify me when there is new deposits</ion-label>\n        <ion-checkbox></ion-checkbox>\n      </ion-item>\n    </ion-list> \n    <!-- Animation checkbox  -->\n    <!-- list in you need to add another checkbox -->\n    <ion-list>\n      <ion-list-header>\n          Animation\n      </ion-list-header>\n      <ion-item>\n        <ion-label>Animation Avilability</ion-label>\n        <ion-checkbox (ionChange)="animateApp($event)"  checked="{{action}}"></ion-checkbox>\n      </ion-item>\n    </ion-list> \n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/setting/setting.html"*/,
+            selector: 'page-sign-in',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/sign-in/sign-in.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title>SIGN IN</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <div class="appForm">\n    <ion-list>\n      <!-- password input -->\n      <ion-item>\n        <ion-label floating>Private key</ion-label>\n        <ion-icon name="ios-lock-outline" item-left></ion-icon>\n        <ion-input type="text" [(ngModel)]="privateKey"></ion-input>\n      </ion-item>\n      <!-- Email input -->\n      <ion-item *ngIf="address">\n          <ion-label floating>Address</ion-label>\n          <ion-icon name="ios-home-outline" item-left></ion-icon>\n          <ion-input disabled="true" type="text" [(ngModel)]="address"></ion-input>\n        </ion-item>\n      </ion-list>\n      <button  ion-button block color="color2" (click)="getAddress()">Get Address</button>\n\n      <div *ngIf="address">\n          <ion-list>\n            <ion-item>\n              <ion-label floating>First Name</ion-label>\n              <ion-icon name="ios-lock-outline" item-left></ion-icon>\n              <ion-input type="text" [(ngModel)]="firstName"></ion-input>\n            </ion-item>\n            <ion-item>\n                <ion-label floating>Last Name</ion-label>\n                <ion-icon name="ios-lock-outline" item-left></ion-icon>\n                <ion-input type="text" [(ngModel)]="lastName"></ion-input>\n              </ion-item>\n              <ion-item>\n                  <ion-label floating>Email address</ion-label>\n                  <ion-icon name="ios-lock-outline" item-left></ion-icon>\n                  <ion-input type="text" [(ngModel)]="email"></ion-input>\n                </ion-item>\n            </ion-list>\n        \n    <button ion-button block color="color2" (click)="doLogin(\'SummaryPage\')">Sign in</button>\n  </div>\n</div>\n  <!--<p float-right (click)=" presentModal(\'ForgotPasswordPage\')">Forgot Password ?</p>-->\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/sign-in/sign-in.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__app_app_component__["a" /* MyApp */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]])
-    ], SettingPage);
-    return SettingPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */]])
+    ], SignInPage);
+    return SignInPage;
 }());
 
-//# sourceMappingURL=setting.js.map
+//# sourceMappingURL=sign-in.js.map
 
 /***/ })
 

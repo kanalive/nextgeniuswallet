@@ -1,14 +1,14 @@
 webpackJsonp([16],{
 
-/***/ 370:
+/***/ 372:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrencyConvertorPageModule", function() { return CurrencyConvertorPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FindUsPageModule", function() { return FindUsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__currency_convertor__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__find_us__ = __webpack_require__(406);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,31 +18,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var CurrencyConvertorPageModule = /** @class */ (function () {
-    function CurrencyConvertorPageModule() {
+var FindUsPageModule = /** @class */ (function () {
+    function FindUsPageModule() {
     }
-    CurrencyConvertorPageModule = __decorate([
+    FindUsPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__currency_convertor__["a" /* CurrencyConvertorPage */],
+                __WEBPACK_IMPORTED_MODULE_2__find_us__["a" /* FindUsPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__currency_convertor__["a" /* CurrencyConvertorPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__find_us__["a" /* FindUsPage */]),
             ],
         })
-    ], CurrencyConvertorPageModule);
-    return CurrencyConvertorPageModule;
+    ], FindUsPageModule);
+    return FindUsPageModule;
 }());
 
-//# sourceMappingURL=currency-convertor.module.js.map
+//# sourceMappingURL=find-us.module.js.map
 
 /***/ }),
 
-/***/ 401:
+/***/ 406:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CurrencyConvertorPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FindUsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -56,46 +56,80 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var CurrencyConvertorPage = /** @class */ (function () {
-    function CurrencyConvertorPage(navCtrl, navParams) {
+var FindUsPage = /** @class */ (function () {
+    function FindUsPage(navCtrl, modalCtrl) {
         this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.fromCountry = 'usa';
-        this.fromImg = 'assets/img/usa.png';
-        this.toCountry = 'cad';
-        this.toImg = 'assets/img/cad.png';
-        this.show = false;
+        this.modalCtrl = modalCtrl;
+        this.text = 'List';
+        this.start = 'chicago, il';
+        this.end = 'chicago, il';
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.items = [
+            { address: 'Address 1', type: 'bank' },
+            { address: 'Atm Location', type: 'atm' },
+            { address: 'Address 2', type: 'bank' },
+            { address: 'Address 3', type: 'bank' },
+        ];
     }
-    // change img in select item
-    CurrencyConvertorPage.prototype.change = function () {
-        this.fromImg = 'assets/img/' + this.fromCountry + '.png';
-        this.toImg = 'assets/img/' + this.toCountry + '.png';
+    // call address details modal
+    FindUsPage.prototype.callModal = function () {
+        var modal = this.modalCtrl.create('AddressDetailsPage');
+        modal.present();
     };
-    // show convert result
-    CurrencyConvertorPage.prototype.showResult = function () {
-        this.show = true;
-        console.log(this.amount);
-        if (this.amount == undefined) {
-            this.result = 'Please Enter Amount';
+    // change addresses show
+    FindUsPage.prototype.change = function () {
+        if (this.text != 'Map') {
+            this.text = 'Map';
         }
         else {
-            this.result = 2000 + '$';
+            this.text = 'List';
         }
     };
     // logOut Function 
-    CurrencyConvertorPage.prototype.logOut = function () {
+    FindUsPage.prototype.logOut = function () {
         this.navCtrl.setRoot('WelcomePage');
     };
-    CurrencyConvertorPage = __decorate([
+    // map functions
+    FindUsPage.prototype.ionViewDidLoad = function () {
+        this.initMap();
+    };
+    FindUsPage.prototype.initMap = function () {
+        this.map = new google.maps.Map(this.mapElement.nativeElement, {
+            zoom: 7,
+            center: { lat: 41.85, lng: -87.65 }
+        });
+        this.directionsDisplay.setMap(this.map);
+    };
+    FindUsPage.prototype.calculateAndDisplayRoute = function () {
+        var _this = this;
+        this.directionsService.route({
+            origin: this.start,
+            destination: this.end,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                _this.directionsDisplay.setDirections(response);
+            }
+            else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('map'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
+    ], FindUsPage.prototype, "mapElement", void 0);
+    FindUsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-currency-convertor',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/currency-convertor/currency-convertor.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Currency Convertor</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <div class="appForm">\n    <ion-list>\n      <ion-list-header>\n          Convertor\n      </ion-list-header>\n        <!-- input to write amount that you want to convert -->\n      <ion-item>\n        <ion-label stacked>Amount</ion-label>\n        <ion-input type="num" [(ngModel)]="amount" placeholder="Type here"></ion-input>\n      </ion-item> \n      <!-- Account-From Select -->\n      <ion-item class="selectHasImg">\n        <ion-label stacked>From</ion-label>\n          <ion-select (ionChange)="change()" [ngStyle]="{\'background-image\':\'url(\' + fromImg + \')\'}"  \n                      [(ngModel)]="fromCountry">\n            <ion-option value="usa" >USA</ion-option> \n            <ion-option value="cad" >CAD</ion-option> \n          </ion-select>\n      </ion-item>\n      <!-- Account-To Select -->\n      <ion-item class="selectHasImg">\n        <ion-label stacked>To</ion-label>\n          <ion-select (ionChange)="change()" [ngStyle]="{\'background-image\':\'url(\' + toImg + \')\'}"  \n                      [(ngModel)]="toCountry">\n            <ion-option value="usa" >USA</ion-option> \n            <ion-option value="cad" >CAD</ion-option> \n          </ion-select>\n      </ion-item>\n    </ion-list> \n  </div>\n  <!-- button to show convert result -->\n  <button ion-button block clear (click)="showResult()">Result Here</button>\n  <p class="result" *ngIf="show == true">{{result}}</p>\n</ion-content>\n\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/currency-convertor/currency-convertor.html"*/,
+            selector: 'page-find-us',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/find-us/find-us.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Find Us</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-item class="searchItem">\n    <ion-icon name="ios-search" item-right></ion-icon>\n    <ion-input placeholder="Search"></ion-input>\n  </ion-item>\n  <p class="myTitle" (click)="change()">{{text}}</p>\n  <!-- list of addresses -->\n   <div class="appForm" *ngIf="text == \'Map\'">\n    <ion-list [ngClass]="{\'notShow\':text ==\'List\'}">\n      <button  block ion-item *ngFor="let item of items" (click)="callModal()">\n        <ion-icon item-left name="ios-pin" *ngIf="item.type == \'bank\'"></ion-icon>\n        <ion-icon item-left name="ios-calculator" *ngIf="item.type == \'atm\'"></ion-icon>\n        <ion-icon item-right name="md-arrow-dropright"></ion-icon>\n        {{item.address}}\n      </button> \n    </ion-list> \n  </div> \n  <!-- Map of addresses -->\n  <div  class="map" #map id="map" [ngClass]="{\'notShow\':text ==\'Map\'}"> </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/find-us/find-us.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
-    ], CurrencyConvertorPage);
-    return CurrencyConvertorPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]])
+    ], FindUsPage);
+    return FindUsPage;
 }());
 
-//# sourceMappingURL=currency-convertor.js.map
+//# sourceMappingURL=find-us.js.map
 
 /***/ })
 

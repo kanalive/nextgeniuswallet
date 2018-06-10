@@ -8,26 +8,25 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'transactions.html',
 })
 export class TransactionsPage {
-  transfer : any;
+  transfers : any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
+    
+  }
+
+  ionViewDidLoad() {
     this.getTransfers();
   }
-  items=[
-    {date:'15-8-2017',cost:1000,address:'ATM Withdrawal 12 Street Name'},
-    {date:'15-8-2017',cost:1000,address:'ATM Withdrawal 12 Street Name'},
-    {date:'15-8-2017',cost:1000,address:'ATM Withdrawal 12 Street Name'},
-    {date:'15-8-2017',cost:1000,address:'ATM Withdrawal 12 Street Name'},
-  ]
+
   // goTo Function 
-  goTo(page){
-    this.navCtrl.push(page);
+  goTo(page, transfer){
+    console.log(transfer);
+    this.navCtrl.push(page), {transferData: "1"};
   }
 
   getTransfers(){
     this.restProvider.getTransfers(this.restProvider.account.address,0).then( data => {
-      alert("success");
       console.log(data);
-      this.transfer = data;
+      this.transfers = data;
     });
   }
 }

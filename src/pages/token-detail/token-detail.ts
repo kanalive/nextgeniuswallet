@@ -10,9 +10,12 @@ import { RestProvider } from '../../providers/rest/rest';
 export class TokenDetailPage {
   token : any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
-    this.getToken(this.navParams.get('TokenName'));
+    
   }
 
+  ionViewDidLoad() {
+    this.getToken(this.navParams.get('TokenName'));
+  }
   // get token
   getToken(name) {
     this.restProvider.getToken(name).then(data => {

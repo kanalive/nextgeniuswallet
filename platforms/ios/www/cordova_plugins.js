@@ -47,6 +47,85 @@ module.exports = [
     "clobbers": [
       "device"
     ]
+  },
+  {
+    "id": "cordova-plugin-splashscreen.SplashScreen",
+    "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+    "pluginId": "cordova-plugin-splashscreen",
+    "clobbers": [
+      "navigator.splashscreen"
+    ]
+  },
+  {
+    "id": "cordova-plugin-ionic.common",
+    "file": "plugins/cordova-plugin-ionic/www/common.js",
+    "pluginId": "cordova-plugin-ionic",
+    "clobbers": [
+      "IonicCordova"
+    ],
+    "runs": true
+  },
+  {
+    "id": "cordova-plugin-ionic-keyboard.keyboard",
+    "file": "plugins/cordova-plugin-ionic-keyboard/www/ios/keyboard.js",
+    "pluginId": "cordova-plugin-ionic-keyboard",
+    "clobbers": [
+      "window.Keyboard"
+    ]
+  },
+  {
+    "id": "cordova-plugin-ionic-webview.ios-wkwebview-exec",
+    "file": "plugins/cordova-plugin-ionic-webview/src/www/ios/ios-wkwebview-exec.js",
+    "pluginId": "cordova-plugin-ionic-webview",
+    "clobbers": [
+      "cordova.exec"
+    ]
+  },
+  {
+    "id": "cordova-plugin-qrscanner.QRScanner",
+    "file": "plugins/cordova-plugin-qrscanner/www/www.min.js",
+    "pluginId": "cordova-plugin-qrscanner",
+    "clobbers": [
+      "QRScanner"
+    ]
+  },
+  {
+    "id": "cordova-plugin-secure-storage.SecureStorage",
+    "file": "plugins/cordova-plugin-secure-storage/www/securestorage.js",
+    "pluginId": "cordova-plugin-secure-storage",
+    "clobbers": [
+      "SecureStorage"
+    ]
+  },
+  {
+    "id": "cordova-plugin-secure-storage.sjcl_ss",
+    "file": "plugins/cordova-plugin-secure-storage/www/sjcl_ss.js",
+    "pluginId": "cordova-plugin-secure-storage",
+    "runs": true
+  },
+  {
+    "id": "cordova-plugin-touch-id.TouchID",
+    "file": "plugins/cordova-plugin-touch-id/www/TouchID.js",
+    "pluginId": "cordova-plugin-touch-id",
+    "clobbers": [
+      "window.plugins.touchid"
+    ]
+  },
+  {
+    "id": "cordova-sqlite-storage.SQLitePlugin",
+    "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+    "pluginId": "cordova-sqlite-storage",
+    "clobbers": [
+      "SQLitePlugin"
+    ]
+  },
+  {
+    "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
+    "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
+    "pluginId": "phonegap-plugin-barcodescanner",
+    "clobbers": [
+      "cordova.plugins.barcodeScanner"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -55,7 +134,18 @@ module.exports.metadata =
   "cordova-clipboard": "1.2.1",
   "cordova-plugin-camera": "4.0.3",
   "cordova-plugin-compat": "1.2.0",
-  "cordova-plugin-device": "2.0.2"
+  "cordova-plugin-device": "2.0.2",
+  "cordova-plugin-splashscreen": "5.0.2",
+  "cordova-plugin-ionic": "4.1.7",
+  "cordova-plugin-ionic-keyboard": "2.0.5",
+  "cordova-plugin-ionic-webview": "1.1.19",
+  "cordova-plugin-swift-support": "3.1.1",
+  "cordova-plugin-qrscanner": "2.5.0",
+  "cordova-plugin-secure-storage": "2.6.8",
+  "cordova-plugin-touch-id": "3.3.1",
+  "cordova-plugin-whitelist": "1.3.3",
+  "cordova-sqlite-storage": "2.3.1",
+  "phonegap-plugin-barcodescanner": "7.1.2"
 };
 // BOTTOM OF METADATA
 });

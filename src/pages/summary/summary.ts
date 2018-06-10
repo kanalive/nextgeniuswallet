@@ -36,7 +36,7 @@ export class SummaryPage {
   }
 
     // change Image
-  base64Image='assets/img/kana.jpeg';
+  base64Image='assets/img/default-profile.png';
 
   accessGallery(){
     console.log("get picture from gallery")
@@ -45,6 +45,7 @@ export class SummaryPage {
      destinationType: this.camera.DestinationType.DATA_URL
     }).then((imageData) => {
       this.base64Image = 'data:image/jpeg;base64,'+imageData;
+      this.restProvider.saveProfileImageintoLocalStorage(this.base64Image);
      }, (err) => {
       console.log(err);
     });

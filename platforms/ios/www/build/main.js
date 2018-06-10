@@ -1,4 +1,4 @@
-webpackJsonp([22],{
+webpackJsonp([23],{
 
 /***/ 115:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -129,12 +129,36 @@ var RestProvider = /** @class */ (function () {
             });
         });
     };
+    RestProvider.prototype.getTransfers = function (address, start) {
+        console.log("rest service called - getTransfers");
+        if (!address) {
+            address = this.account.address;
+        }
+        if (!start) {
+            start = 0;
+        }
+        var options = { address: address, start: start };
+        return this.client.getTransfers(options);
+    };
     RestProvider.prototype.getAccountByAddress = function (address) {
         console.log("rest service called - getAccountByAddress");
         if (!address) {
             address = this.account.address;
         }
         return this.client.getAccountByAddress(address);
+    };
+    RestProvider.prototype.getTokens = function (start) {
+        console.log("rest service called - getTokens");
+        var options = { start: start };
+        return this.client.getTokens(options);
+    };
+    RestProvider.prototype.getToken = function (name) {
+        console.log("rest service called - getToken");
+        return this.client.getToken(name);
+    };
+    RestProvider.prototype.getTokenHolders = function (name) {
+        console.log("rest service called - getTokenHolders");
+        return this.client.getTokenHolders(name);
     };
     RestProvider.prototype.getWitnesses = function () {
         console.log("rest service called - getWitnesses");
@@ -228,43 +252,43 @@ webpackEmptyAsyncContext.id = 126;
 var map = {
 	"../pages/account-details/account-details.module": [
 		366,
-		21
+		22
 	],
 	"../pages/add-account/add-account.module": [
 		367,
-		20
+		21
 	],
 	"../pages/address-details/address-details.module": [
 		368,
-		19
+		20
 	],
 	"../pages/beneficiaries/beneficiaries.module": [
 		369,
-		18
+		19
 	],
 	"../pages/contact-us/contact-us.module": [
+		370,
+		18
+	],
+	"../pages/currency-convertor/currency-convertor.module": [
 		371,
 		17
 	],
-	"../pages/currency-convertor/currency-convertor.module": [
-		370,
-		16
-	],
 	"../pages/find-us/find-us.module": [
 		372,
-		15
+		16
 	],
 	"../pages/forgot-password/forgot-password.module": [
 		373,
-		14
+		15
 	],
 	"../pages/personal-account/personal-account.module": [
-		375,
-		13
+		374,
+		14
 	],
 	"../pages/profile/profile.module": [
-		374,
-		12
+		375,
+		13
 	],
 	"../pages/request/request.module": [
 		376,
@@ -272,47 +296,51 @@ var map = {
 	],
 	"../pages/setting/setting.module": [
 		377,
-		11
+		12
 	],
 	"../pages/sign-in/sign-in.module": [
 		378,
-		10
+		11
 	],
 	"../pages/sign-up/sign-up.module": [
 		379,
-		9
+		10
 	],
 	"../pages/summary/summary.module": [
 		380,
+		9
+	],
+	"../pages/token-detail/token-detail.module": [
+		381,
 		8
 	],
 	"../pages/tokens/tokens.module": [
-		381,
-		7
+		382,
+		2
 	],
 	"../pages/transactions-details/transactions-details.module": [
-		382,
-		6
+		383,
+		7
 	],
 	"../pages/transactions/transactions.module": [
-		383,
-		5
+		384,
+		6
 	],
 	"../pages/transfer/transfer.module": [
-		384,
-		4
+		385,
+		5
 	],
 	"../pages/update-profile/update-profile.module": [
 		386,
-		3
+		4
 	],
 	"../pages/vote/vote.module": [
-		385,
+		387,
 		1
 	],
 	"../pages/welcome/welcome.module": [
-		387,
-		2
+		388,
+		3
 	]
 };
 function webpackAsyncContext(req) {
@@ -369,6 +397,8 @@ var MyApp = /** @class */ (function () {
             { title: 'Summary', component: 'SummaryPage', icon: 'banki-summary' },
             { title: 'Request Payment', component: 'RequestPage', icon: 'banki-transfer' },
             { title: 'Transfer Payment', component: 'TransferPage', icon: 'banki-exchange' },
+            { title: 'Transactions', component: 'TransactionsPage', icon: 'banki-exchange' },
+            { title: 'Tokens', component: 'TokensPage', icon: 'banki-exchange' },
             { title: 'Votes', component: 'VotePage', icon: 'banki-converter' },
             { title: 'Contact us', component: 'ContactUsPage', icon: 'banki-phone' },
         ];
@@ -473,7 +503,7 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* MyApp */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -484,23 +514,24 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/add-account/add-account.module#AddAccountPageModule', name: 'AddAccountPage', segment: 'add-account', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/address-details/address-details.module#AddressDetailsPageModule', name: 'AddressDetailsPage', segment: 'address-details', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/beneficiaries/beneficiaries.module#BeneficiariesPageModule', name: 'BeneficiariesPage', segment: 'beneficiaries', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/currency-convertor/currency-convertor.module#CurrencyConvertorPageModule', name: 'CurrencyConvertorPage', segment: 'currency-convertor', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/contact-us/contact-us.module#ContactUsPageModule', name: 'ContactUsPage', segment: 'contact-us', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/currency-convertor/currency-convertor.module#CurrencyConvertorPageModule', name: 'CurrencyConvertorPage', segment: 'currency-convertor', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/find-us/find-us.module#FindUsPageModule', name: 'FindUsPage', segment: 'find-us', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/forgot-password/forgot-password.module#ForgotPasswordPageModule', name: 'ForgotPasswordPage', segment: 'forgot-password', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/personal-account/personal-account.module#PersonalAccountPageModule', name: 'PersonalAccountPage', segment: 'personal-account', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/request/request.module#RequestPageModule', name: 'RequestPage', segment: 'request', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/setting/setting.module#SettingPageModule', name: 'SettingPage', segment: 'setting', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/sign-in/sign-in.module#SignInPageModule', name: 'SignInPage', segment: 'sign-in', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/summary/summary.module#SummaryPageModule', name: 'SummaryPage', segment: 'summary', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/token-detail/token-detail.module#TokenDetailPageModule', name: 'TokenDetailPage', segment: 'token-detail', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tokens/tokens.module#TokensPageModule', name: 'TokensPage', segment: 'tokens', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transactions-details/transactions-details.module#TransactionsDetailsPageModule', name: 'TransactionsDetailsPage', segment: 'transactions-details', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transactions/transactions.module#TransactionsPageModule', name: 'TransactionsPage', segment: 'transactions', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transfer/transfer.module#TransferPageModule', name: 'TransferPage', segment: 'transfer', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/vote/vote.module#VotePageModule', name: 'VotePage', segment: 'vote', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/update-profile/update-profile.module#UpdateProfilePageModule', name: 'UpdateProfilePage', segment: 'update-profile', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/vote/vote.module#VotePageModule', name: 'VotePage', segment: 'vote', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/welcome/welcome.module#WelcomePageModule', name: 'WelcomePage', segment: 'welcome', priority: 'low', defaultHistory: [] }
                     ]
                 }),

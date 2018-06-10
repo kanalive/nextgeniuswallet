@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Client } from "@tronscan/client";
 import { Storage } from '@ionic/storage';
+//import { SecureStorage } from 'cordova-plugin-secure-storage';
 import { generateAccount } from "@tronscan/client/src/utils/account";
 import { pkToAddress } from "@tronscan/client/src/utils/crypto";
 /*
@@ -15,9 +16,11 @@ export class RestProvider {
   // accountApiUrl = "https://91o3mlxvbb.execute-api.ap-southeast-2.amazonaws.com/Prod"
   public account : any;
   private ONE_TRX = 1000000;
+  private secureStorage : any;
 
   constructor(public http: HttpClient, private storage: Storage, private client: Client ) {
     console.log('Hello RestProvider Provider');
+    //this.loadAccountFromSecureStorage();
   }
 
 
@@ -32,6 +35,23 @@ export class RestProvider {
       });
     });
   }
+
+  public loadAccountFromSecureStorage(){
+    console.log("loadAccountFromSecureStorage");
+
+    // this.secureStorage = new SecureStorage(
+    //   function () { alert('secure storage loading - Success')},
+    //   function (error) { alert('Error ' + error); },
+    //   'my_app');
+
+
+    // this.secureStorage.set(
+    //   function (key) { alert('Set ' + key); },
+    //   function (error) {alert('Error ' + error); },
+    //   'mykey', 'myvalue');
+
+  }
+
 
   public loginOtherAccount(firstName, lastName, email, privateKey, address){
     this.account.firstName = firstName;

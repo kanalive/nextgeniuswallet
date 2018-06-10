@@ -19,8 +19,6 @@ export class TokensPage {
   terms: string;
   pageLimit: number;
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider, public searchPipe: SearchPipe) {
-    this.getTokens(0);
-    //this.pageLimit = 50;
   }
 
   // get tokens
@@ -33,7 +31,7 @@ export class TokensPage {
     
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TokensPage');
+    this.getTokens(0);
   }
 
   goTo(page, tokenName){

@@ -12,7 +12,7 @@ import { AlertController } from 'ionic-angular';
 export class TransferPage {
 
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, private qrScanner: QRScanner, public navParams: NavParams, public restProvider: RestProvider) {
-    this.getAccountByAddress();
+    
   }
 
   fromAccount=this.restProvider.account.address;
@@ -24,6 +24,11 @@ export class TransferPage {
   busy = false;
   availableFund =0;
   ONE_TRX = 1000000;
+
+
+  ionViewDidLoad() {
+    this.getAccountByAddress();
+  }
 
   getAccountByAddress(){
     console.log("getbalance in transfer page called");

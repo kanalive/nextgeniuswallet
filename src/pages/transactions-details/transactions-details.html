@@ -1,41 +1,67 @@
-
 <ion-header>
-  <ion-navbar>
-    <ion-buttons start >
-      <button ion-button icon-only menuToggle>
-        <ion-icon name="ios-menu"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>Transactions Details</ion-title>
-  </ion-navbar>
-</ion-header>
-<ion-content padding>
-  <!-- account name , number and currancy -->
-  <div class="acountTitle"> 
-    <span>Account</span>
+    <ion-navbar>
+      <ion-buttons start >
+        <button ion-button icon-only menuToggle>
+          <ion-icon name="ios-menu"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>Transaction details</ion-title>
+      <ion-buttons end >
+        <button ion-button icon-only (click)="logOut()">
+          <ion-icon name="ios-log-out"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+  
+    <ion-list *ngIf="transfer">
+  
+      <ion-item>
+          <div class="container">
+              <p>
+                <span>Timestamp</span>
+                <span>{{transfer.timestamp| date:'yyyy-MM-dd HH:mm a z':'+0800'}}</span>
+              </p>
+          </div>
+          
+          <div class="container">
+              <p>
+                  <span>Amount</span>
+                  <span>{{transfer.amount}} {{transfer.tokenName}}</span>
+                </p>
+          </div>
+          
+  
+          <div class="container">
+              <p>
+                <span>Status</span>
+                <span *ngIf="transfer.confirmed">Confirmed</span>
+                <span *ngIf="!transfer.confirmed">Pending</span>
+              </p>
+          </div>
 
-    <p class="countNum">
-      123
-      <span>xxxxx</span>
-      12345
-    </p>
+          <div class="container">
+              <p>
+                <span>From</span>
+                <span>{{transfer.transferFromAddress}}</span>
+              </p>
+          </div>
 
-    <span>33324 $</span>
-  </div>
-  <!-- Transaction Details -->
-  <div class="details">
-    <p class="myLabel">Transaction Details</p>
-    <ion-grid>
-      <ion-row *ngFor="let item of items">
-        <ion-col col-6 text-left>
-          <p>{{item.col1}}</p>
-        </ion-col>
-        <ion-col col-6 text-right>
-          <p> 
-            <span *ngIf="item.col1=='Amount'">$</span>
-            {{item.col2}}</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-</ion-content>
+          <div class="container">
+              <p>
+                <span>To</span>
+                <span>{{transfer.transferToAddress}}</span>
+              </p>
+          </div>
+
+        </ion-item>
+
+
+    </ion-list>
+  
+    <!-- most use -->
+
+  </ion-content>
+  

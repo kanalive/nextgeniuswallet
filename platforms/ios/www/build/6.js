@@ -1,14 +1,14 @@
 webpackJsonp([6],{
 
-/***/ 382:
+/***/ 384:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransactionsDetailsPageModule", function() { return TransactionsDetailsPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransactionsPageModule", function() { return TransactionsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__transactions_details__ = __webpack_require__(434);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__transactions__ = __webpack_require__(439);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,33 +18,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var TransactionsDetailsPageModule = /** @class */ (function () {
-    function TransactionsDetailsPageModule() {
+var TransactionsPageModule = /** @class */ (function () {
+    function TransactionsPageModule() {
     }
-    TransactionsDetailsPageModule = __decorate([
+    TransactionsPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__transactions_details__["a" /* TransactionsDetailsPage */],
+                __WEBPACK_IMPORTED_MODULE_2__transactions__["a" /* TransactionsPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__transactions_details__["a" /* TransactionsDetailsPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__transactions__["a" /* TransactionsPage */]),
             ],
         })
-    ], TransactionsDetailsPageModule);
-    return TransactionsDetailsPageModule;
+    ], TransactionsPageModule);
+    return TransactionsPageModule;
 }());
 
-//# sourceMappingURL=transactions-details.module.js.map
+//# sourceMappingURL=transactions.module.js.map
 
 /***/ }),
 
-/***/ 434:
+/***/ 439:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TransactionsDetailsPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TransactionsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(115);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -56,29 +57,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var TransactionsDetailsPage = /** @class */ (function () {
-    function TransactionsDetailsPage(navCtrl, navParams) {
+
+var TransactionsPage = /** @class */ (function () {
+    function TransactionsPage(navCtrl, navParams, restProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.restProvider = restProvider;
         this.items = [
-            { col1: 'Amount', col2: 100000 },
-            { col1: 'Transaction Date', col2: '15-8-2017' },
-            { col1: 'Posting Date', col2: '12-8-2017' },
-            { col1: 'Description', col2: 'ATM Withdrawal Street name ATM Withdrawal Street name' },
-            { col1: 'Debit/Credit', col2: 'Debit' },
-            { col1: 'Reference', col2: '02154860.15463' },
+            { date: '15-8-2017', cost: 1000, address: 'ATM Withdrawal 12 Street Name' },
+            { date: '15-8-2017', cost: 1000, address: 'ATM Withdrawal 12 Street Name' },
+            { date: '15-8-2017', cost: 1000, address: 'ATM Withdrawal 12 Street Name' },
+            { date: '15-8-2017', cost: 1000, address: 'ATM Withdrawal 12 Street Name' },
         ];
+        this.getTransfers();
     }
-    TransactionsDetailsPage = __decorate([
+    // goTo Function 
+    TransactionsPage.prototype.goTo = function (page) {
+        this.navCtrl.push(page);
+    };
+    TransactionsPage.prototype.getTransfers = function () {
+        var _this = this;
+        this.restProvider.getTransfers(this.restProvider.account.address, 0).then(function (data) {
+            alert("success");
+            console.log(data);
+            _this.transfer = data;
+        });
+    };
+    TransactionsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-transactions-details',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/transactions-details/transactions-details.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Transactions Details</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <!-- account name , number and currancy -->\n  <div class="acountTitle"> \n    <span>Account</span>\n\n    <p class="countNum">\n      123\n      <span>xxxxx</span>\n      12345\n    </p>\n\n    <span>33324 $</span>\n  </div>\n  <!-- Transaction Details -->\n  <div class="details">\n    <p class="myLabel">Transaction Details</p>\n    <ion-grid>\n      <ion-row *ngFor="let item of items">\n        <ion-col col-6 text-left>\n          <p>{{item.col1}}</p>\n        </ion-col>\n        <ion-col col-6 text-right>\n          <p> \n            <span *ngIf="item.col1==\'Amount\'">$</span>\n            {{item.col2}}</p>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n</ion-content>'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/transactions-details/transactions-details.html"*/,
+            selector: 'page-transactions',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/transactions/transactions.html"*/'\n<ion-header>\n\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Account Transactions</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n   <!-- account name , number and currancy -->\n  <div class="acountTitle"> \n    <span>Account</span>\n\n    <p class="countNum">\n      123\n      <span>xxxxx</span>\n      12345\n    </p>\n\n    <span>33324 $</span>\n  </div>\n  \n  <div class="appForm">\n    <p class="myLabel">Account Transactions</p>\n    <ion-grid>\n      <ion-row>\n        <ion-col col-12 col-md-6 col-lg-4  *ngFor="let item of items" (click)="goTo(\'TransactionsDetailsPage\')">\n          <button ion-item>\n            <ion-icon item-right name="md-arrow-dropright"></ion-icon>\n            <p>{{item.date}}</p>\n            <p class="cost">{{item.cost}} $</p>\n            <p>{{item.address}}</p>\n          </button>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/transactions/transactions.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
-    ], TransactionsDetailsPage);
-    return TransactionsDetailsPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */]])
+    ], TransactionsPage);
+    return TransactionsPage;
 }());
 
-//# sourceMappingURL=transactions-details.js.map
+//# sourceMappingURL=transactions.js.map
 
 /***/ })
 
