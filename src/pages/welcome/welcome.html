@@ -6,7 +6,21 @@
     </div>
     <p>nextgenius.com.au</p>
     <button ion-button block color="light" (click)="goTo('SignUpPage')">SIGN UP</button>
-    <button ion-button block color="color2"  *ngIf="address!=''" (click)="goTo('SummaryPage')">Sign in {{address}}</button>
+    <div *ngIf="address!=''" >
+      
+      <button ion-button block color="color2" (click)="showPasswordField()">
+        {{address}}
+      </button>
+      <div *ngIf="showPasswd">
+      <button ion-button block color="light">
+          <ion-input type="password" required [(ngModel)]="password" placeholder="Please enter password here" ></ion-input>
+        </button>
+      
+      <button ion-button block color="color2" (click)="signin()">
+          Sign in
+        </button>
+      </div>
+    </div>
     <button ion-button block color="light"  (click)="goTo('SignInPage')">Sign in other account</button>
   </div>
 </ion-content>

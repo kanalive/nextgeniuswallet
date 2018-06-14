@@ -60606,7 +60606,7 @@ ion-navbar.toolbar {
   background-position: center center;
 }
 
-.appForm .button-ios.button-block, .appForm button.item-ios, .appForm .item-ios.item-block.item-input .text-input-ios, .appForm .item-ios.item-block.item-select .select-ios, .item-ios.item-block.item-checkbox .checkbox-ios, .searchItem, page-account-details .content-ios .details, page-contact-us .appForm > .button, page-personal-account .content-ios .scroll-content .grid .col .account, page-summary .graphs .item-ios .container, page-token-detail .item-ios .container, page-tokens .appForm, page-transactions .appForm, page-transactions-details .item-ios .container {
+.appForm .button-ios.button-block, .appForm button.item-ios, .appForm .item-ios.item-block.item-input .text-input-ios, .appForm .item-ios.item-block.item-select .select-ios, .item-ios.item-block.item-checkbox .checkbox-ios, .searchItem, page-account-details .content-ios .details, page-contact-us .appForm > .button, page-personal-account .content-ios .scroll-content .grid .col .account, page-summary .graphs .item-ios .container, page-token-detail .item-ios .container, page-token-detail .item-ios .graphs .item-ios .container, page-tokens .appForm, page-transactions .appForm, page-transactions-details .item-ios .container {
   -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.18);
   box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.18);
   margin: 0px 2px 3px 0px;
@@ -60993,15 +60993,11 @@ ion-navbar.toolbar {
   padding: 0px;
 }
 
-.item-range .range-ios .range-bar {
-  background: none;
-}
-
 .item-range .range-ios.range-disabled {
   opacity: 1;
 }
 
-.myTitle, .appForm .item-ios.list-header-ios .label-ios, .acountTitle, page-summary .graphs .list-header-ios .label-ios {
+.myTitle, .appForm .item-ios.list-header-ios .label-ios, .acountTitle, page-summary .graphs .list-header-ios .label-ios, page-token-detail .item-ios .graphs .list-header-ios .label-ios {
   white-space: normal;
   max-height: 20px;
   line-height: 20px;
@@ -61014,7 +61010,7 @@ ion-navbar.toolbar {
   text-transform: none;
 }
 
-.myLabel, .appForm .item-ios.item-block .label-ios[stacked], page-summary .graphs .item-ios .label > p, page-token-detail .item-ios .label > p, page-transactions-details .item-ios .label > p {
+.myLabel, .appForm .item-ios.item-block .label-ios[stacked], page-summary .graphs .item-ios .label > p, page-token-detail .item-ios .label > p, page-token-detail .item-ios .graphs .item-ios .label > p, page-transactions-details .item-ios .label > p {
   color: #dc3545 !important;
   font-weight: 500;
   white-space: normal;
@@ -63932,7 +63928,7 @@ ion-menu.show-menu .menu-inner .footer .button-ios .button-inner {
   backface-visibility: hidden;
 }
 
-.animateApp .fadeInDown, .animateApp .header-ios .bar-button-ios, .animateApp page-summary .mostUse .grid, .animateApp page-personal-account .scroll-content > p, .animateApp page-account-details .details .myLabel, .animateApp page-account-details .details .appForm .item-ios.item-block .label-ios[stacked], .appForm .item-ios.item-block .animateApp page-account-details .details .label-ios[stacked], .animateApp page-account-details .details page-summary .graphs .item-ios .label > p, page-summary .graphs .item-ios .animateApp page-account-details .details .label > p, .animateApp page-account-details .details page-token-detail .item-ios .label > p, page-token-detail .item-ios .animateApp page-account-details .details .label > p, .animateApp page-account-details .details page-transactions-details .item-ios .label > p, page-transactions-details .item-ios .animateApp page-account-details .details .label > p {
+.animateApp .fadeInDown, .animateApp .header-ios .bar-button-ios, .animateApp page-summary .mostUse .grid, .animateApp page-personal-account .scroll-content > p, .animateApp page-account-details .details .myLabel, .animateApp page-account-details .details .appForm .item-ios.item-block .label-ios[stacked], .appForm .item-ios.item-block .animateApp page-account-details .details .label-ios[stacked], .animateApp page-account-details .details page-summary .graphs .item-ios .label > p, page-summary .graphs .item-ios .animateApp page-account-details .details .label > p, .animateApp page-account-details .details page-token-detail .item-ios .label > p, page-token-detail .item-ios .animateApp page-account-details .details .label > p, .animateApp page-account-details .details page-token-detail .item-ios .graphs .item-ios .label > p, .animateApp page-account-details .details page-transactions-details .item-ios .label > p, page-transactions-details .item-ios .animateApp page-account-details .details .label > p {
   -webkit-animation-name: fadeInDown;
   animation-name: fadeInDown;
   -webkit-animation-iteration-count: 1;
@@ -64078,7 +64074,7 @@ page-currency-convertor .button-ios.button-clear-ios .button-inner {
   color: #383737;
 }
 
-page-find-us .myTitle, page-find-us .appForm .item-ios.list-header-ios .label-ios, .appForm .item-ios.list-header-ios page-find-us .label-ios, page-find-us .acountTitle, page-find-us page-summary .graphs .list-header-ios .label-ios, page-summary .graphs .list-header-ios page-find-us .label-ios {
+page-find-us .myTitle, page-find-us .appForm .item-ios.list-header-ios .label-ios, .appForm .item-ios.list-header-ios page-find-us .label-ios, page-find-us .acountTitle, page-find-us page-summary .graphs .list-header-ios .label-ios, page-summary .graphs .list-header-ios page-find-us .label-ios, page-find-us page-token-detail .item-ios .graphs .list-header-ios .label-ios, page-token-detail .item-ios .graphs .list-header-ios page-find-us .label-ios {
   height: 34px;
   line-height: 34px;
   max-height: 34px;
@@ -64145,7 +64141,7 @@ page-personal-account .content-ios .scroll-content {
   padding: 10px 0px !important;
 }
 
-page-personal-account .content-ios .scroll-content .myTitle, page-personal-account .content-ios .scroll-content .appForm .item-ios.list-header-ios .label-ios, .appForm .item-ios.list-header-ios page-personal-account .content-ios .scroll-content .label-ios, page-personal-account .content-ios .scroll-content .acountTitle, page-personal-account .content-ios .scroll-content page-summary .graphs .list-header-ios .label-ios, page-summary .graphs .list-header-ios page-personal-account .content-ios .scroll-content .label-ios {
+page-personal-account .content-ios .scroll-content .myTitle, page-personal-account .content-ios .scroll-content .appForm .item-ios.list-header-ios .label-ios, .appForm .item-ios.list-header-ios page-personal-account .content-ios .scroll-content .label-ios, page-personal-account .content-ios .scroll-content .acountTitle, page-personal-account .content-ios .scroll-content page-summary .graphs .list-header-ios .label-ios, page-summary .graphs .list-header-ios page-personal-account .content-ios .scroll-content .label-ios, page-personal-account .content-ios .scroll-content page-token-detail .item-ios .graphs .list-header-ios .label-ios, page-token-detail .item-ios .graphs .list-header-ios page-personal-account .content-ios .scroll-content .label-ios {
   padding: 0px 10px;
 }
 
@@ -64524,20 +64520,71 @@ page-token-detail .item-ios .container p button {
   color: #eeeff1;
 }
 
-page-token-detail .item-ios .item-range {
+page-token-detail .item-ios .graphs {
+  border-top: 0px solid #707070;
+  border-bottom: 1px solid #707070;
+  padding: 10px 0px;
+}
+
+page-token-detail .item-ios .graphs .list-header-ios {
+  padding: 0px;
+  border-bottom: 0px;
+  min-height: 0px;
+  margin: 10px 0px;
+}
+
+page-token-detail .item-ios .graphs .item-range {
   width: calc(100% - 10px);
   margin: 0px auto;
 }
 
-page-token-detail .item-ios .item-range .range-ios .range-bar.range-bar-active {
-  background: #1e1e1e;
+page-token-detail .item-ios .graphs .item-range .range-ios .range-bar.range-bar-active {
+  background: #1e1e1e !important;
+}
+
+page-token-detail .item-ios .graphs .item-ios {
+  margin-bottom: 10px !important;
+}
+
+page-token-detail .item-ios .graphs .item-ios .label {
+  margin: 0px;
+  width: 100%;
+}
+
+page-token-detail .item-ios .graphs .item-ios .container {
+  background-color: #fff;
+  padding: 10px 5px;
+  margin: 1px;
+}
+
+page-token-detail .item-ios .graphs .item-ios .container p {
+  display: inline-block;
+  width: 100%;
+  margin: 10px 0px 0px;
+}
+
+page-token-detail .item-ios .graphs .item-ios .container p span {
+  color: #707070;
+  white-space: normal;
+  max-height: 15px;
+  line-height: 15px;
+  display: block;
+  overflow: hidden;
+  display: inline-block;
+  max-width: 50%;
+  padding: 0px 5px;
+}
+
+page-token-detail .item-ios .graphs .item-ios .container p button {
+  vertical-align: bottom;
+  color: #eeeff1;
 }
 
 page-tokens .appForm {
   background-color: #fff;
 }
 
-page-tokens .appForm .myLabel, page-tokens .appForm .item-ios.item-block .label-ios[stacked], page-tokens .appForm page-summary .graphs .item-ios .label > p, page-summary .graphs .item-ios page-tokens .appForm .label > p, page-tokens .appForm page-token-detail .item-ios .label > p, page-token-detail .item-ios page-tokens .appForm .label > p, page-tokens .appForm page-transactions-details .item-ios .label > p, page-transactions-details .item-ios page-tokens .appForm .label > p {
+page-tokens .appForm .myLabel, page-tokens .appForm .item-ios.item-block .label-ios[stacked], page-tokens .appForm page-summary .graphs .item-ios .label > p, page-summary .graphs .item-ios page-tokens .appForm .label > p, page-tokens .appForm page-token-detail .item-ios .label > p, page-token-detail .item-ios page-tokens .appForm .label > p, page-tokens .appForm page-token-detail .item-ios .graphs .item-ios .label > p, page-token-detail .item-ios .graphs .item-ios page-tokens .appForm .label > p, page-tokens .appForm page-transactions-details .item-ios .label > p, page-transactions-details .item-ios page-tokens .appForm .label > p {
   margin: 10px 10px 0px 10px;
 }
 
@@ -64579,7 +64626,7 @@ page-transactions .appForm {
   background-color: #fff;
 }
 
-page-transactions .appForm .myLabel, page-transactions .appForm .item-ios.item-block .label-ios[stacked], page-transactions .appForm page-summary .graphs .item-ios .label > p, page-summary .graphs .item-ios page-transactions .appForm .label > p, page-transactions .appForm page-token-detail .item-ios .label > p, page-token-detail .item-ios page-transactions .appForm .label > p, page-transactions .appForm page-transactions-details .item-ios .label > p, page-transactions-details .item-ios page-transactions .appForm .label > p {
+page-transactions .appForm .myLabel, page-transactions .appForm .item-ios.item-block .label-ios[stacked], page-transactions .appForm page-summary .graphs .item-ios .label > p, page-summary .graphs .item-ios page-transactions .appForm .label > p, page-transactions .appForm page-token-detail .item-ios .label > p, page-token-detail .item-ios page-transactions .appForm .label > p, page-transactions .appForm page-token-detail .item-ios .graphs .item-ios .label > p, page-token-detail .item-ios .graphs .item-ios page-transactions .appForm .label > p, page-transactions .appForm page-transactions-details .item-ios .label > p, page-transactions-details .item-ios page-transactions .appForm .label > p {
   margin: 10px 10px 0px 10px;
 }
 
@@ -64672,6 +64719,10 @@ page-transfer .content-ios .button-ios {
   margin-top: 20px;
 }
 
+page-transfer2 button {
+  min-width: 100px;
+}
+
 page-update-profile ion-header {
   width: auto;
   left: auto;
@@ -64726,7 +64777,7 @@ page-vote .content-ios .scroll-content {
   padding: 10px 0px !important;
 }
 
-page-vote .content-ios .scroll-content .myTitle, page-vote .content-ios .scroll-content .appForm .item-ios.list-header-ios .label-ios, .appForm .item-ios.list-header-ios page-vote .content-ios .scroll-content .label-ios, page-vote .content-ios .scroll-content .acountTitle, page-vote .content-ios .scroll-content page-summary .graphs .list-header-ios .label-ios, page-summary .graphs .list-header-ios page-vote .content-ios .scroll-content .label-ios {
+page-vote .content-ios .scroll-content .myTitle, page-vote .content-ios .scroll-content .appForm .item-ios.list-header-ios .label-ios, .appForm .item-ios.list-header-ios page-vote .content-ios .scroll-content .label-ios, page-vote .content-ios .scroll-content .acountTitle, page-vote .content-ios .scroll-content page-summary .graphs .list-header-ios .label-ios, page-summary .graphs .list-header-ios page-vote .content-ios .scroll-content .label-ios, page-vote .content-ios .scroll-content page-token-detail .item-ios .graphs .list-header-ios .label-ios, page-token-detail .item-ios .graphs .list-header-ios page-vote .content-ios .scroll-content .label-ios {
   padding: 0px 10px;
 }
 
@@ -64809,6 +64860,17 @@ page-welcome .content-ios .scroll-content .welcome > span {
   display: inline-block;
   min-width: 100px;
   font-size: 1.45rem;
+}
+
+page-welcome .content-ios .scroll-content .label-ios[stacked] {
+  color: #1e1e1e !important;
+}
+
+page-welcome .content-ios .scroll-content .text-input-ios[type="password"] {
+  background-color: #fff;
+  color: #dc3545 !important;
+  width: 100%;
+  height: 100%;
 }
 
 .logo h3 {

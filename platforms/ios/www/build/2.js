@@ -1,15 +1,14 @@
 webpackJsonp([2],{
 
-/***/ 382:
+/***/ 419:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TokensPageModule", function() { return TokensPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WelcomePageModule", function() { return WelcomePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens__ = __webpack_require__(437);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_pipeModule__ = __webpack_require__(395);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__welcome__ = __webpack_require__(445);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -19,133 +18,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
-var TokensPageModule = /** @class */ (function () {
-    function TokensPageModule() {
+var WelcomePageModule = /** @class */ (function () {
+    function WelcomePageModule() {
     }
-    TokensPageModule = __decorate([
+    WelcomePageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* TokensPage */],
+                __WEBPACK_IMPORTED_MODULE_2__welcome__["a" /* WelcomePage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* TokensPage */]),
-                __WEBPACK_IMPORTED_MODULE_3__app_pipeModule__["a" /* PipeModule */]
-            ]
-        })
-    ], TokensPageModule);
-    return TokensPageModule;
-}());
-
-//# sourceMappingURL=tokens.module.js.map
-
-/***/ }),
-
-/***/ 392:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchPipe; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-/**
- * Generated class for the SearchPipe pipe.
- *
- * See https://angular.io/api/core/Pipe for more info on Angular Pipes.
- */
-var SearchPipe = /** @class */ (function () {
-    function SearchPipe() {
-    }
-    /**
-     * Takes a value and makes it lowercase.
-     */
-    SearchPipe.prototype.transform = function (items, terms) {
-        if (!items)
-            return [];
-        if (!terms)
-            return items;
-        terms = terms.toLowerCase();
-        return items.filter(function (it) {
-            if (it.name != null) {
-                return it.name.toLowerCase().includes(terms);
-            }
-            if (it.abbr != null) {
-                return it.abbr.toLowerCase().includes(terms);
-            }
-            if (it.url != null) {
-                return it.name.toLowerCase().includes(terms);
-            }
-            if (it.description != null) {
-                return it.name.toLowerCase().includes(terms);
-            }
-        });
-    };
-    SearchPipe = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Pipe */])({
-            name: 'search',
-        })
-    ], SearchPipe);
-    return SearchPipe;
-}());
-
-//# sourceMappingURL=search.js.map
-
-/***/ }),
-
-/***/ 395:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PipeModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pipes_search_search__ = __webpack_require__(392);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-var PipeModule = /** @class */ (function () {
-    function PipeModule() {
-    }
-    PipeModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_1__pipes_search_search__["a" /* SearchPipe */]
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__welcome__["a" /* WelcomePage */]),
             ],
-            imports: [],
-            exports: [
-                __WEBPACK_IMPORTED_MODULE_1__pipes_search_search__["a" /* SearchPipe */]
-            ],
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_1__pipes_search_search__["a" /* SearchPipe */]
-            ]
         })
-    ], PipeModule);
-    return PipeModule;
+    ], WelcomePageModule);
+    return WelcomePageModule;
 }());
 
-//# sourceMappingURL=pipeModule.js.map
+//# sourceMappingURL=welcome.module.js.map
 
 /***/ }),
 
-/***/ 437:
+/***/ 445:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TokensPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WelcomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_search_search__ = __webpack_require__(392);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(120);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -158,46 +58,59 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-/**
- * Generated class for the TokensPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var TokensPage = /** @class */ (function () {
-    function TokensPage(navCtrl, navParams, restProvider, searchPipe) {
+var WelcomePage = /** @class */ (function () {
+    function WelcomePage(navCtrl, navParams, restProvider, loadingCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.restProvider = restProvider;
-        this.searchPipe = searchPipe;
+        this.loadingCtrl = loadingCtrl;
+        this.address = '';
+        this.password = '';
+        this.showPasswd = false;
+        this.presentLoadingDefault();
+        console.log("load");
     }
-    // get tokens
-    TokensPage.prototype.getTokens = function (start) {
+    // goTo Function 
+    WelcomePage.prototype.goTo = function (page) {
+        this.navCtrl.push(page);
+    };
+    WelcomePage.prototype.signin = function () {
+        if (this.restProvider.signin(this.address, this.password)) {
+            this.goTo("SummaryPage");
+        }
+        else {
+            alert("Invalid password");
+        }
+    };
+    WelcomePage.prototype.showPasswordField = function () {
+        this.showPasswd = true;
+    };
+    WelcomePage.prototype.presentLoadingDefault = function () {
         var _this = this;
-        console.log("token page function called");
-        this.restProvider.getTokens(start).then(function (data) {
+        var loading = this.loadingCtrl.create({
+            content: 'Loading account...'
+        });
+        loading.present();
+        this.restProvider.loadAccountFromLocalSql()
+            .then(function (data) {
             console.log(data);
-            _this.tokens = data;
+            if (data != null) {
+                _this.address = data["address"];
+            }
+            loading.dismiss();
+            //this.goTo("SummaryPage");
         });
     };
-    TokensPage.prototype.ionViewDidLoad = function () {
-        this.getTokens(0);
-    };
-    TokensPage.prototype.goTo = function (page, tokenName) {
-        console.log("go to page token detail - " + tokenName);
-        this.navCtrl.push(page, { TokenName: tokenName });
-    };
-    TokensPage = __decorate([
+    WelcomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-tokens',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/tokens/tokens.html"*/'\n<ion-header>\n    <ion-navbar>\n      <ion-buttons start >\n        <button ion-button icon-only menuToggle>\n          <ion-icon name="ios-menu"></ion-icon>\n        </button>\n      </ion-buttons>\n      <ion-title>Tokens</ion-title>\n      <ion-buttons end >\n        <button ion-button icon-only (click)="logOut()">\n          <ion-icon name="ios-log-out"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-navbar>\n  </ion-header>\n  <ion-content>\n    <div *ngIf="!tokens">\n      Loading tokens...\n    </div>\n    <div *ngIf="tokens">\n\n    <div class="appForm">\n      \n      <ion-searchbar [(ngModel)]="terms"></ion-searchbar>\n      <p class="myLabel">{{(tokens.total)}} tokens in total</p>\n      <ion-grid>\n        <ion-row>\n          <ion-col col-12 col-md-6 col-lg-4  *ngFor="let item of tokens.tokens| search : terms" (click)="goTo(\'TokenDetailPage\', item.name)">\n            <button ion-item>\n              <ion-icon item-right name="md-arrow-dropright"></ion-icon>\n                <p><span>Token: </span>{{item.name}} - {{item.abbr}}</p>\n                <p><span>Total Supply: </span>{{item.totalSupply}}</p>\n                <p><span>Total issued: </span>{{item.issued}}</p>\n                <p><span>Registered: </span>{{item.dateCreated}}</p>\n            </button>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </div>  \n  </div>\n  </ion-content>\n  '/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/tokens/tokens.html"*/,
+            selector: 'page-welcome',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/welcome/welcome.html"*/'<ion-content >\n  <div class="welcome">\n    <div class="logo">\n      <h3>TRON wallet</h3>\n      <p>by Next Genius</p>\n    </div>\n    <p>nextgenius.com.au</p>\n    <button ion-button block color="light" (click)="goTo(\'SignUpPage\')">SIGN UP</button>\n    <div *ngIf="address!=\'\'" >\n      \n      <button ion-button block color="color2" (click)="showPasswordField()">\n        {{address}}\n      </button>\n      <div *ngIf="showPasswd">\n      <button ion-button block color="light">\n          <ion-input type="password" required [(ngModel)]="password" placeholder="Please enter password here" ></ion-input>\n        </button>\n      \n      <button ion-button block color="color2" (click)="signin()">\n          Sign in\n        </button>\n      </div>\n    </div>\n    <button ion-button block color="light"  (click)="goTo(\'SignInPage\')">Sign in other account</button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/welcome/welcome.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */], __WEBPACK_IMPORTED_MODULE_3__pipes_search_search__["a" /* SearchPipe */]])
-    ], TokensPage);
-    return TokensPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
+    ], WelcomePage);
+    return WelcomePage;
 }());
 
-//# sourceMappingURL=tokens.js.map
+//# sourceMappingURL=welcome.js.map
 
 /***/ })
 

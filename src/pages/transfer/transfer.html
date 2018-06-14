@@ -14,38 +14,72 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <div class="appForm">
-    <ion-list>
-      <ion-list-header>
-          Transfer
-      </ion-list-header>
-      <!-- Accoun-From Select -->
-      <div *ngIf="!accountBalance">
-        <p>Loading account balance, please wait...</p>
+  <ion-card>
+    <ion-card-header>
+        Transfer
+    </ion-card-header>
+    <ion-card-content>
+        <div *ngIf="!accountBalance">
+          <p>Loading account balance, please wait...</p>
+        </div>
+        <div *ngIf="accountBalance">
+          <ion-list>
+            <ion-item>
+                <ion-label stacked>From account - {{fromAccount}}</ion-label>
+                <ion-input disabled="true" value="{{availableFund + ' TRX'}}"></ion-input>
+              </ion-item>
+              <!-- Account-To Select -->
+              <ion-item >
+                  <ion-label stacked>To account</ion-label>
+                  <ion-input [(ngModel)]="toAccount"></ion-input>
+              </ion-item>
+          <!--<button ion-button block color="color2" (click)="scan()">Scan QR code</button>-->
+            <!-- amount Input -->
+          <ion-item>
+            <ion-label stacked>Amount</ion-label>
+            <ion-input type="num" [(ngModel)]="amount" placeholder="Type here"></ion-input>
+          </ion-item> 
+        </ion-list> 
       </div>
-      <div *ngIf="accountBalance">
-      <ion-item>
-          <ion-label stacked>From account - {{fromAccount}}</ion-label>
-          <ion-input disabled="true" value="{{availableFund + ' TRX'}}"></ion-input>
-         
-        </ion-item>
-      </div>
-      <!-- Account-To Select -->
-      <ion-item >
-        <ion-label stacked>To account</ion-label>
-          <ion-input [(ngModel)]="toAccount"></ion-input>
-         
-      </ion-item>
-      <!--<button ion-button block color="color2" (click)="scan()">Scan QR code</button>-->
-        <!-- amount Input -->
-      <ion-item>
-        <ion-label stacked>Amount</ion-label>
-        <ion-input type="num" [(ngModel)]="amount" placeholder="Type here"></ion-input>
-      </ion-item> 
-    </ion-list> 
-  </div>
+      
+      <button ion-button block color="color2" (click)="transfer()">Continue</button>
+      <p class="result" *ngIf="show == true">{{result}}</p>
+    </ion-card-content>
+  </ion-card>
   
-  <button ion-button block color="color2" (click)="transfer()">Continue</button>
-  <p class="result" *ngIf="show == true">{{result}}</p>
+
+
+
+  <ion-card>
+
+    <ion-card-header>Transfer transaction for cold wallet (offline wallet)</ion-card-header>
+    <ion-card-content>
+
+
+            <!-- hot wallet-->
+            <button ion-button color="color2" (click)="getLatestBlock();">Step 1. Click to get latest block</button>
+            <div *ngIf="latestBlock">
+              <p>{{latestBlock}}}</p>
+            </div>
+
+            <ion-card *ngIf="createdCode">
+                <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
+                <ion-card-content>
+                  <p>Value: {{ createdCode }}</p>
+                </ion-card-content>
+              </ion-card>
+  
+            
+            
+    </ion-card-content>
+  </ion-card>
+  
+  <button ion-button color="color2" (click)="sendTransactionHexData();">Scan and send transaction data</button>
+        <ion-card *ngIf="scannedCode">
+            <ion-card-content>
+              Result from Scan: {{ scannedCode }}
+            </ion-card-content>
+          </ion-card>
+      
 </ion-content>
 

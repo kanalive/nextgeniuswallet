@@ -1,14 +1,14 @@
 webpackJsonp([18],{
 
-/***/ 370:
+/***/ 402:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContactUsPageModule", function() { return ContactUsPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrencyConvertorPageModule", function() { return CurrencyConvertorPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contact_us__ = __webpack_require__(404);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__currency_convertor__ = __webpack_require__(428);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,33 +18,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ContactUsPageModule = /** @class */ (function () {
-    function ContactUsPageModule() {
+var CurrencyConvertorPageModule = /** @class */ (function () {
+    function CurrencyConvertorPageModule() {
     }
-    ContactUsPageModule = __decorate([
+    CurrencyConvertorPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__contact_us__["a" /* ContactUsPage */],
+                __WEBPACK_IMPORTED_MODULE_2__currency_convertor__["a" /* CurrencyConvertorPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__contact_us__["a" /* ContactUsPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__currency_convertor__["a" /* CurrencyConvertorPage */]),
             ],
         })
-    ], ContactUsPageModule);
-    return ContactUsPageModule;
+    ], CurrencyConvertorPageModule);
+    return CurrencyConvertorPageModule;
 }());
 
-//# sourceMappingURL=contact-us.module.js.map
+//# sourceMappingURL=currency-convertor.module.js.map
 
 /***/ }),
 
-/***/ 404:
+/***/ 428:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactUsPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CurrencyConvertorPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -56,25 +56,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var ContactUsPage = /** @class */ (function () {
-    function ContactUsPage(navCtrl, navParams) {
+var CurrencyConvertorPage = /** @class */ (function () {
+    function CurrencyConvertorPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.fromCountry = 'usa';
+        this.fromImg = 'assets/img/usa.png';
+        this.toCountry = 'cad';
+        this.toImg = 'assets/img/cad.png';
+        this.show = false;
     }
+    // change img in select item
+    CurrencyConvertorPage.prototype.change = function () {
+        this.fromImg = 'assets/img/' + this.fromCountry + '.png';
+        this.toImg = 'assets/img/' + this.toCountry + '.png';
+    };
+    // show convert result
+    CurrencyConvertorPage.prototype.showResult = function () {
+        this.show = true;
+        console.log(this.amount);
+        if (this.amount == undefined) {
+            this.result = 'Please Enter Amount';
+        }
+        else {
+            this.result = 2000 + '$';
+        }
+    };
     // logOut Function 
-    ContactUsPage.prototype.logOut = function () {
+    CurrencyConvertorPage.prototype.logOut = function () {
         this.navCtrl.setRoot('WelcomePage');
     };
-    ContactUsPage = __decorate([
+    CurrencyConvertorPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-contact-us',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/contact-us/contact-us.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Contact Us</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n<div class="appForm">\n  <ion-list>\n    <ion-list-header>\n        Contact Us\n    </ion-list-header>\n    <button  block ion-item>\n      <ion-icon item-left name="ios-home"></ion-icon>\n      <!--<ion-icon item-right name="md-arrow-dropright"></ion-icon>-->\n        Next Genius Community - nextgenius.com.au\n    </button> \n      <button  block ion-item>\n        <ion-icon item-left name="ios-call"></ion-icon>\n        <!--<ion-icon item-right name="md-arrow-dropright"></ion-icon>-->\n          Wen Karina Li - +61 404 085 298\n      </button> \n      <button  block ion-item>\n        <ion-icon item-left name="ios-mail-outline"></ion-icon>\n        <!--<ion-icon item-right name="md-arrow-dropright"></ion-icon>-->\n          Email - wenli@live.com.au\n      </button> \n  </ion-list>\n  <!--<ion-list>\n    <ion-list-header>\n        Follow Us\n    </ion-list-header>\n      <ion-item>\n        <button ion-button block color="faceColor" only-icon>\n          <ion-icon name="logo-facebook"></ion-icon>\n        </button>\n      </ion-item>\n      <ion-item>\n        <button ion-button block color="twitterColor" only-icon>\n          <ion-icon name="logo-twitter"></ion-icon>\n        </button>\n      </ion-item>\n      <ion-item>\n        <button ion-button block color="googleColor" only-icon>\n          <ion-icon name="logo-googleplus"></ion-icon>\n        </button>\n      </ion-item>\n    </ion-list> -->\n    \n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/contact-us/contact-us.html"*/,
+            selector: 'page-currency-convertor',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/currency-convertor/currency-convertor.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Currency Convertor</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <div class="appForm">\n    <ion-list>\n      <ion-list-header>\n          Convertor\n      </ion-list-header>\n        <!-- input to write amount that you want to convert -->\n      <ion-item>\n        <ion-label stacked>Amount</ion-label>\n        <ion-input type="num" [(ngModel)]="amount" placeholder="Type here"></ion-input>\n      </ion-item> \n      <!-- Account-From Select -->\n      <ion-item class="selectHasImg">\n        <ion-label stacked>From</ion-label>\n          <ion-select (ionChange)="change()" [ngStyle]="{\'background-image\':\'url(\' + fromImg + \')\'}"  \n                      [(ngModel)]="fromCountry">\n            <ion-option value="usa" >USA</ion-option> \n            <ion-option value="cad" >CAD</ion-option> \n          </ion-select>\n      </ion-item>\n      <!-- Account-To Select -->\n      <ion-item class="selectHasImg">\n        <ion-label stacked>To</ion-label>\n          <ion-select (ionChange)="change()" [ngStyle]="{\'background-image\':\'url(\' + toImg + \')\'}"  \n                      [(ngModel)]="toCountry">\n            <ion-option value="usa" >USA</ion-option> \n            <ion-option value="cad" >CAD</ion-option> \n          </ion-select>\n      </ion-item>\n    </ion-list> \n  </div>\n  <!-- button to show convert result -->\n  <button ion-button block clear (click)="showResult()">Result Here</button>\n  <p class="result" *ngIf="show == true">{{result}}</p>\n</ion-content>\n\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/currency-convertor/currency-convertor.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
-    ], ContactUsPage);
-    return ContactUsPage;
+    ], CurrencyConvertorPage);
+    return CurrencyConvertorPage;
 }());
 
-//# sourceMappingURL=contact-us.js.map
+//# sourceMappingURL=currency-convertor.js.map
 
 /***/ })
 

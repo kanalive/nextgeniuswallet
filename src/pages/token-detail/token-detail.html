@@ -67,15 +67,8 @@
 
           <div class="container">
               <p>
-                <span>Token holders</span>
-                <span>{{token.nrOfTokenHolders}}</span>
-              </p>
-          </div>
-
-          <div class="container">
-              <p>
-                <span>No. of Transfers</span>
-                <span>{{token.totalTransactions}}</span>
+                <span>Price</span>
+                <span>{{token.price/1000000}}</span>
               </p>
           </div>
 
@@ -91,13 +84,20 @@
                       <span>{{token.issued}} / </span>
                       <span>{{token.remaining}}</span>
                   </p>
-              </div>
+              </div>  
             </ion-item>
-
+            
+            <ion-card>
+              <ion-card-header>Enter amount below to buy</ion-card-header>
+              <ion-card-content>
+                  <ion-input [(ngModel)]="amount"></ion-input>
+                  <button block ion-button color="color2" (click)="buy(amount);">Buy</button>
+              </ion-card-content>
+            </ion-card>
     </ion-list>
   
     <ion-list *ngIf="holders">
-        <p>Token holders</p>
+        <p>Token holders - {{holders.total}} in total</p>
         <ion-item *ngFor="let data of holders.addresses">
             
             <div class="container">

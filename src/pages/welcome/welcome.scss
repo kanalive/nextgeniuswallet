@@ -33,6 +33,19 @@ page-welcome {
                     font-size:$mainFont + .1;
                 }
             }
+            .label-ios{
+                &[stacked]{
+                    color: color($colors,color1)!important; 
+                }
+            }
+            .text-input-ios{
+                &[type="password"]{
+                    background-color: color($colors, light);
+                    color: color($colors,color2)!important;
+                    width:100%;
+                    height:100%;
+                }
+            }
         }
     }
 }

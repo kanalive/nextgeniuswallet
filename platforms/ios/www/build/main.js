@@ -1,18 +1,18 @@
-webpackJsonp([23],{
+webpackJsonp([24],{
 
-/***/ 115:
+/***/ 120:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(174);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tronscan_client__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tronscan_client__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tronscan_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__tronscan_client__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tronscan_client_src_utils_account__ = __webpack_require__(340);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tronscan_client_src_utils_account__ = __webpack_require__(350);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tronscan_client_src_utils_account___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__tronscan_client_src_utils_account__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tronscan_client_src_utils_crypto__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tronscan_client_src_utils_crypto__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tronscan_client_src_utils_crypto___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__tronscan_client_src_utils_crypto__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -91,6 +91,13 @@ var RestProvider = /** @class */ (function () {
             });
         });
     };
+    RestProvider.prototype.signin = function (address, password) {
+        if (address == this.account.address && password == this.account.password) {
+            return true;
+        }
+        else
+            return false;
+    };
     RestProvider.prototype.loadAccountFromSecureStorage = function () {
         console.log("loadAccountFromSecureStorage");
         // this.secureStorage = new SecureStorage(
@@ -102,21 +109,23 @@ var RestProvider = /** @class */ (function () {
         //   function (error) {alert('Error ' + error); },
         //   'mykey', 'myvalue');
     };
-    RestProvider.prototype.loginOtherAccount = function (firstName, lastName, email, privateKey, address) {
+    RestProvider.prototype.loginOtherAccount = function (firstName, lastName, email, privateKey, address, password) {
         this.account.firstName = firstName;
         this.account.lastName = lastName;
         this.account.email = email;
         this.account.privateKey = privateKey;
         this.account.address = address;
         this.account.profileImage = null;
+        this.account.password = password;
         this.storage.set('account', this.account);
     };
-    RestProvider.prototype.createNewAccount = function (firstName, lastName, email) {
+    RestProvider.prototype.createNewAccount = function (firstName, lastName, email, password) {
         this.account = Object(__WEBPACK_IMPORTED_MODULE_4__tronscan_client_src_utils_account__["generateAccount"])();
         this.account.firstName = firstName;
         this.account.lastName = lastName;
         this.account.email = email;
         this.account.profileImage = null;
+        this.account.password = password;
         this.storage.set('account', this.account);
     };
     RestProvider.prototype.saveProfileImageintoLocalStorage = function (base64Image) {
@@ -130,6 +139,12 @@ var RestProvider = /** @class */ (function () {
         this.account = { address: addr, privatekey: privateKey };
         this.storage.set('account', this.account);
         return addr;
+    };
+    RestProvider.prototype.cacheCurrentToken = function (token) {
+        this.currentToken = token;
+    };
+    RestProvider.prototype.getCurrentToken = function () {
+        return this.currentToken;
     };
     RestProvider.prototype.getTronPrice = function () {
         var _this = this;
@@ -177,6 +192,40 @@ var RestProvider = /** @class */ (function () {
         console.log("rest service called - getWitnesses");
         return this.client.getWitnesses();
     };
+    RestProvider.prototype.getLatestBlock = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.client.getLatestBlock()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    RestProvider.prototype.offlineSignSendTransaction = function (token, to, amount, latestBlock) {
+        return __awaiter(this, void 0, void 0, function () {
+            var pk, transaction;
+            return __generator(this, function (_a) {
+                pk = this.account.privateKey;
+                console.log(token);
+                console.log(to);
+                console.log(amount);
+                console.log(latestBlock);
+                transaction = this.client.buildSendTransaction(token, this.account.address, to, amount * this.ONE_TRX);
+                return [2 /*return*/, this.client.localSignTransaction(pk, transaction, latestBlock)];
+            });
+        });
+    };
+    RestProvider.prototype.sendTransactionHex = function (transactionHex) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.client.sendTransactionRaw(transactionHex)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     RestProvider.prototype.send = function (token, to, amount) {
         return __awaiter(this, void 0, void 0, function () {
             var pk;
@@ -199,6 +248,19 @@ var RestProvider = /** @class */ (function () {
                     case 0:
                         pk = this.account.privateKey;
                         return [4 /*yield*/, this.client.freezeBalance(address, amount * this.ONE_TRX, duration)(pk)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    RestProvider.prototype.participateAsset = function (address, issuerAddress, token, amount) {
+        return __awaiter(this, void 0, void 0, function () {
+            var pk;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        pk = this.account.privateKey;
+                        return [4 /*yield*/, this.client.participateAsset(address, issuerAddress, token, amount)(pk)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -242,7 +304,7 @@ var RestProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 126:
+/***/ 131:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -255,105 +317,109 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 126;
+webpackEmptyAsyncContext.id = 131;
 
 /***/ }),
 
-/***/ 168:
+/***/ 173:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/account-details/account-details.module": [
-		366,
-		22
+		397,
+		23
 	],
 	"../pages/add-account/add-account.module": [
-		367,
-		21
+		399,
+		22
 	],
 	"../pages/address-details/address-details.module": [
-		368,
-		20
+		398,
+		21
 	],
 	"../pages/beneficiaries/beneficiaries.module": [
-		369,
-		19
+		400,
+		20
 	],
 	"../pages/contact-us/contact-us.module": [
-		370,
-		18
+		401,
+		19
 	],
 	"../pages/currency-convertor/currency-convertor.module": [
-		371,
-		17
+		402,
+		18
 	],
 	"../pages/find-us/find-us.module": [
-		372,
-		16
+		403,
+		17
 	],
 	"../pages/forgot-password/forgot-password.module": [
-		373,
-		15
+		404,
+		16
 	],
 	"../pages/personal-account/personal-account.module": [
-		374,
-		14
+		405,
+		15
 	],
 	"../pages/profile/profile.module": [
-		375,
-		13
+		406,
+		14
 	],
 	"../pages/request/request.module": [
-		376,
-		0
+		407,
+		13
 	],
 	"../pages/setting/setting.module": [
-		377,
+		412,
 		12
 	],
 	"../pages/sign-in/sign-in.module": [
-		378,
+		408,
 		11
 	],
 	"../pages/sign-up/sign-up.module": [
-		379,
+		409,
 		10
 	],
 	"../pages/summary/summary.module": [
-		380,
+		410,
 		9
 	],
 	"../pages/token-detail/token-detail.module": [
-		381,
+		411,
 		8
 	],
 	"../pages/tokens/tokens.module": [
-		382,
-		2
+		413,
+		1
 	],
 	"../pages/transactions-details/transactions-details.module": [
-		383,
+		414,
 		7
 	],
 	"../pages/transactions/transactions.module": [
-		384,
+		415,
 		6
 	],
 	"../pages/transfer/transfer.module": [
-		385,
+		416,
 		5
 	],
-	"../pages/update-profile/update-profile.module": [
-		386,
+	"../pages/transfer2/transfer2.module": [
+		417,
 		4
 	],
+	"../pages/update-profile/update-profile.module": [
+		418,
+		3
+	],
 	"../pages/vote/vote.module": [
-		387,
-		1
+		420,
+		0
 	],
 	"../pages/welcome/welcome.module": [
-		388,
-		3
+		419,
+		2
 	]
 };
 function webpackAsyncContext(req) {
@@ -367,21 +433,21 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 168;
+webpackAsyncContext.id = 173;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 230:
+/***/ 241:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__ = __webpack_require__(120);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -410,6 +476,7 @@ var MyApp = /** @class */ (function () {
             { title: 'Summary', component: 'SummaryPage', icon: 'banki-summary' },
             { title: 'Request Payment', component: 'RequestPage', icon: 'banki-transfer' },
             { title: 'Transfer Payment', component: 'TransferPage', icon: 'banki-exchange' },
+            { title: 'Transfer Payment 2', component: 'Transfer2Page', icon: 'banki-exchange' },
             { title: 'Transactions', component: 'TransactionsPage', icon: 'banki-exchange' },
             { title: 'Tokens', component: 'TokensPage', icon: 'banki-exchange' },
             { title: 'Votes', component: 'VotePage', icon: 'banki-converter' },
@@ -447,13 +514,13 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 232:
+/***/ 242:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(233);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(263);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -461,26 +528,27 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 253:
+/***/ 263:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_barcode_scanner__ = __webpack_require__(229);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_clipboard__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_qr_scanner__ = __webpack_require__(231);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__tronscan_client__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__tronscan_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__tronscan_client__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_component__ = __webpack_require__(230);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_status_bar__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_splash_screen__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_rest_rest__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_clipboard__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_qr_scanner__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tronscan_client__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tronscan_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__tronscan_client__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_rest_rest__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ngx_qrcode2__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_barcode_scanner__ = __webpack_require__(236);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -494,8 +562,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 //import { SecureStorage } from 'cordova-plugin-secure-storage';
+
+
 
 
 
@@ -517,16 +586,17 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* MyApp */]
+                __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["b" /* HttpClientModule */],
-                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* MyApp */], config, {
+                __WEBPACK_IMPORTED_MODULE_13_ngx_qrcode2__["a" /* NgxQRCodeModule */],
+                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */], config, {
                     links: [
                         { loadChildren: '../pages/account-details/account-details.module#AccountDetailsPageModule', name: 'AccountDetailsPage', segment: 'account-details', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/add-account/add-account.module#AddAccountPageModule', name: 'AddAccountPage', segment: 'add-account', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/address-details/address-details.module#AddressDetailsPageModule', name: 'AddressDetailsPage', segment: 'address-details', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/add-account/add-account.module#AddAccountPageModule', name: 'AddAccountPage', segment: 'add-account', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/beneficiaries/beneficiaries.module#BeneficiariesPageModule', name: 'BeneficiariesPage', segment: 'beneficiaries', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/contact-us/contact-us.module#ContactUsPageModule', name: 'ContactUsPage', segment: 'contact-us', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/currency-convertor/currency-convertor.module#CurrencyConvertorPageModule', name: 'CurrencyConvertorPage', segment: 'currency-convertor', priority: 'low', defaultHistory: [] },
@@ -535,36 +605,37 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/personal-account/personal-account.module#PersonalAccountPageModule', name: 'PersonalAccountPage', segment: 'personal-account', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/request/request.module#RequestPageModule', name: 'RequestPage', segment: 'request', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/setting/setting.module#SettingPageModule', name: 'SettingPage', segment: 'setting', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/sign-in/sign-in.module#SignInPageModule', name: 'SignInPage', segment: 'sign-in', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/summary/summary.module#SummaryPageModule', name: 'SummaryPage', segment: 'summary', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/token-detail/token-detail.module#TokenDetailPageModule', name: 'TokenDetailPage', segment: 'token-detail', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/setting/setting.module#SettingPageModule', name: 'SettingPage', segment: 'setting', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tokens/tokens.module#TokensPageModule', name: 'TokensPage', segment: 'tokens', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transactions-details/transactions-details.module#TransactionsDetailsPageModule', name: 'TransactionsDetailsPage', segment: 'transactions-details', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transactions/transactions.module#TransactionsPageModule', name: 'TransactionsPage', segment: 'transactions', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/transfer/transfer.module#TransferPageModule', name: 'TransferPage', segment: 'transfer', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/transfer2/transfer2.module#Transfer2PageModule', name: 'Transfer2Page', segment: 'transfer2', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/update-profile/update-profile.module#UpdateProfilePageModule', name: 'UpdateProfilePage', segment: 'update-profile', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/vote/vote.module#VotePageModule', name: 'VotePage', segment: 'vote', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/welcome/welcome.module#WelcomePageModule', name: 'WelcomePage', segment: 'welcome', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/welcome/welcome.module#WelcomePageModule', name: 'WelcomePage', segment: 'welcome', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/vote/vote.module#VotePageModule', name: 'VotePage', segment: 'vote', priority: 'low', defaultHistory: [] }
                     ]
                 }),
-                __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["a" /* IonicStorageModule */].forRoot()
+                __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["a" /* IonicStorageModule */].forRoot()
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicApp */]],
             entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */],
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_11__ionic_native_status_bar__["a" /* StatusBar */],
-                __WEBPACK_IMPORTED_MODULE_12__ionic_native_splash_screen__["a" /* SplashScreen */],
+                __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__["a" /* StatusBar */],
+                __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__["a" /* SplashScreen */],
                 __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */],
-                __WEBPACK_IMPORTED_MODULE_5__ionic_native_barcode_scanner__["a" /* BarcodeScanner */],
-                __WEBPACK_IMPORTED_MODULE_6__ionic_native_clipboard__["a" /* Clipboard */],
-                __WEBPACK_IMPORTED_MODULE_8__ionic_native_qr_scanner__["a" /* QRScanner */],
+                __WEBPACK_IMPORTED_MODULE_14__ionic_native_barcode_scanner__["a" /* BarcodeScanner */],
+                __WEBPACK_IMPORTED_MODULE_5__ionic_native_clipboard__["a" /* Clipboard */],
+                __WEBPACK_IMPORTED_MODULE_7__ionic_native_qr_scanner__["a" /* QRScanner */],
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] },
-                __WEBPACK_IMPORTED_MODULE_13__providers_rest_rest__["a" /* RestProvider */],
-                __WEBPACK_IMPORTED_MODULE_9__tronscan_client__["Client"]
+                __WEBPACK_IMPORTED_MODULE_12__providers_rest_rest__["a" /* RestProvider */],
+                __WEBPACK_IMPORTED_MODULE_8__tronscan_client__["Client"]
             ]
         })
     ], AppModule);
@@ -575,19 +646,19 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 308:
+/***/ 318:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 310:
+/***/ 320:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ })
 
-},[232]);
+},[242]);
 //# sourceMappingURL=main.js.map

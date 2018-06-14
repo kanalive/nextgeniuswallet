@@ -1,14 +1,14 @@
 webpackJsonp([14],{
 
-/***/ 374:
+/***/ 406:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PersonalAccountPageModule", function() { return PersonalAccountPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfilePageModule", function() { return ProfilePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__personal_account__ = __webpack_require__(408);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile__ = __webpack_require__(432);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,34 +18,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var PersonalAccountPageModule = /** @class */ (function () {
-    function PersonalAccountPageModule() {
+var ProfilePageModule = /** @class */ (function () {
+    function ProfilePageModule() {
     }
-    PersonalAccountPageModule = __decorate([
+    ProfilePageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__personal_account__["a" /* PersonalAccountPage */],
+                __WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__personal_account__["a" /* PersonalAccountPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */]),
             ],
         })
-    ], PersonalAccountPageModule);
-    return PersonalAccountPageModule;
+    ], ProfilePageModule);
+    return ProfilePageModule;
 }());
 
-//# sourceMappingURL=personal-account.module.js.map
+//# sourceMappingURL=profile.module.js.map
 
 /***/ }),
 
-/***/ 408:
+/***/ 432:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PersonalAccountPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfilePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__ = __webpack_require__(120);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58,41 +59,50 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var PersonalAccountPage = /** @class */ (function () {
-    function PersonalAccountPage(navCtrl, navParams, restProvider) {
+
+var ProfilePage = /** @class */ (function () {
+    function ProfilePage(camera, navCtrl, navParams, modalCtrl, restProvider) {
+        this.camera = camera;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.modalCtrl = modalCtrl;
         this.restProvider = restProvider;
-        this.getAccounts();
+        // change Image
+        this.base64Image = 'assets/img/kana.jpeg';
     }
-    // get accounts
-    PersonalAccountPage.prototype.getAccounts = function () {
+    // call address details modal
+    ProfilePage.prototype.callModal = function () {
+        var modal = this.modalCtrl.create('UpdateProfilePage');
+        modal.present();
+    };
+    ProfilePage.prototype.accessGallery = function () {
         var _this = this;
-        console.log("personal account page function called");
-        this.restProvider.getAccountByAddress(null)
-            .then(function (data) {
-            _this.accounts = data;
-            console.log(_this.accounts);
+        this.camera.getPicture({
+            sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
+            destinationType: this.camera.DestinationType.DATA_URL
+        }).then(function (imageData) {
+            _this.base64Image = 'data:image/jpeg;base64,' + imageData;
+        }, function (err) {
+            console.log(err);
         });
     };
-    // goTo Function 
-    PersonalAccountPage.prototype.goTo = function (page) {
-        this.navCtrl.push(page);
+    ProfilePage.prototype.createNewAccount = function () {
+        //this.restProvider.createNewAccount();
     };
-    // logOut Function 
-    PersonalAccountPage.prototype.logOut = function () {
+    // logOut Function
+    ProfilePage.prototype.logOut = function () {
         this.navCtrl.setRoot('WelcomePage');
     };
-    PersonalAccountPage = __decorate([
+    ProfilePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-personal-account',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/personal-account/personal-account.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Personal Account</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n<ion-content >\n  <p class="myTitle">Accounts</p>\n  <!-- account Name,account Number and currency -->\n  <ion-grid>\n    <ion-row>\n      <div *ngIf="accounts">\n        <div class="account">{{(accounts.length)}} accounts</div>\n        <ion-col col-6 col-md-4 col-lg-3 *ngFor="let item of accounts; let i=index">\n          <div *ngIf="i<20">\n            <div class="account" (click)="goTo(\'AccountDetailsPage\')" >\n              <p>{{item.name}}</p>\n\n              <p class="countNum">\n                {{item.address}}\n                <span>xxxxx</span>\n                {{item.balanceNum}}\n              </p>\n\n              <p>{{item.balance}} $</p>\n            </div>\n          </div>\n        </ion-col>\n      </div>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/personal-account/personal-account.html"*/,
+            selector: 'page-profile',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/profile/profile.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Profile</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <div class="profile">\n    <div class="imgBg" [ngStyle]="{\'background-image\':\'url(\' + base64Image + \')\'}">\n      <ion-icon name="ios-camera"  (click)="accessGallery()"></ion-icon>\n    </div>\n    <h4>Karina Li</h4>\n     <p>\n      <ion-icon name="ios-pin"></ion-icon>\n      Sydney\n    </p>\n    <div class="appForm">\n      <ion-list>\n        <!-- ============ Name ============== -->\n        <button  block ion-item>\n          <ion-icon item-left name="md-contact"></ion-icon>\n          Wen Karina Li\n        </button>\n        <!-- ============== Location =============== -->\n        <button  block ion-item >\n          <ion-icon item-left name="ios-pin"></ion-icon>\n          Sydney\n        </button>\n         <!-- ============== Telephone Number =============== -->\n        <button  block ion-item>\n          <ion-icon item-left name="ios-call"></ion-icon>\n          12345343543\n        </button>\n         <!-- ============== Email =============== -->\n        <button  block ion-item >\n          <ion-icon item-left name="ios-mail"></ion-icon>\n          wen.k.li@outlook.com\n        </button>\n        <div *ngIf="restProvider.account">\n            <!-- ============== address =============== -->\n            <button  block ion-item >\n            <ion-icon item-left name="ios-home"></ion-icon>\n            {{restProvider.account.address}}\n            </button>\n            <!-- ============== privateKey =============== -->\n            <button  block ion-item >\n            <ion-icon item-left name="md-key"></ion-icon>\n            {{restProvider.account.privateKey}}\n          </button>\n        </div>\n        <div *ngIf="!restProvider.account">\n            <button ion-button block color="color2" (click)="createNewAccount()">Create New Account</button>\n        </div>\n        \n      </ion-list>\n    </div>\n  </div>\n</ion-content>\n<ion-footer>\n  <button ion-button block color="color2" (click)="callModal()">Update</button>\n</ion-footer>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/profile/profile.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */]])
-    ], PersonalAccountPage);
-    return PersonalAccountPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__["a" /* RestProvider */]])
+    ], ProfilePage);
+    return ProfilePage;
 }());
 
-//# sourceMappingURL=personal-account.js.map
+//# sourceMappingURL=profile.js.map
 
 /***/ })
 

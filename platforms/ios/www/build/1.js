@@ -1,15 +1,15 @@
 webpackJsonp([1],{
 
-/***/ 387:
+/***/ 413:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VotePageModule", function() { return VotePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TokensPageModule", function() { return TokensPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vote__ = __webpack_require__(442);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_pipeModule__ = __webpack_require__(395);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens__ = __webpack_require__(439);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_pipeModule__ = __webpack_require__(422);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,29 +20,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var VotePageModule = /** @class */ (function () {
-    function VotePageModule() {
+var TokensPageModule = /** @class */ (function () {
+    function TokensPageModule() {
     }
-    VotePageModule = __decorate([
+    TokensPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__vote__["a" /* VotePage */],
+                __WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* TokensPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__vote__["a" /* VotePage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__tokens__["a" /* TokensPage */]),
                 __WEBPACK_IMPORTED_MODULE_3__app_pipeModule__["a" /* PipeModule */]
-            ],
-            exports: []
+            ]
         })
-    ], VotePageModule);
-    return VotePageModule;
+    ], TokensPageModule);
+    return TokensPageModule;
 }());
 
-//# sourceMappingURL=vote.module.js.map
+//# sourceMappingURL=tokens.module.js.map
 
 /***/ }),
 
-/***/ 392:
+/***/ 421:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99,13 +98,13 @@ var SearchPipe = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 395:
+/***/ 422:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PipeModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pipes_search_search__ = __webpack_require__(392);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pipes_search_search__ = __webpack_require__(421);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -138,14 +137,15 @@ var PipeModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 442:
+/***/ 439:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VotePage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TokensPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_search_search__ = __webpack_require__(421);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -160,122 +160,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 /**
- * Generated class for the VotePage page.
+ * Generated class for the TokensPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var VotePage = /** @class */ (function () {
-    function VotePage(navCtrl, alertCtrl, navParams, restProvider) {
+var TokensPage = /** @class */ (function () {
+    function TokensPage(navCtrl, navParams, restProvider, searchPipe) {
         this.navCtrl = navCtrl;
-        this.alertCtrl = alertCtrl;
         this.navParams = navParams;
         this.restProvider = restProvider;
-        this.ONE_TRX = 1000000;
-        this.busy = false;
-        this.getWitnesses();
-        this.getAccount();
+        this.searchPipe = searchPipe;
     }
-    // goTo Function
-    VotePage.prototype.goTo = function (page) {
-        this.navCtrl.setRoot(page);
-    };
-    // logOut Function
-    VotePage.prototype.logOut = function () {
-        this.navCtrl.setRoot('WelcomePage');
-    };
-    // get accounts
-    VotePage.prototype.getWitnesses = function () {
+    // get tokens
+    TokensPage.prototype.getTokens = function (start) {
         var _this = this;
-        console.log("vote page function called");
-        this.restProvider.getWitnesses()
-            .then(function (data) {
-            _this.witnesses = data.witnesses;
-            console.log(_this.witnesses);
-        });
-    };
-    VotePage.prototype.getAccount = function () {
-        var _this = this;
-        this.restProvider.getAccountByAddress(null)
-            .then(function (data) {
-            _this.accountBalance = data;
+        console.log("token page function called");
+        this.restProvider.getTokens(start).then(function (data) {
             console.log(data);
+            _this.tokens = data;
         });
     };
-    VotePage.prototype.presentPrompt = function (item) {
-        var _this = this;
-        var alertbox = this.alertCtrl.create({
-            title: 'Votes',
-            inputs: [
-                {
-                    name: 'votes',
-                    placeholder: '0'
-                }
-            ],
-            buttons: [
-                {
-                    text: 'Cancel',
-                    role: 'cancel',
-                    handler: function (data) {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Submit vote',
-                    handler: function (data) {
-                        console.log("Submiting vote");
-                        var voteCount = data["votes"];
-                        var totalFrozenTrx = _this.accountBalance.frozen.total / _this.ONE_TRX;
-                        console.log("Adding vote - " + voteCount + " to address " + item.address);
-                        if (voteCount > totalFrozenTrx) {
-                            //console.log("Insufficient fronzen account balance, "+ voteCount + " required, only " + totalFrozenTrx + "available.");
-                            alert("Insufficient fronzen account balance, " + voteCount + " required, only " + totalFrozenTrx + " available.");
-                        }
-                        else {
-                            var k = item.address;
-                            var vote = {};
-                            vote[k] = data["votes"];
-                            console.log("Sending vote - " + voteCount + " to address " + item.address);
-                            _this.busy = true;
-                            _this.restProvider.postVote(vote).then(function (data) {
-                                //this.showConfirmAlert();
-                                if (data.code == "SUCCESS") {
-                                    alert("Voting completed, thank you.");
-                                    _this.busy = false;
-                                }
-                            });
-                        }
-                    }
-                }
-            ]
-        });
-        alertbox.present();
+    TokensPage.prototype.ionViewDidLoad = function () {
+        this.getTokens(0);
     };
-    VotePage.prototype.showConfirmAlert = function () {
-        console.log("show confirmation");
-        var alert = this.alertCtrl.create({
-            title: 'Voting completed',
-            message: 'Voting completed',
-            buttons: [
-                {
-                    text: 'Yes',
-                    handler: function () {
-                    }
-                }
-            ]
-        });
-        alert.present();
+    TokensPage.prototype.goTo = function (page, token) {
+        console.log("go to page token detail - " + token.name);
+        this.restProvider.cacheCurrentToken(token);
+        this.navCtrl.push(page, { TokenName: token.name });
     };
-    VotePage = __decorate([
+    TokensPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-vote',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/vote/vote.html"*/'<ion-header>\n    <ion-navbar>\n      <ion-buttons start >\n        <button ion-button icon-only menuToggle>\n          <ion-icon name="ios-menu"></ion-icon>\n        </button>\n      </ion-buttons>\n      <ion-title>Vote</ion-title>\n      <ion-buttons end >\n        <button ion-button icon-only (click)="logOut()">\n          <ion-icon name="ios-log-out"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-navbar>\n  </ion-header>\n\n\n  <ion-content padding>\n\n      <ion-searchbar [(ngModel)]="terms"></ion-searchbar>\n      <div  *ngIf="witnesses">\n\n          <ion-card *ngFor="let item of witnesses | search : terms">\n            \n              <ion-card-content>\n                \n                  <h3>{{item.url}}</h3>\n                  <p><span>Address</span>{{item.address}}</p>\n                  <p><span>Latest block number</span>{{item.latestBlockNumber}}</p>\n                  <p><span>Total produced</span>{{item.producedTotal}}</p>\n                  <p><span>Total missed</span>{{item.missedTotal}}</p>\n                  <p><span>Votes</span>{{item.votes}}</p>\n                  <button block ion-button color="color2" (click)="presentPrompt(item);">Vote</button>\n              </ion-card-content>\n          </ion-card>\n      </div>\n\n  </ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/vote/vote.html"*/,
+            selector: 'page-tokens',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/tokens/tokens.html"*/'\n<ion-header>\n    <ion-navbar>\n      <ion-buttons start >\n        <button ion-button icon-only menuToggle>\n          <ion-icon name="ios-menu"></ion-icon>\n        </button>\n      </ion-buttons>\n      <ion-title>Tokens</ion-title>\n      <ion-buttons end >\n        <button ion-button icon-only (click)="logOut()">\n          <ion-icon name="ios-log-out"></ion-icon>\n        </button>\n      </ion-buttons>\n    </ion-navbar>\n  </ion-header>\n  <ion-content>\n    <div *ngIf="!tokens">\n      Loading tokens...\n    </div>\n    <div *ngIf="tokens">\n\n    <div class="appForm">\n      \n      <ion-searchbar [(ngModel)]="terms"></ion-searchbar>\n      <p class="myLabel">{{(tokens.total)}} tokens in total</p>\n      <ion-grid>\n        <ion-row>\n          <ion-col col-12 col-md-6 col-lg-4  *ngFor="let item of tokens.tokens| search : terms" (click)="goTo(\'TokenDetailPage\', item)">\n            <button ion-item>\n              <ion-icon item-right name="md-arrow-dropright"></ion-icon>\n                <p><span>Token: </span>{{item.name}} - {{item.abbr}}</p>\n                <p><span>Total Supply: </span>{{item.totalSupply}}</p>\n                <p><span>Total issued: </span>{{item.issued}}</p>\n                <p><span>Registered: </span>{{item.dateCreated}}</p>\n            </button>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </div>  \n  </div>\n  </ion-content>\n  '/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/tokens/tokens.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */]])
-    ], VotePage);
-    return VotePage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */], __WEBPACK_IMPORTED_MODULE_3__pipes_search_search__["a" /* SearchPipe */]])
+    ], TokensPage);
+    return TokensPage;
 }());
 
-//# sourceMappingURL=vote.js.map
+//# sourceMappingURL=tokens.js.map
 
 /***/ })
 

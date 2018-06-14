@@ -9,6 +9,8 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class WelcomePage {
   address = '';
+  password = '';
+  showPasswd = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider, public loadingCtrl: LoadingController) {
     this.presentLoadingDefault();
     console.log("load");
@@ -17,6 +19,19 @@ export class WelcomePage {
   // goTo Function 
   goTo(page){
     this.navCtrl.push(page);
+  }
+
+  signin(){
+    if(this.restProvider.signin(this.address, this.password)){
+      this.goTo("SummaryPage");
+    }
+    else{
+      alert("Invalid password");
+    }
+  }
+
+  showPasswordField(){
+    this.showPasswd = true;
   }
 
   presentLoadingDefault() {

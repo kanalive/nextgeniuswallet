@@ -23,6 +23,7 @@ export class MyApp {
       { title: 'Summary', component: 'SummaryPage',icon:'banki-summary' },
       { title: 'Request Payment', component: 'RequestPage',icon:'banki-transfer' },
       { title: 'Transfer Payment', component: 'TransferPage',icon:'banki-exchange' },
+      { title: 'Transfer Payment 2', component: 'Transfer2Page',icon:'banki-exchange' },
       { title: 'Transactions', component: 'TransactionsPage',icon:'banki-exchange' },
       { title: 'Tokens', component: 'TokensPage',icon:'banki-exchange' },
       { title: 'Votes', component: 'VotePage',icon:'banki-converter' },

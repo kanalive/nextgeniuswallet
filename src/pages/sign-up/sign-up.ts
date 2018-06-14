@@ -13,6 +13,7 @@ export class SignUpPage {
   firstName = "";
   lastName = "";
   email = "";
+  password = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
   }
@@ -23,8 +24,13 @@ export class SignUpPage {
   }
 
   createNewAccount(){
-    this.restProvider.createNewAccount(this.firstName, this.lastName, this.email);
-    this.newAccountCreated = true;
+    if(this.password==""){
+      alert("Invalid password.");
+    }else{
+      this.restProvider.createNewAccount(this.firstName, this.lastName, this.email, this.password);
+      this.newAccountCreated = true;
+    }
+    
   }
 
 } 

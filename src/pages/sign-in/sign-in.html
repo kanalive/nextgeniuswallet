@@ -24,6 +24,11 @@
 
       <div *ngIf="address">
           <ion-list>
+              <ion-item>
+                  <ion-label floating>Password</ion-label>
+                  <ion-icon name="ios-lock-outline" item-left></ion-icon>
+                  <ion-input type="password" required [(ngModel)]="password"></ion-input>
+                </ion-item>
             <ion-item>
               <ion-label floating>First Name</ion-label>
               <ion-icon name="ios-lock-outline" item-left></ion-icon>

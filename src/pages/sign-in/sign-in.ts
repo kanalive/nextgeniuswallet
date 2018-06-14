@@ -14,12 +14,15 @@ export class SignInPage {
   firstName = "";
   lastName = "";
   email = "";
+  password = "";
   constructor(public modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
   }
  doLogin(page) {
-   if(this.IsValidAddress()){
-    this.restProvider.loginOtherAccount(this.firstName, this.lastName, this.email, this.privateKey, this.address)
+   if(this.IsValidAddress()&&this.password!=""){
+    this.restProvider.loginOtherAccount(this.firstName, this.lastName, this.email, this.privateKey, this.address, this.password)
     this.navCtrl.setRoot(page);
+   }else{
+    alert("Please enter valid address and password.")
    }
   }
 

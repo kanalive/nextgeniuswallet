@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 
 @IonicPage()
@@ -11,8 +11,12 @@ export class TokenDetailPage {
   token : any;
   holders : any;
   percentage = 0;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
-    
+  amount = 0;
+  loading : any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
   }
 
   ionViewDidLoad() {
@@ -31,6 +35,55 @@ export class TokenDetailPage {
   //     this.token = data;
   //   });
   // }
+
+  buy(amount){
+    this.presentPrompt(amount);
+  }
+
+
+  presentPrompt(amount) {
+    let alertbox = this.alertCtrl.create({
+      title: 'Buy',
+      message: 'Are you sure you want to buy ' +amount +' of '+ this.token.name + '?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+          }
+        },
+        {
+          text: 'Confirm transaction',
+          
+          handler: data => {
+            
+            //let totalFrozenTrx = this.accountBalance.frozen.total/this.ONE_TRX;
+            //console.log("Adding vote - " + voteCount + " to address " + item.address);
+            
+            //if(voteCount > totalFrozenTrx){
+            //console.log("Insufficient fronzen account balance, "+ voteCount + " required, only " + totalFrozenTrx + "available.");
+              
+              //alert("Insufficient fronzen account balance, "+ voteCount + " required, only " + totalFrozenTrx + " available.");
+            //}else{
+              //let k = item.address;
+              //var vote = {};
+              //vote[k] = data["votes"];
+              //console.log("Sending vote - " + voteCount + " to address " + item.address);
+              this.loading.present();
+              this.restProvider.participateAsset(this.restProvider.account.address, this.token.ownerAddress, this.token.name, amount).then(data => {
+                //this.showConfirmAlert();
+                if(data.code == "SUCCESS"){
+                  this.loading.dismiss();
+                  alert("Transaction Confirmed, successfully received" + amount + " of " + this.token.name);
+                }
+              });
+            //}
+          }
+        }
+      ]
+    });
+    alertbox.present();
+  }
 
   getTokenHolders(name){
     this.restProvider.getTokenHolders(name).then(data => {

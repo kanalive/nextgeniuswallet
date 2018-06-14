@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AlertController } from 'ionic-angular';
-
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 @IonicPage()
 @Component({
   selector: 'page-transfer',
   templateUrl: 'transfer.html',
 })
 export class TransferPage {
-
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private qrScanner: QRScanner, public navParams: NavParams, public restProvider: RestProvider) {
+  //for hot wallet
+  latestBlock : any;
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private barcodeScanner: BarcodeScanner, public navParams: NavParams, public restProvider: RestProvider,public loadingCtrl: LoadingController) {
     
   }
 
@@ -25,9 +26,19 @@ export class TransferPage {
   availableFund =0;
   ONE_TRX = 1000000;
 
+  qrData = null;
+  createdCode = null;
+  scannedCode = null;
+
+  loading :any;
 
   ionViewDidLoad() {
     this.getAccountByAddress();
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading account...'
+    });
+  
+    
   }
 
   getAccountByAddress(){
@@ -78,43 +89,45 @@ export class TransferPage {
     alert.present();
   }
   
-  scan(){
-    // Optionally request the permission early
-    console.log("trying to scan");
-    
-    this.qrScanner.prepare()
-    .then((status: QRScannerStatus) => {
-      if (status.authorized) {
-        // camera permission was granted
 
-        console.log("camera permission was granted");
-
-        // start scanning
-        let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-          console.log('Scanned something', text);
-          this.toAccount = text;
-          this.qrScanner.hide(); // hide camera preview
-          scanSub.unsubscribe(); // stop scanning
-        });
-
-      } else if (status.denied) {
-        console.log('camera permission was permanently denied');
-        
-        // camera permission was permanently denied
-        // you must use QRScanner.openSettings() method to guide the user to the settings page
-        // then they can grant the permission from there
-      } else {
-        // permission was denied, but not permanently. You can ask for permission again at a later time.
-        console.log('permission was denied, but not permanently');
-      }
-    })
-    .catch((e: any) => console.log('Error is', e));
-  }
 
 
   // logOut Function 
   logOut(){
     this.navCtrl.setRoot('WelcomePage');
+  }
+
+  sendTransactionHexData(transactionHex){
+    this.restProvider.sendTransactionHex(transactionHex).then(data => {
+      console.log(data);
+      this.loading.dismiss();
+      alert(data);
+      
+    });
+  }
+
+  scanCode() {
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.scannedCode = barcodeData.text;
+      let hex = JSON.parse(this.scannedCode);
+      this.sendTransactionHexData(hex);
+      this.loading.present();
+    }, (err) => {
+        console.log('Error: ', err);
+    });
+  }
+
+  getLatestBlock(){
+    this.restProvider.getLatestBlock().then(data =>{
+      console.log(data);
+      this.latestBlock = JSON.stringify(data);
+      this.createCode(this.latestBlock);
+    });
+    
+  }
+
+  createCode(data) {
+    this.createdCode = data;
   }
 
 }  

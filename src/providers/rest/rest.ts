@@ -37,6 +37,13 @@ export class RestProvider {
     });
   }
 
+  public signin(address, password){
+    if(address == this.account.address && password == this.account.password){
+      return true;
+    }
+    else return false;
+  }
+
   public loadAccountFromSecureStorage(){
     console.log("loadAccountFromSecureStorage");
 
@@ -54,22 +61,24 @@ export class RestProvider {
   }
 
 
-  public loginOtherAccount(firstName, lastName, email, privateKey, address){
+  public loginOtherAccount(firstName, lastName, email, privateKey, address, password){
     this.account.firstName = firstName;
     this.account.lastName = lastName;
     this.account.email = email;
     this.account.privateKey = privateKey;
     this.account.address = address;
     this.account.profileImage = null;
+    this.account.password = password;
     this.storage.set('account', this.account);
   }
 
-  public createNewAccount(firstName, lastName, email){
+  public createNewAccount(firstName, lastName, email, password){
     this.account = generateAccount();
     this.account.firstName = firstName;
     this.account.lastName = lastName;
     this.account.email = email;
     this.account.profileImage = null;
+    this.account.password = password;
     this.storage.set('account', this.account);
   }
 
@@ -156,6 +165,24 @@ export class RestProvider {
     return this.client.getWitnesses();
   }
 
+  async getLatestBlock(){
+    return await this.client.getLatestBlock();
+  }
+
+  async offlineSignSendTransaction(token, to, amount, latestBlock){
+    let pk = this.account.privateKey;    
+    console.log(token);
+    console.log(to);
+    console.log(amount);
+    console.log(latestBlock);
+    let transaction = this.client.buildSendTransaction(token, this.account.address, to, amount*this.ONE_TRX);
+    return this.client.localSignTransaction(pk, transaction, latestBlock);
+  } 
+
+  async sendTransactionHex(transactionHex){
+    return await this.client.sendTransactionRaw(transactionHex);
+  }
+
 
   async send(token, to, amount){
     let pk = this.account.privateKey;    
@@ -167,6 +194,11 @@ export class RestProvider {
   async freezeBalance(address, amount, duration){
     let pk = this.account.privateKey;
     return await this.client.freezeBalance(address, amount*this.ONE_TRX, duration)(pk);
+  }
+
+  async participateAsset(address, issuerAddress, token, amount){
+    let pk = this.account.privateKey;
+    return await this.client.participateAsset(address, issuerAddress, token, amount)(pk);
   }
 
   async unfreezeBalance(address){

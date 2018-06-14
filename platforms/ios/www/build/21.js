@@ -1,14 +1,14 @@
 webpackJsonp([21],{
 
-/***/ 367:
+/***/ 398:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddAccountPageModule", function() { return AddAccountPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddressDetailsPageModule", function() { return AddressDetailsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__add_account__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__address_details__ = __webpack_require__(424);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,33 +18,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var AddAccountPageModule = /** @class */ (function () {
-    function AddAccountPageModule() {
+var AddressDetailsPageModule = /** @class */ (function () {
+    function AddressDetailsPageModule() {
     }
-    AddAccountPageModule = __decorate([
+    AddressDetailsPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__add_account__["a" /* AddAccountPage */],
+                __WEBPACK_IMPORTED_MODULE_2__address_details__["a" /* AddressDetailsPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__add_account__["a" /* AddAccountPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__address_details__["a" /* AddressDetailsPage */]),
             ],
         })
-    ], AddAccountPageModule);
-    return AddAccountPageModule;
+    ], AddressDetailsPageModule);
+    return AddressDetailsPageModule;
 }());
 
-//# sourceMappingURL=add-account.module.js.map
+//# sourceMappingURL=address-details.module.js.map
 
 /***/ }),
 
-/***/ 401:
+/***/ 424:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddAccountPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddressDetailsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -56,35 +56,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var AddAccountPage = /** @class */ (function () {
-    function AddAccountPage(navCtrl, navParams) {
+var AddressDetailsPage = /** @class */ (function () {
+    function AddressDetailsPage(navCtrl, navParams, viewCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.show = false;
+        this.viewCtrl = viewCtrl;
     }
-    // go to another page function
-    AddAccountPage.prototype.setRootFun = function (page) {
-        this.navCtrl.setRoot(page);
+    AddressDetailsPage.prototype.dismiss = function () {
+        this.viewCtrl.dismiss();
     };
-    // appear add Button function
-    AddAccountPage.prototype.apperAddBtn = function () {
-        this.show = true;
-    };
-    // Clear input for add new account
-    AddAccountPage.prototype.newAdd = function () {
-        this.nickName = '';
-        this.accountNumber = '';
-    };
-    AddAccountPage = __decorate([
+    AddressDetailsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-add-account',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/add-account/add-account.html"*/'\n<ion-header>\n\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Add Account</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <div class="appForm">\n    <ion-list>\n      <ion-list-header>\n          Add Account\n      </ion-list-header>\n\n      <!-- Add new Button -->\n      <button  block ion-item (click)="newAdd()" *ngIf="show == true">\n        <ion-icon item-right name="ios-add"></ion-icon>\n        Add / Pay New\n      </button> \n      \n      <!--  NickName Input -->\n      <ion-item>\n        <ion-label stacked>NickName</ion-label>\n        <ion-input type="text" [(ngModel)]="nickName" placeholder="Nick Name"></ion-input>\n      </ion-item> \n      <!-- Account Number Input -->\n      <ion-item>\n        <ion-label stacked>Account Number</ion-label>\n        <ion-input type="num" [(ngModel)]="accountNumber" placeholder="Beneficiary / Account Number"></ion-input>\n      </ion-item> \n    </ion-list> \n  </div>\n  <button ion-button block color="color2" (click)="apperAddBtn()">Save</button>\n  <button ion-button block color="color1" (click)="setRootFun(\'TransferPage\')">Save & Transfer</button>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/add-account/add-account.html"*/,
+            selector: 'page-address-details',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/address-details/address-details.html"*/'\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons>\n      <button ion-button icon-only (click)="dismiss()">\n        <ion-icon name="md-close-circle"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content padding>\n  <div class="addressDetails">\n    <p class="myTitle">New York</p>\n    <p>\n      <span>Address : </span>\n      125 is simply dummy text of the printing and typesetting industry. \n    </p>\n    <p>\n      <span>Working hours : </span>\n       From 8:30 am  To 3:00 pm\n    </p>\n    <p>\n      <span>Telephone  : </span>\n       12345678912  -   12345678912\n    </p>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/address-details/address-details.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
-    ], AddAccountPage);
-    return AddAccountPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ViewController */]])
+    ], AddressDetailsPage);
+    return AddressDetailsPage;
 }());
 
-//# sourceMappingURL=add-account.js.map
+//# sourceMappingURL=address-details.js.map
 
 /***/ })
 

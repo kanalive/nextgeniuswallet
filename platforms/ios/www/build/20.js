@@ -1,14 +1,14 @@
 webpackJsonp([20],{
 
-/***/ 368:
+/***/ 400:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddressDetailsPageModule", function() { return AddressDetailsPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BeneficiariesPageModule", function() { return BeneficiariesPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__address_details__ = __webpack_require__(402);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__beneficiaries__ = __webpack_require__(426);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,33 +18,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var AddressDetailsPageModule = /** @class */ (function () {
-    function AddressDetailsPageModule() {
+var BeneficiariesPageModule = /** @class */ (function () {
+    function BeneficiariesPageModule() {
     }
-    AddressDetailsPageModule = __decorate([
+    BeneficiariesPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__address_details__["a" /* AddressDetailsPage */],
+                __WEBPACK_IMPORTED_MODULE_2__beneficiaries__["a" /* BeneficiariesPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__address_details__["a" /* AddressDetailsPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__beneficiaries__["a" /* BeneficiariesPage */]),
             ],
         })
-    ], AddressDetailsPageModule);
-    return AddressDetailsPageModule;
+    ], BeneficiariesPageModule);
+    return BeneficiariesPageModule;
 }());
 
-//# sourceMappingURL=address-details.module.js.map
+//# sourceMappingURL=beneficiaries.module.js.map
 
 /***/ }),
 
-/***/ 402:
+/***/ 426:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddressDetailsPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BeneficiariesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(119);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -56,25 +56,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var AddressDetailsPage = /** @class */ (function () {
-    function AddressDetailsPage(navCtrl, navParams, viewCtrl) {
+var BeneficiariesPage = /** @class */ (function () {
+    function BeneficiariesPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.viewCtrl = viewCtrl;
     }
-    AddressDetailsPage.prototype.dismiss = function () {
-        this.viewCtrl.dismiss();
+    // goTo Function 
+    BeneficiariesPage.prototype.goTo = function (page) {
+        this.navCtrl.push(page);
     };
-    AddressDetailsPage = __decorate([
+    // logOut Function 
+    BeneficiariesPage.prototype.logOut = function () {
+        this.navCtrl.setRoot('WelcomePage');
+    };
+    BeneficiariesPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-address-details',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/address-details/address-details.html"*/'\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons>\n      <button ion-button icon-only (click)="dismiss()">\n        <ion-icon name="md-close-circle"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content padding>\n  <div class="addressDetails">\n    <p class="myTitle">New York</p>\n    <p>\n      <span>Address : </span>\n      125 is simply dummy text of the printing and typesetting industry. \n    </p>\n    <p>\n      <span>Working hours : </span>\n       From 8:30 am  To 3:00 pm\n    </p>\n    <p>\n      <span>Telephone  : </span>\n       12345678912  -   12345678912\n    </p>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/address-details/address-details.html"*/,
+            selector: 'page-beneficiaries',template:/*ion-inline-start:"/Users/wli3/Projects/nextgeniuswallet/src/pages/beneficiaries/beneficiaries.html"*/'\n<ion-header>\n\n  <ion-navbar>\n    <ion-buttons start >\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="ios-menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Beneficiaries</ion-title>\n    <ion-buttons end >\n      <button ion-button icon-only (click)="logOut()">\n        <ion-icon name="ios-log-out"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n<ion-content padding>\n  <div class="appForm">\n    <ion-list>\n      <ion-list-header>\n          Beneficiaries\n      </ion-list-header>\n      \n      <button  block ion-item (click)="goTo(\'AddAccountPage\')">\n        <ion-icon item-right name="md-arrow-dropright"></ion-icon>\n        Other Account\n      </button> \n\n      <button  block ion-item (click)="goTo(\'AddAccountPage\')">\n        <ion-icon item-right name="md-arrow-dropright"></ion-icon>\n        Other Cards\n      </button> \n    </ion-list> \n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/wli3/Projects/nextgeniuswallet/src/pages/beneficiaries/beneficiaries.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ViewController */]])
-    ], AddressDetailsPage);
-    return AddressDetailsPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+    ], BeneficiariesPage);
+    return BeneficiariesPage;
 }());
 
-//# sourceMappingURL=address-details.js.map
+//# sourceMappingURL=beneficiaries.js.map
 
 /***/ })
 

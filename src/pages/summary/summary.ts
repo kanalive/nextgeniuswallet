@@ -85,11 +85,6 @@ export class SummaryPage {
       this.fronzenNetWorth = fronzenBalance / total * 100;
       this.totalBalance = total;
 
-      console.log(balance);
-      console.log(fronzenBalance);
-      console.log(total);
-      console.log(this.netWorth);
-      console.log(this.fronzenNetWorth);
     });
   }
 
@@ -98,7 +93,7 @@ export class SummaryPage {
   getTronPrice(){
     this.restProvider.getTronPrice()
     .then(data => {
-      console.log(data);
+
       this.tronPrice = data;
       if(this.tronPrice.length>0){
         this.price_btc = this.tronPrice[0].price_btc;
@@ -109,7 +104,7 @@ export class SummaryPage {
 
   copy(text){
     this.clipboard.copy(text).then(data=>{
-      alert("copied " + data);
+      alert("Copied to clipboard");
      }) ;
 
   }
