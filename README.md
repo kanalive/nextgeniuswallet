@@ -14,17 +14,22 @@ https://github.com/kanalive/nextgeniuswallet/blob/master/ScreenRecording_05-30-2
 <a href="https://github.com/tronprotocol/wallet-cli">https://github.com/tronprotocol/wallet-cli</a>
 
 # Features
-* Register account on tron network
-* Store registered account on local including user profile, account address and private key
-* Sign in existing account by entering private key
-* Display
-* * Profile picture from phone photo library
-* * User info
-* * Account balance including unfrozen token and frozen token
-* * Converted balance to USD and BTC
-* * Tron price in USD and BTC
-* Freeze tron token
-* Unfreeze tron token
-* Request payment - copy address to clipboard
-* Transfer payment - check available balance
-* Vote
+
+-	Hot wallet functionalities including
+o	Register a new account
+o	Login using existing (stored in local) account
+o	Login using private key
+o	Save profile detail in local including select a user profile picture
+o	View account balance for all tokens on Tron network
+o	Freeze and unfreeze TRX
+o	View Tron price on USD and BTC
+o	Transfer and receive TRX
+o	Vote for Tron superrepresentative 
+o	View my transactions
+o	View Tokens on Tron network
+o	Participant in buying tokens issued on Tron network
+o	View participant token holders 
+To be implemented:
+-	Cold wallet functionality (functions are almost done) Please see logic below
+-	DAPP market
+
