@@ -15,21 +15,21 @@ https://github.com/kanalive/nextgeniuswallet/blob/master/ScreenRecording_05-30-2
 
 # Features
 
--	Hot wallet functionalities including
-o	Register a new account
-o	Login using existing (stored in local) account
-o	Login using private key
-o	Save profile detail in local including select a user profile picture
-o	View account balance for all tokens on Tron network
-o	Freeze and unfreeze TRX
-o	View Tron price on USD and BTC
-o	Transfer and receive TRX
-o	Vote for Tron superrepresentative 
-o	View my transactions
-o	View Tokens on Tron network
-o	Participant in buying tokens issued on Tron network
-o	View participant token holders 
+#	Hot wallet functionalities including
+##	Register a new account
+##	Login using existing (stored in local) account
+##	Login using private key
+##	Save profile detail in local including select a user profile picture
+##	View account balance for all tokens on Tron network
+##	Freeze and unfreeze TRX
+##	View Tron price on USD and BTC
+##	Transfer and receive TRX
+##	Vote for Tron superrepresentative 
+##	View my transactions
+##	View Tokens on Tron network
+##	Participant in buying tokens issued on Tron network
+##	View participant token holders 
 To be implemented:
--	Cold wallet functionality (functions are almost done) Please see logic below
--	DAPP market
+#	Cold wallet functionality (functions are almost done), please see Transfer 2 page.
+#	DAPP market
 
