@@ -14,7 +14,6 @@ https://github.com/kanalive/nextgeniuswallet/blob/master/ScreenRecording_05-30-2
 <a href="https://github.com/tronprotocol/wallet-cli">https://github.com/tronprotocol/wallet-cli</a>
 
 # Features
-
 #	Hot wallet functionalities including
 ##	Register a new account
 ##	Login using existing (stored in local) account
@@ -32,4 +31,3 @@ https://github.com/kanalive/nextgeniuswallet/blob/master/ScreenRecording_05-30-2
 To be implemented:
 #	Cold wallet functionality (functions are almost done), please see Transfer 2 page.
 #	DAPP market
-
