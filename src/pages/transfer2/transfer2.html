@@ -19,7 +19,7 @@
 
       <ion-item>
         </ion-item>
-        <p>Step 1. Scan latest block data from a hot wallet</p>
+        <p>Step 1. Use a hot wallet to generate latest block data. Scan latest block data from a hot wallet</p>
         <button ion-button full icon-left (click)="scanCode()" color="color2"><ion-icon name="qr-scanner"></ion-icon>Scan latest block data</button>
         <ion-card *ngIf="scannedCode">
             <ion-card-content>
@@ -27,7 +27,7 @@
             </ion-card-content>
           </ion-card>
         
-
+        <p>Step 2. Enter To account address and Amount</p>
           <ion-card>
               <ion-card-content>
                   <!-- cold wallet-->
@@ -35,7 +35,7 @@
     
                       <ion-item >
                           <ion-label stacked>To account</ion-label>
-                            <ion-input [(ngModel)]="toAccount"></ion-input>
+                            <ion-input [(ngModel)]="toAccount" placeholder="Enter account address"></ion-input>
                         </ion-item>
                         <ion-item>
                           <ion-label stacked>Amount</ion-label>
@@ -43,31 +43,22 @@
                         </ion-item> 
                 </ion-list>
                 
-                <p>{{transactionHex}}</p>
-    
-    <!--               
-                  <ion-card>
-                    <ion-card-content>
-                        <ion-input [(ngModel)]="code" type="text" placeholder="Enter code here"></ion-input>
-                        <button ion-button block  color="color2" (click)="process();">Process</button>
-            
-                        <img *ngIf="displayQrCode()" [src]="generated" />
-                    </ion-card-content>
-                      
-                  </ion-card> -->
-                
               </ion-card-content>
           </ion-card>
+          
+        <p>Step 3. Click below button to sign transaction locally.</p>
 
         <button ion-button full icon-left color="color2" (click)="signTransactionLocally()"><ion-icon name="barcode"></ion-icon>Sign transaction</button>        
         <hr />
+        <p>Step 4. Generate transaction QR code and scan the QR code using a hot wallet to send transaction back to Tron network.</p>
+        
         <button ion-button full icon-left color="color2" (click)="createCode()"><ion-icon name="barcode"></ion-icon>Generate transaction QR code</button>        
-        <ion-card *ngIf="createdCode">
-            <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
-            <ion-card-content>
-              <p>Value: {{ createdCode }}</p>
-            </ion-card-content>
-          </ion-card>
+          <ion-card *ngIf="createdCode">
+              <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
+              <!-- <ion-card-content>
+                <p>Value: {{ createdCode }}</p>
+              </ion-card-content> -->
+            </ion-card>
          
           
 

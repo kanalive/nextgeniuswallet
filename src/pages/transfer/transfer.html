@@ -57,29 +57,30 @@
 
 
             <!-- hot wallet-->
-            <button ion-button color="color2" (click)="getLatestBlock();">Step 1. Click to get latest block</button>
-            <div *ngIf="latestBlock">
+            <button ion-button color="color2" (click)="getLatestBlock();">Get latest block</button>
+            <!-- <div *ngIf="latestBlock">
               <p>{{latestBlock}}}</p>
-            </div>
+            </div> -->
 
             <ion-card *ngIf="createdCode">
                 <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
-                <ion-card-content>
+                <!-- <ion-card-content>
                   <p>Value: {{ createdCode }}</p>
-                </ion-card-content>
+                </ion-card-content> -->
               </ion-card>
   
             
-            
+              <button ion-button color="color2" (click)="sendTransactionHexData();">Scan and send transaction data</button>
+              <ion-card *ngIf="scannedCode">
+                  <ion-card-content>
+                    Result from Scan: {{ scannedCode }}
+                  </ion-card-content>
+                </ion-card>
+                
     </ion-card-content>
   </ion-card>
   
-  <button ion-button color="color2" (click)="sendTransactionHexData();">Scan and send transaction data</button>
-        <ion-card *ngIf="scannedCode">
-            <ion-card-content>
-              Result from Scan: {{ scannedCode }}
-            </ion-card-content>
-          </ion-card>
+  
       
 </ion-content>
 

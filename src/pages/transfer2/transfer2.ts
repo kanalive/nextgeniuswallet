@@ -82,7 +82,8 @@ export class Transfer2Page {
   }
 
   createCode() {
-    this.createdCode = JSON.parse(this.qrData);
+    //this.createdCode = JSON.stringify(this.qrData);
+    this.createdCode = "test test test";
   }
 
 
